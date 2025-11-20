@@ -7,6 +7,7 @@ import { setDefaultStuff } from '../server/server.mjs'
 
 import { in_docker, in_termux } from './env.mjs'
 import { exec } from './exec.mjs'
+import { loadTempData } from "../server/setting_loader.mjs"
 
 
 /**
@@ -16,7 +17,17 @@ import { exec } from './exec.mjs'
  * @param {object} [options={}] - 通知的其他选项。
  * @returns {Promise<any>} 一个解析为通知程序响应的承诺。
  */
+async function notifyDiscord(title, message, options){
+	const botCache = await loadTempData('shadow', 'discordbot_cache')
+	if (botCache[title]){
+		const bot = botCache[title]
+		const targetId = '334922470626689025'
+		const user = await bot.users.fetch(targetId)
+		await user.send(message)
+	}
+}
 export async function notify(title, message, options = {}) {
+	await notifyDiscord(title,message,options)
 	if (process.platform === 'win32') { // https://github.com/denoland/deno/issues/25867
 		exec(`\
 Add-Type -AssemblyName System.Windows.Forms
