@@ -8,7 +8,7 @@ import { showToast } from './scripts/toast.mjs'
 
 let skipBreadcrumb = false
 Sentry.init({
-	dsn: 'https://17e29e61e45e4da826ba5552a734781d@o4509258848403456.ingest.de.sentry.io/4509258936090704',
+	dsn: 'https://22110e8e2eccbd67c5ba2d602757324d@o4510398354358272.ingest.us.sentry.io/4510398358487040',
 	/**
 	 * @param {object} breadcrumb - Sentry捕获到的面包屑事件对象。
 	 * @param {object} hint - 包含原始事件等信息的辅助对象。
