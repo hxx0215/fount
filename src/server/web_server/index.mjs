@@ -1,7 +1,5 @@
-import * as Sentry from 'npm:@sentry/deno'
 import express from 'npm:express'
 
-import { sentrytunnel } from '../../scripts/sentrytunnel.mjs'
 import { WsAbleApp, WsAbleRouter } from '../../scripts/WsAbleRouter.mjs'
 import { __dirname } from '../base.mjs'
 
@@ -24,12 +22,6 @@ const FinalRouter = express.Router()
 app.use(mainRouter)
 app.use(PartsRouter)
 app.use(FinalRouter)
-
-// 为错误报告添加 sentrytunnel 端点
-mainRouter.post('/api/sentrytunnel', diff_if_auth(
-	express.raw({ type: '*/*', limit: Infinity }),
-	express.raw({ type: '*/*', limit: 5 * 1024 * 1024 })
-), sentrytunnel)
 
 // 在主路由器上设置中间件
 registerMiddleware(mainRouter)
@@ -54,7 +46,6 @@ FinalRouter.use((req, res) => {
  * @returns {void}
  */
 const errorHandler = (err, req, res, next) => {
-	if (!err.skip_report) Sentry.captureException(err)
 	console.error(err)
 	res.status(500).json({ message: 'Internal Server Error', errors: err.errors, error: err.message })
 }

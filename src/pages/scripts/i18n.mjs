@@ -1,6 +1,3 @@
-/** @type {import('npm:@sentry/browser')} */
-import * as Sentry from 'https://esm.sh/@sentry/browser'
-
 import { onElementRemoved } from './onElementRemoved.mjs'
 import { onServerEvent } from './server_events.mjs'
 
@@ -202,7 +199,6 @@ export function geti18n(key, params = {}) {
 	if (translation) return translation
 
 	console.warn(`Translation key "${key}" not found.`)
-	Sentry.captureException(new Error(`Translation key "${key}" not found.`))
 }
 const { console } = globalThis
 
@@ -499,8 +495,6 @@ export function i18nElement(element, {
 	elements.forEach(el => {
 		if (translateSingularElement(el)) updated = true
 	})
-	if (!updated)
-		Sentry.captureException(new Error('i18nElement() did not update any attributes for element.'))
 	return element
 }
 

@@ -1,6 +1,3 @@
-/** @type {import('npm:@sentry/browser')} */
-import * as Sentry from 'https://esm.sh/@sentry/browser'
-
 import { geti18n, setLocalizeLogic } from './i18n.mjs'
 
 let toastContainer = null
@@ -38,7 +35,6 @@ function ensureToastContainer() {
  */
 function base_showToast(type, message, duration = 4000) {
 	if (!(message instanceof HTMLElement) && !(Object(message) instanceof String)) {
-		Sentry.captureException(new Error(`showToast() called with non-string/non-HTMLElement message: ${message}`))
 		message = String(message)
 	}
 	const container = ensureToastContainer()

@@ -1,8 +1,6 @@
 /**
  * 聊天历史列表页面的客户端逻辑。
  */
-import * as Sentry from 'https://esm.sh/@sentry/browser'
-
 import { initTranslations, confirmI18n, console, i18nElement, onLanguageChange } from '../../../scripts/i18n.mjs'
 import { renderMarkdown, renderMarkdownAsString } from '../../../scripts/markdown.mjs'
 import { makeSearchable } from '../../../scripts/search.mjs'
@@ -409,7 +407,6 @@ async function initializeApp() {
 }
 
 initializeApp().catch(error => {
-	Sentry.captureException(error)
 	showToast('error', error.message)
 	console.error('Initialization failed:', error)
 	setTimeout(() => globalThis.location.href = '/shells/home', 5000)
