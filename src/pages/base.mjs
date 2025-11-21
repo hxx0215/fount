@@ -1,45 +1,17 @@
-// load Sentry
-
-/** @type {import('npm:@sentry/browser')} */
-import * as Sentry from 'https://esm.sh/@sentry/browser'
-
 import { onServerEvent } from './scripts/server_events.mjs'
 import { showToast } from './scripts/toast.mjs'
 
-let skipBreadcrumb = false
-Sentry.init({
-	dsn: 'https://22110e8e2eccbd67c5ba2d602757324d@o4510398354358272.ingest.us.sentry.io/4510398358487040',
-	/**
-	 * @param {object} breadcrumb - Sentry捕获到的面包屑事件对象。
-	 * @param {object} hint - 包含原始事件等信息的辅助对象。
-	 * @returns {object | null} 返回修改后的面包屑对象，或 null 以忽略此面包屑。
-	 */
-	beforeBreadcrumb: (breadcrumb, hint) => {
-		if (skipBreadcrumb) return null
-		return breadcrumb
-	},
-	sendDefaultPii: true,
-	tunnel: '/api/sentrytunnel',
-	integrations: [
-		Sentry.browserTracingIntegration()
-	],
-	// Performance Monitoring
-	tracesSampleRate: 1.0,
-	tracePropagationTargets: [window.location.origin || 'localhost'],
-})
 console.noBreadcrumb = {
 	/**
 	 * 写入日志并跳过面包屑记录
 	 * @param {...any} args - 要记录的日志
 	 */
 	log: (...args) => {
-		skipBreadcrumb = true
 		console.log(...args)
-		skipBreadcrumb = false
 	}
 }
 
-await import('https://cdn.jsdelivr.net/gh/steve02081504/js-polyfill/index.mjs').catch(console.error)
+await import('../vendor/polyfills/index.mjs').catch(console.error)
 
 // register service worker
 if ('serviceWorker' in navigator)
@@ -125,7 +97,7 @@ onServerEvent('show-toast', ({ type, message, duration }) => {
 
 ; (f => document.readyState === 'complete' ? f() : window.addEventListener('load', f))(async () => {
 	try {
-		console.noBreadcrumb.log(...await fetch('https://cdn.jsdelivr.net/gh/steve02081504/fount/imgs/icon.js').then(r => r.text()).then(eval))
+		console.noBreadcrumb.log(...await fetch('../vendor/icons/icon.js').then(r => r.text()).then(eval))
 	} catch (error) { console.error(error) }
 	console.log('Curious? Join us and build future together: https://github.com/steve02081504/fount')
 	// Dispatch host info for browser integration script

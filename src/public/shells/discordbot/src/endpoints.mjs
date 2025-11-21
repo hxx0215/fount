@@ -1,4 +1,5 @@
 import { authenticate, getUserByReq } from '../../../../server/auth.mjs'
+import { loadTempData } from "../../../../server/setting_loader.mjs";
 
 import { getBotList, runBot, getBotConfig, setBotConfig, deleteBotConfig, getRunningBotList, stopBot, getBotConfigTemplate } from './bot.mjs'
 
@@ -64,5 +65,17 @@ export function setEndpoints(router) {
 		const { botname } = req.body
 		setBotConfig(username, botname, {})
 		res.status(200).json({ message: 'bot created' })
+	})
+
+	router.get('/api/shells/discordbot/cache_test', authenticate, async(req,res)=>{
+		const cache = await loadTempData('shadow','discordbot_cache')
+		const wanyu = cache['wanyu']
+		console.log(cache)
+		// if (wanyu){
+		// 	const targetId = '334922470626689025'
+		// 	const user = await wanyu.users.fetch(targetId)
+		// 	await user.send('this is a test')
+		// }
+		res.status(201).json({message:'success'})
 	})
 }

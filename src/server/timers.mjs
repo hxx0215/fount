@@ -1,4 +1,4 @@
-import { async_eval } from 'https://cdn.jsdelivr.net/gh/steve02081504/async-eval/deno.mjs'
+import { async_eval } from '../vendor/async-eval/deno.mjs'
 import { getAllContextData, runWithContexts } from 'npm:als-registry'
 
 import { getUserByUsername, getAllUserNames } from './auth.mjs'

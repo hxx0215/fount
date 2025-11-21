@@ -6,38 +6,10 @@
 import { existsSync } from 'node:fs'
 import process from 'node:process'
 
-import * as Sentry from 'npm:@sentry/deno'
-
 import { console } from '../scripts/i18n.mjs'
 
 import { __dirname, set_start } from './base.mjs'
 import { init } from './server.mjs'
-
-// 初始化 Sentry 进行错误报告。
-let skipBreadcrumb = false
-Sentry.init({
-	dsn: 'https://22110e8e2eccbd67c5ba2d602757324d@o4510398354358272.ingest.us.sentry.io/4510398358487040',
-	/**
-	 * @param {object} breadcrumb - Sentry捕获到的面包屑事件对象。
-	 * @param {object} hint - 包含原始事件等信息的辅助对象。
-	 * @returns {object | null} 返回修改后的面包屑对象，或 null 以忽略此面包屑。
-	 */
-	beforeBreadcrumb: (breadcrumb, hint) => {
-		if (skipBreadcrumb) return null
-		return breadcrumb
-	}
-})
-console.noBreadcrumb = {
-	/**
-	 * 写入日志并跳过面包屑记录
-	 * @param {...any} args - 要记录的日志
-	 */
-	log: (...args) => {
-		skipBreadcrumb = true
-		console.log(...args)
-		skipBreadcrumb = false
-	}
-}
 
 set_start()
 
