@@ -6,7 +6,7 @@ const capPromise = new Promise((resolve, reject) => {
 
 	// Inject the main widget script
 	const widgetScript = document.createElement('script')
-	widgetScript.src = 'https://cdn.jsdelivr.net/npm/@cap.js/widget'
+	widgetScript.src = '../../vendor/cap-widget/widget.js'
 	widgetScript.addEventListener('load', resolve)
 	widgetScript.addEventListener('error', reject)
 	document.head.appendChild(widgetScript)
@@ -33,7 +33,7 @@ cap-widget {
 /**
  * 创建并管理一个 POW (Proof-of-Work) CAPTCHA 小部件。
  * @param {HTMLElement} container 要附加小部件的 DOM 元素。
- * @returns {Promise<import('https://cdn.jsdelivrnet/gh/tiagozip/cap/widget/src/cap.d.ts').Cap>} 一个用于与 CAPTCHA 交互的对象。
+ * @returns {Promise<any>} 一个用于与 CAPTCHA 交互的对象。
  */
 export async function createPOWCaptcha(container) {
 	await capPromise
