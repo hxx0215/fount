@@ -18,6 +18,10 @@ import { loadTempData } from "../server/setting_loader.mjs"
  * @returns {Promise<any>} 一个解析为通知程序响应的承诺。
  */
 export async function notify(title, message, options = {}) {
+	console.log('-----notify-----')
+	console.log(new Error().stack)
+	console.log('-----notify-----')
+	return
 	if (process.platform === 'win32') { // https://github.com/denoland/deno/issues/25867
 		exec(`\
 Add-Type -AssemblyName System.Windows.Forms
