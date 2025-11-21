@@ -1,20 +1,18 @@
-import {
-	fromHtml,
-	h,
-	languageMap,
-	md5,
-	rehypeKatex,
-	rehypeMermaid,
-	rehypePrettyCode,
-	rehypeStringify,
-	remarkBreaks,
-	remarkGfm,
-	remarkMath,
-	remarkParse,
-	remarkRehype,
-	unified,
-	visit
-} from '../../vendor/markdown-deps/index.mjs'
+import { fromHtml } from 'https://esm.sh/hast-util-from-html'
+import { h } from 'https://esm.sh/hastscript'
+import languageMap from 'https://esm.sh/lang-map'
+import md5 from 'https://esm.sh/md5'
+import rehypeKatex from 'https://esm.sh/rehype-katex'
+import rehypeMermaid from 'https://esm.sh/rehype-mermaid'
+import rehypePrettyCode from 'https://esm.sh/rehype-pretty-code'
+import rehypeStringify from 'https://esm.sh/rehype-stringify'
+import remarkBreaks from 'https://esm.sh/remark-breaks'
+import remarkGfm from 'https://esm.sh/remark-gfm'
+import remarkMath from 'https://esm.sh/remark-math'
+import remarkParse from 'https://esm.sh/remark-parse'
+import remarkRehype from 'https://esm.sh/remark-rehype'
+import { unified } from 'https://esm.sh/unified'
+import { visit } from 'https://esm.sh/unist-util-visit'
 
 import { geti18n } from './i18n.mjs'
 import { onThemeChange } from './theme.mjs'
@@ -161,7 +159,7 @@ const languageExecutors = {
 	 */
 	js: async (code) => {
 		try {
-			const { async_eval } = await import('../../vendor/async-eval/browser.mjs')
+			const { async_eval } = await import('https://esm.sh/@steve02081504/async-eval')
 			return await async_eval(code)
 		} catch (error) { return { error } }
 	},
@@ -241,7 +239,7 @@ $stderr = StringIO.new
 	lisp: async (code) => {
 		try {
 			const { exec } = await import('https://esm.sh/lips')
-			const { VirtualConsole } = await import('https://esm.sh/@steve02081504/virtual-console')  // npm package, keep esm.sh
+			const { VirtualConsole } = await import('https://esm.sh/@steve02081504/virtual-console')
 			const vc = new VirtualConsole()
 
 			const result = await vc.hookAsyncContext(() => new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-import init from '../../../vendor/rpack/rpack_bg.wasm?init'
+import init from 'https://cdn.jsdelivr.net/gh/kwaroran/RisuAI@main/src/ts/rpack/rpack_bg.wasm?init'
 let wasm
 
 let cachedUint8ArrayMemory0 = null

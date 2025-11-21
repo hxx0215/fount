@@ -1,4 +1,4 @@
-import { async_eval } from '../../../../../vendor/async-eval/browser.mjs'
+import { async_eval } from 'https://esm.sh/@steve02081504/async-eval'
 
 import { unlockAchievement } from '../../../scripts/endpoints.mjs'
 import { geti18n, console } from '../../../scripts/i18n.mjs'
