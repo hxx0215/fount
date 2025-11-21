@@ -11,7 +11,7 @@ console.noBreadcrumb = {
 	}
 }
 
-await import('https://cdn.jsdelivr.net/gh/steve02081504/js-polyfill/index.mjs').catch(console.error)
+await import('./scripts/polyfills/index.mjs').catch(console.error)
 
 // register service worker
 if ('serviceWorker' in navigator)
