@@ -276,13 +276,18 @@ async function GetSource(config, { SaveConfig }) {
 				let json
 				try { json = JSON.parse(text) }
 				catch { json = await result.json() }
-				text = json.choices[0].message.content
-				let imgindex = 0
-				files = (await Promise.all(json.choices[0].message?.images?.map?.(async imageurl => ({
-					name: `image${imgindex++}.png`,
-					buffer: await (await fetch(imageurl)).arrayBuffer(),
-					mimetype: 'image/png'
-				})) || [])).filter(Boolean)
+				if (json.choices.length > 0) {
+					text = json.choices[0].message.content
+					let imgindex = 0
+					files = (await Promise.all(json.choices[0].message?.images?.map?.(async imageurl => ({
+						name: `image${imgindex++}.png`,
+						buffer: await (await fetch(imageurl)).arrayBuffer(),
+						mimetype: 'image/png'
+					})) || [])).filter(Boolean)
+				}else{
+					text = ''
+					files = []
+				}
 			}
 		}
 		return {
