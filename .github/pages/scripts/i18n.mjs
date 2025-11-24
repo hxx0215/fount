@@ -233,6 +233,11 @@ export function geti18n(key, params = {}) {
 	Sentry.captureException(new Error(`Translation key "${key}" not found.`))
 }
 /**
+ * 重新导出 `console` 对象。
+ * @type {Console}
+ */
+export const console = globalThis.console
+/**
  * @overload
  * @template {LocaleKeyWithoutParams} TKey
  * @param {TKey} key
@@ -442,10 +447,8 @@ function translateSingularElement(element) {
 	for (const key of element.dataset.i18n.split(';').map(k => k.trim())) {
 		if (key.startsWith('\'') && key.endsWith('\'')) {
 			const literal_value = key.slice(1, -1)
-			if (element.textContent !== literal_value) {
-				element.textContent = literal_value
-				updated = true
-			}
+			// deno-lint-ignore no-cond-assign
+			if (element.textContent ||= literal_value) updated = true
 		}
 		else if (getNestedValue(i18n, key) instanceof Object) {
 			if (!Object.keys(getNestedValue(i18n, key)).length) break
