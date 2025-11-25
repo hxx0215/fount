@@ -1,5 +1,6 @@
 import { showToastI18n } from '../../../../../scripts/toast.mjs'
 
+import { initializeAchievements } from './achievements.mjs'
 import { addCharacter, setPersona, setWorld, addPlugin, getInitialData } from './endpoints.mjs'
 import { setupCss } from './ui/css.mjs'
 import { initializeMessageInput } from './ui/messageInput.mjs'
@@ -9,6 +10,7 @@ import { initializeWebSocket } from './websocket.mjs'
 
 // These are shared state used by the sidebar.
 // They will be updated by events from the websocket.
+
 /**
  * 聊天角色列表。
  * @type {Array<string>}
@@ -66,6 +68,7 @@ export function setPersonaName(name) {
 export async function initializeChat() {
 	setupCss()
 	initializeWebSocket()
+	initializeAchievements()
 
 	const initialData = await getInitialData()
 	initializeVirtualQueue(initialData)
