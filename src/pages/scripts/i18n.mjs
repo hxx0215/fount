@@ -525,7 +525,6 @@ const i18nObserver = new MutationObserver((mutationsList) => {
 			translateSingularElement(mutation.target)
 })
 
-// Start observing the document body for configured mutations
 /**
  * 观察 body 元素的变化。
  * @returns {void}
