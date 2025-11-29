@@ -197,7 +197,7 @@ export default {
 				 */
 				let replyPreviewUpdater = (args, r) => oriReplyPreviewUpdater?.({
 					...r,
-					content: runRegex(chardata, parseMacro(r.content), e => e.placement.includes(regex_placement.AI_OUTPUT) && !e.promptOnly)
+					content: runRegex(chardata, r.content, e => e.placement.includes(regex_placement.AI_OUTPUT) && !e.promptOnly)
 				})
 				for (const GetReplyPreviewUpdater of [
 					...Object.values(args.plugins).map(plugin => plugin.interfaces?.chat?.GetReplyPreviewUpdater)
@@ -224,8 +224,6 @@ export default {
 					if (continue_regen) continue regen
 					break
 				}
-
-				result.content = parseMacro(result.content)
 
 				return {
 					content: runRegex(chardata, result.content, e => e.placement.includes(regex_placement.AI_OUTPUT) && !e.markdownOnly && !e.promptOnly),
