@@ -11,7 +11,7 @@ import { registerWellKnowns } from './well-knowns.mjs'
 
 /**
  * 主 Express 应用程序实例。
- * @type {import('express').Application}
+ * @type {import('npm:express').Application}
  */
 export const app = WsAbleApp()
 app.disable('x-powered-by')
@@ -40,9 +40,9 @@ FinalRouter.use((req, res) => {
 /**
  * 应用程序的主错误处理程序。
  * @param {Error} err - 错误对象。
- * @param {import('express').Request} req - Express 请求对象。
- * @param {import('express').Response} res - Express 响应对象。
- * @param {import('express').NextFunction} next - 下一个中间件函数。
+ * @param {import('npm:express').Request} req - Express 请求对象。
+ * @param {import('npm:express').Response} res - Express 响应对象。
+ * @param {import('npm:express').NextFunction} next - 下一个中间件函数。
  * @returns {void}
  */
 const errorHandler = (err, req, res, next) => {
