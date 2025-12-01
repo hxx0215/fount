@@ -9,8 +9,8 @@ C_GREEN='\033[0;32m'
 C_YELLOW='\033[0;33m'
 C_CYAN='\033[0;36m'
 
-# --- i18n functions ---
-# Get system locales
+# --- 国际化函数 ---
+# 获取系统区域设置
 get_system_locales() {
 	local locales=()
 	if [ -n "$LANG" ]; then locales+=("$(echo "$LANG" | cut -d. -f1 | sed 's/_/-/')"); fi
@@ -24,25 +24,25 @@ get_system_locales() {
 	if command -v locale >/dev/null; then
 		locales+=("$(locale -uU 2>/dev/null | cut -d. -f1 | sed 's/_/-/')")
 	fi
-	locales+=("en-UK") # Fallback
-	# deduplicate
+	locales+=("en-UK") # 备用
+	# 去重
 	# shellcheck disable=SC2207
 	locales=($(printf "%s\n" "${locales[@]}" | awk '!x[$0]++'))
 	echo "${locales[@]}"
 }
 
-# Get available locales from src/locales/list.csv
+# 从 src/locales/list.csv 获取可用区域设置
 get_available_locales() {
 	local locale_list_file="$FOUNT_DIR/src/locales/list.csv"
 	if [ -f "$locale_list_file" ]; then
-		# Skip header and get the first column
+		# 跳过标题并获取第一列
 		tail -n +2 "$locale_list_file" | cut -d, -f1
 	else
-		echo "en-UK" # Fallback
+		echo "en-UK" # 备用
 	fi
 }
 
-# Find the best locale to use
+# 寻找最合适的区域设置
 get_best_locale() {
 	local preferred_locales_str="$1"
 	local available_locales_str="$2"
@@ -71,10 +71,10 @@ get_best_locale() {
 		done
 	done
 
-	echo "en-UK" # Default
+	echo "en-UK" # 默认
 }
 
-# Load localization data
+# 加载本地化数据
 # shellcheck disable=SC2120
 load_locale_data() {
 	if [ -z "$FOUNT_LOCALE" ]; then
@@ -91,9 +91,9 @@ load_locale_data() {
 		export FOUNT_LOCALE
 		locale_file="$FOUNT_DIR/src/locales/en-UK.json"
 	fi
-	# Check for jq
+	# 检查 jq
 	if ! command -v jq &>/dev/null; then
-		# If install_package exists, use it, otherwise, we can't do much
+		# 如果 install_package 存在，则使用它，否则我们无能为力
 		if command -v install_package &>/dev/null; then
 			install_package "jq" "jq" >&2
 		fi
@@ -101,11 +101,11 @@ load_locale_data() {
 	if command -v jq &>/dev/null; then
 		cat "$locale_file"
 	else
-		echo "{}" # Return empty json if jq is not available
+		echo "{}" # 如果 jq 不可用，则返回空 json
 	fi
 }
 
-# Get a translated string
+# 获取翻译后的字符串
 get_i18n() {
 	local key="$1"
 	if [ -z "$FOUNT_LOCALE_DATA" ]; then
@@ -115,7 +115,7 @@ get_i18n() {
 	local translation
 	translation=$(echo "$FOUNT_LOCALE_DATA" | jq -r ".fountConsole.path.$key // .\"$key\" // \"$key\"")
 
-	# Simple interpolation
+	# 简单插值
 	shift
 	while [ $# -gt 0 ]; do
 		local param_name="$1"
@@ -834,9 +834,9 @@ EOF
 
 # 参数处理: open, background, protocolhandle
 if [[ $# -gt 0 ]]; then
-	handle_docker_termux_passthrough "$@"
 	case "$1" in
 	open)
+		handle_docker_termux_passthrough "$@"
 		# 若 $FOUNT_DIR/data 是目录
 		if [ -d "$FOUNT_DIR/data" ]; then
 			ensure_dependencies "open" || exit 1
@@ -869,6 +869,7 @@ if [[ $# -gt 0 ]]; then
 		fi
 		;;
 	background)
+		handle_docker_termux_passthrough "$@"
 		if [ -f "$FOUNT_DIR/.nobackground" ]; then
 			if command -v xterm &>/dev/null; then
 				xterm -e "$0" "${@:2}" &
@@ -892,7 +893,12 @@ if [[ $# -gt 0 ]]; then
 		exit 0
 		;;
 	protocolhandle)
+		handle_docker_termux_passthrough "$@"
 		protocolUrl="$2"
+		if [[ "$protocolUrl" == "fount://nop/" ]]; then
+			"$0" "${@:3}"
+			exit $?
+		fi
 		if [ -z "$protocolUrl" ]; then
 			echo -e "${C_RED}Error: No URL provided for protocolhandle.${C_RESET}" >&2
 			exit 1
@@ -1022,6 +1028,8 @@ install_deno() {
 		add_package_to_tracker "glibc-runner" "INSTALLED_PACMAN_PACKAGES_ARRAY"
 		set +e
 		curl -fsSL https://deno.land/install.sh | sh -s -- -y
+		export PATH="$HOME/.deno/bin:$PATH"
+		hash -r
 		patch_deno
 		touch "$AUTO_INSTALLED_DENO_FLAG"
 	else
