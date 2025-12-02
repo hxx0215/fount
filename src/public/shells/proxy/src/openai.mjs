@@ -1,3 +1,5 @@
+import { Buffer } from 'node:buffer'
+
 import { v4 as uuidv4 } from 'npm:uuid'
 import { Buffer } from 'node:buffer'
 
@@ -116,48 +118,42 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 		let content = ''
 		const files = []
 
-		if (Array.isArray(parts)) {
-			for (const part of parts) {
-				if (part.type === 'text') content += part.text || ''
-				else if (part.type === 'image_url') {
-					const url = part.image_url?.url || part.image_url
-					if (url) {
-						try {
-							const response = await fetch(url)
-							const buffer = await response.arrayBuffer()
-							const contentType = response.headers.get('content-type') || 'image/png'
-							files.push({
-								mime_type: contentType,
-								buffer: Buffer.from(buffer),
-								name: `image_${files.length}.${contentType.split('/')[1] || 'png'}`
-							})
-						} catch (e) {
-							console.error('Failed to fetch image:', url, e)
-						}
-					}
-				}
-				else if (part.type === 'input_audio') {
-					const audioData = part.input_audio?.data
-					const format = part.input_audio?.format || 'wav'
-					if (audioData) {
-						const mimeMap = {
-							'wav': 'audio/wav',
-							'mp3': 'audio/mpeg',
-							'mp4': 'audio/mp4',
-							'm4a': 'audio/m4a',
-							'webm': 'audio/webm',
-							'pcm': 'audio/pcm',
-						}
-						files.push({
-							mime_type: mimeMap[format] || 'audio/wav',
-							buffer: Buffer.from(audioData, 'base64'),
-							name: `audio_${files.length}.${format}`
-						})
-					}
+		if (Array.isArray(parts)) for (const part of parts)
+			if (part.type === 'text') content += part.text || ''
+			else if (part.type === 'image_url') {
+				const url = part.image_url?.url || part.image_url
+				if (url) try {
+					const response = await fetch(url)
+					const buffer = await response.arrayBuffer()
+					const contentType = response.headers.get('content-type') || 'image/png'
+					files.push({
+						mime_type: contentType,
+						buffer: Buffer.from(buffer),
+						name: `image_${files.length}.${contentType.split('/')[1] || 'png'}`
+					})
+				} catch (e) {
+					console.error('Failed to fetch image:', url, e)
 				}
 			}
-		}
-
+			else if (part.type === 'input_audio') {
+				const audioData = part.input_audio?.data
+				const format = part.input_audio?.format || 'wav'
+				if (audioData) {
+					const mimeMap = {
+						wav: 'audio/wav',
+						mp3: 'audio/mpeg',
+						mp4: 'audio/mp4',
+						m4a: 'audio/m4a',
+						webm: 'audio/webm',
+						pcm: 'audio/pcm',
+					}
+					files.push({
+						mime_type: mimeMap[format] || 'audio/wav',
+						buffer: Buffer.from(audioData, 'base64'),
+						name: `audio_${files.length}.${format}`
+					})
+				}
+			}
 		return { content, files }
 	}
 
@@ -201,9 +197,9 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 
 			// 处理新生成的文件
 			const newFiles = result.files?.slice(sentFiles.length) || []
-			if (newFiles.length > 0) {
+			if (newFiles.length) {
 				sentFiles = result.files
-				for (const file of newFiles) {
+				for (const file of newFiles)
 					// 忽略视频和其他文件，只处理音频和图片
 					if (file.mime_type.startsWith('audio/')) {
 						// 音频格式: { type: 'audio', audio: { data: '...', format: '...' } }
@@ -231,7 +227,7 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 									audio: {
 										id: `audio_${uuidv4()}`, // 音频块通常有 ID
 										data: file.buffer.toString('base64'),
-										format: format
+										format
 									}
 								},
 								finish_reason: null
@@ -270,7 +266,6 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 						// 我们这里尽量保持结构化。
 						res.write(`data: ${JSON.stringify(chunkData)}\n\n`)
 					}
-				}
 			}
 
 			if (contentDelta) {
@@ -324,43 +319,37 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 
 		// 构建多模态 content 数组
 		const contentParts = []
-		if (text_result) {
-			contentParts.push({ type: 'text', text: text_result })
-		}
+		if (text_result) contentParts.push({ type: 'text', text: text_result })
 
-		if (result.files && result.files.length > 0) {
-			for (const file of result.files) {
-				if (file.mime_type.startsWith('audio/')) {
-					const formatMap = {
-						'audio/wav': 'wav', 'audio/wave': 'wav', 'audio/x-wav': 'wav',
-						'audio/mpeg': 'mp3', 'audio/mp3': 'mp3',
-						'audio/mp4': 'mp4', 'audio/m4a': 'm4a',
-						'audio/webm': 'webm', 'audio/ogg': 'webm',
-						'audio/pcm': 'pcm',
-					}
-					const format = formatMap[file.mime_type.toLowerCase()] || 'wav'
-					contentParts.push({
-						type: 'audio',
-						audio: {
-							data: file.buffer.toString('base64'),
-							format: format
-						}
-					})
-				} else if (file.mime_type.startsWith('image/')) {
-					contentParts.push({
-						type: 'image_url',
-						image_url: {
-							url: `data:${file.mime_type};base64,${file.buffer.toString('base64')}`
-						}
-					})
+		if (result.files?.length) for (const file of result.files)
+			if (file.mime_type.startsWith('audio/')) {
+				const formatMap = {
+					'audio/wav': 'wav', 'audio/wave': 'wav', 'audio/x-wav': 'wav',
+					'audio/mpeg': 'mp3', 'audio/mp3': 'mp3',
+					'audio/mp4': 'mp4', 'audio/m4a': 'm4a',
+					'audio/webm': 'webm', 'audio/ogg': 'webm',
+					'audio/pcm': 'pcm',
 				}
-				// 忽略其他文件类型
-			}
-		}
+				const format = formatMap[file.mime_type.toLowerCase()] || 'wav'
+				contentParts.push({
+					type: 'audio',
+					audio: {
+						data: file.buffer.toString('base64'),
+						format
+					}
+				})
+			} else if (file.mime_type.startsWith('image/'))
+				contentParts.push({
+					type: 'image_url',
+					image_url: {
+						url: `data:${file.mime_type};base64,${file.buffer.toString('base64')}`
+					}
+				})
+			// 忽略其他文件类型
 
 		// 如果没有文件，content 可以直接是字符串（兼容旧客户端），也可以是数组
 		// 为了最大兼容性，如果只有文本且没有文件，返回字符串
-		const finalContent = (contentParts.length === 1 && contentParts[0].type === 'text')
+		const finalContent = contentParts.length === 1 && contentParts[0].type === 'text'
 			? contentParts[0].text
 			: contentParts
 
