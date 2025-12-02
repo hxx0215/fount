@@ -26,6 +26,7 @@ export default {
 const configTemplate = {
 	name: 'polling array',
 	provider: 'unknown',
+	max_fail_count: 0,
 	sources: [
 		'source name1',
 		'source name2',
@@ -52,6 +53,11 @@ async function GetSource(config, { username, SaveConfig }) {
 	const sources = await Promise.all(config.sources.map(source => loadAIsourceFromNameOrConfigData(username, source, unnamedSources, {
 		SaveConfig
 	})))
+
+	const maxFailCount = Math.min(
+		config.sources.length,
+		config.max_fail_count || new Set(config.sources.map(source => source.generator)).size == 1 ? 3 : Infinity
+	)
 	/** @type {AIsource_t} */
 	const result = {
 		type: 'text-chat',
@@ -66,7 +72,7 @@ async function GetSource(config, { username, SaveConfig }) {
 		 * 卸载 AI 源。
 		 * @returns {Promise<void[]>} 一个 Promise，在所有未命名源卸载后解析。
 		 */
-		Unload: () => Promise.all(unnamedSources.map(source => source.Unload())),
+		Unload: () => Promise.all(unnamedSources.map(source => source?.Unload?.())),
 		/**
 		 * 调用 AI 源。
 		 * @param {string} prompt - 要发送给 AI 的提示。
@@ -82,7 +88,7 @@ async function GetSource(config, { username, SaveConfig }) {
 			} catch (e) {
 				console.error(e)
 				error_num++
-				if (error_num == config.sources.length) throw new Error('all sources failed')
+				if (error_num >= maxFailCount) throw new Error(`Too many failures (${error_num}/${maxFailCount}). Last error: ` + (e.message || e))
 			}
 		},
 		/**
@@ -101,7 +107,7 @@ async function GetSource(config, { username, SaveConfig }) {
 			} catch (e) {
 				console.error(e)
 				error_num++
-				if (error_num == config.sources.length) throw new Error('all sources failed')
+				if (error_num >= maxFailCount) throw new Error(`Too many failures (${error_num}/${maxFailCount}). Last error: ` + (e.message || e))
 			}
 		},
 		tokenizer: {

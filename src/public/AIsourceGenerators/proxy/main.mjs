@@ -324,7 +324,7 @@ ${chatLogEntry.content}
 								type: 'input_audio',
 								input_audio: {
 									data: file.buffer.toString('base64'),
-									format: format,
+									format,
 								},
 							})
 						}
