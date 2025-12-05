@@ -309,6 +309,8 @@ async function handleChatCompletionsRequest(req, res, username, model) {
 		} catch (error) {
 			if (error.name !== 'AbortError')
 				console.error('Error during streaming StructCall:', error)
+				// It's hard to send an error once the stream has started.
+				// We can try to send an error in the stream format if possible, but for now, just closing is fine.
 		} finally {
 			res.end()
 		}
