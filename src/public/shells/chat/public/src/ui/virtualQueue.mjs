@@ -1,4 +1,3 @@
-import * as Sentry from 'https://esm.sh/@sentry/browser'
 
 import { createVirtualList } from '../../../../scripts/virtualList.mjs'
 import { getChatLog, getChatLogLength } from '../../src/endpoints.mjs'
@@ -328,7 +327,6 @@ async function processMessageEventQueue(messageId) {
 			await handler()
 		} catch (error) {
 			console.error(`[EventQueue] Error processing ${eventType} for message ${messageId}:`, error)
-			Sentry.captureException(error)
 		}
 	}
 

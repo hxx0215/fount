@@ -313,5 +313,4 @@ try {
 }
 catch (error) {
 	showToast('error', error.message)
-	import('https://esm.sh/@sentry/browser').then(Sentry => Sentry.captureException(error))
 }

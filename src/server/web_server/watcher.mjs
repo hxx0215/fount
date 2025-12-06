@@ -13,7 +13,7 @@ export function watchFrontendChanges(url, dir) {
 		if (!filename) return
 		if (timeout) clearTimeout(timeout)
 		timeout = setTimeout(() => {
-			console.logI18n('fountConsole.web.frontendFilesChanged', { path: url })
+			console.log('fountConsole.web.frontendFilesChanged', { path: url })
 			sendEventToAll('page-modified', { path: url })
 		}, 666)
 	})

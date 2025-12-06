@@ -23,42 +23,42 @@ import { watchFrontendChanges } from './watcher.mjs'
  * @returns {void}
  */
 export function registerEndpoints(router) {
-	router.ws('/ws/test/echo', (ws, req) => {
-		console.log('WebSocket test connection established.')
-		ws.on('message', message => {
-			console.log('Received from /ws/test/echo:', message.toString())
-			ws.send(message.toString())
-		})
-		ws.on('close', () => {
-			console.log('WebSocket test connection closed.')
-		})
-	})
-	router.ws('/ws/test/auth_echo', authenticate, (ws, req) => {
-		console.log('WebSocket auth_test connection established.')
-		ws.on('message', message => {
-			console.log('Received from /ws/test/auth_echo:', message.toString())
-			ws.send(message.toString())
-		})
-		ws.on('close', () => {
-			console.log('WebSocket auth_test connection closed.')
-		})
-	})
+	// router.ws('/ws/test/echo', (ws, req) => {
+	// 	console.log('WebSocket test connection established.')
+	// 	ws.on('message', message => {
+	// 		console.log('Received from /ws/test/echo:', message.toString())
+	// 		ws.send(message.toString())
+	// 	})
+	// 	ws.on('close', () => {
+	// 		console.log('WebSocket test connection closed.')
+	// 	})
+	// })
+	// router.ws('/ws/test/auth_echo', authenticate, (ws, req) => {
+	// 	console.log('WebSocket auth_test connection established.')
+	// 	ws.on('message', message => {
+	// 		console.log('Received from /ws/test/auth_echo:', message.toString())
+	// 		ws.send(message.toString())
+	// 	})
+	// 	ws.on('close', () => {
+	// 		console.log('WebSocket auth_test connection closed.')
+	// 	})
+	// })
 
-	router.ws('/ws/notify', authenticate, async (ws, req) => {
-		const { username } = await getUserByReq(req)
-		registerNotifier(username, ws)
-	})
+	// router.ws('/ws/notify', authenticate, async (ws, req) => {
+	// 	const { username } = await getUserByReq(req)
+	// 	registerNotifier(username, ws)
+	// })
 
-	router.get('/api/test/error', (req, res) => {
-		throw skip_report(new Error('test error'))
-	})
-	router.get('/api/test/async_error', async (req, res) => {
-		throw skip_report(new Error('test error'))
-	})
-	router.get('/api/test/unhandledRejection', async (req, res) => {
-		Promise.reject(skip_report(new Error('test error')))
-		return res.status(200).json({ message: 'hell yeah!' })
-	})
+	// router.get('/api/test/error', (req, res) => {
+	// 	throw skip_report(new Error('test error'))
+	// })
+	// router.get('/api/test/async_error', async (req, res) => {
+	// 	throw skip_report(new Error('test error'))
+	// })
+	// router.get('/api/test/unhandledRejection', async (req, res) => {
+	// 	Promise.reject(skip_report(new Error('test error')))
+	// 	return res.status(200).json({ message: 'hell yeah!' })
+	// })
 	router.get('/api/ping', cors(), async (req, res) => {
 		const is_local_ip = is_local_ip_from_req(req)
 		let hosturl_in_local_ip
@@ -132,195 +132,195 @@ export function registerEndpoints(router) {
 		res.status(result.status).json(result)
 	})
 
-	router.post('/api/register/generateverificationcode', async (req, res) => {
-		// get ip
-		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-		generateVerificationCode(ip)
-		res.status(200).json({ message: 'verification code generated' })
-	})
-	router.post('/api/register', rateLimit({ maxRequests: 5, windowMs: ms('1m') }), async (req, res) => {
-		const { username, password, verificationcode } = req.body
-		const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-		if (!is_local_ip(ip)) {
-			const { pow } = await import('../../scripts/pow.mjs')
-			const { powToken } = req.body
-			const { success } = powToken && await pow.validateToken(powToken)
-			if (!success) return res.status(401).json({ message: 'PoW validation failed' })
+	// router.post('/api/register/generateverificationcode', async (req, res) => {
+	// 	// get ip
+	// 	const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+	// 	generateVerificationCode(ip)
+	// 	res.status(200).json({ message: 'verification code generated' })
+	// })
+	// router.post('/api/register', rateLimit({ maxRequests: 5, windowMs: ms('1m') }), async (req, res) => {
+	// 	const { username, password, verificationcode } = req.body
+	// 	const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+	// 	if (!is_local_ip(ip)) {
+	// 		const { pow } = await import('../../scripts/pow.mjs')
+	// 		const { powToken } = req.body
+	// 		const { success } = powToken && await pow.validateToken(powToken)
+	// 		if (!success) return res.status(401).json({ message: 'PoW validation failed' })
 
-			if (verifyVerificationCode(verificationcode, ip) === false) {
-				res.status(401).json({ message: 'verification code incorrect' })
-				return
-			}
-		}
-		const result = await register(username, password)
-		res.status(result.status).json(result)
-	})
+	// 		if (verifyVerificationCode(verificationcode, ip) === false) {
+	// 			res.status(401).json({ message: 'verification code incorrect' })
+	// 			return
+	// 		}
+	// 	}
+	// 	const result = await register(username, password)
+	// 	res.status(result.status).json(result)
+	// })
 
-	router.post('/api/logout', logout)
+	// router.post('/api/logout', logout)
 
-	router.post('/api/apikey/create', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { description } = req.body
-		const { apiKey, jti } = await generateApiKey(user.username, description)
-		res.status(201).json({ success: true, apiKey, jti, message: 'API Key created successfully. Store it securely, it will not be shown again.' })
-	})
+	// router.post('/api/apikey/create', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { description } = req.body
+	// 	const { apiKey, jti } = await generateApiKey(user.username, description)
+	// 	res.status(201).json({ success: true, apiKey, jti, message: 'API Key created successfully. Store it securely, it will not be shown again.' })
+	// })
 
-	router.get('/api/apikey/list', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const userConfig = getUserByUsername(user.username)
-		const apiKeys = (userConfig.auth.apiKeys || []).map(key => ({
-			jti: key.jti,
-			prefix: key.prefix,
-			description: key.description,
-			createdAt: key.createdAt,
-			lastUsed: key.lastUsed,
-		}))
-		res.status(200).json({ success: true, apiKeys })
-	})
+	// router.get('/api/apikey/list', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const userConfig = getUserByUsername(user.username)
+	// 	const apiKeys = (userConfig.auth.apiKeys || []).map(key => ({
+	// 		jti: key.jti,
+	// 		prefix: key.prefix,
+	// 		description: key.description,
+	// 		createdAt: key.createdAt,
+	// 		lastUsed: key.lastUsed,
+	// 	}))
+	// 	res.status(200).json({ success: true, apiKeys })
+	// })
 
-	router.post('/api/apikey/revoke', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { jti, password } = req.body
-		if (!jti) return res.status(400).json({ success: false, error: 'JTI of the key to revoke is required.' })
-		if (!password) return res.status(400).json({ success: false, error: 'Password is required to revoke API key.' })
+	// router.post('/api/apikey/revoke', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { jti, password } = req.body
+	// 	if (!jti) return res.status(400).json({ success: false, error: 'JTI of the key to revoke is required.' })
+	// 	if (!password) return res.status(400).json({ success: false, error: 'Password is required to revoke API key.' })
 
-		const result = await revokeApiKey(user.username, jti, password)
-		res.status(result.success ? 200 : 400).json(result)
-	})
+	// 	const result = await revokeApiKey(user.username, jti, password)
+	// 	res.status(result.success ? 200 : 400).json(result)
+	// })
 
-	router.post('/api/apikey/verify', async (req, res) => {
-		const { apiKey } = req.body
-		if (!apiKey) return res.status(400).json({ success: false, error: 'API key is required.' })
+	// router.post('/api/apikey/verify', async (req, res) => {
+	// 	const { apiKey } = req.body
+	// 	if (!apiKey) return res.status(400).json({ success: false, error: 'API key is required.' })
 
-		const user = await verifyApiKey(apiKey)
-		res.status(200).json({ success: true, valid: !!user })
-	})
+	// 	const user = await verifyApiKey(apiKey)
+	// 	res.status(200).json({ success: true, valid: !!user })
+	// })
 
-	router.post('/api/get-api-cookie', async (req, res) => {
-		const { apiKey } = req.body
-		const result = await setApiCookieResponse(apiKey, req, res)
-		res.status(result.status).json(result)
-	})
+	// router.post('/api/get-api-cookie', async (req, res) => {
+	// 	const { apiKey } = req.body
+	// 	const result = await setApiCookieResponse(apiKey, req, res)
+	// 	res.status(result.status).json(result)
+	// })
 
-	router.get('/api/whoami', authenticate, async (req, res) => {
-		const { username } = await getUserByReq(req)
-		res.status(200).json({ username })
-	})
+	// router.get('/api/whoami', authenticate, async (req, res) => {
+	// 	const { username } = await getUserByReq(req)
+	// 	res.status(200).json({ username })
+	// })
 
-	router.post('/api/authenticate', authenticate, (req, res) => {
-		res.status(200).json({ message: 'Authenticated' })
-	})
+	// router.post('/api/authenticate', authenticate, (req, res) => {
+	// 	res.status(200).json({ message: 'Authenticated' })
+	// })
 
-	router.get('/api/getparttypelist', authenticate, async (req, res) => {
-		res.status(200).json(partTypeList)
-	})
+	// router.get('/api/getparttypelist', authenticate, async (req, res) => {
+	// 	res.status(200).json(partTypeList)
+	// })
 
-	router.post('/api/runpart', authenticate, async (req, res) => {
-		const { username } = await getUserByReq(req)
-		const { parttype, partname, args } = req.body
-		await processIPCCommand('runpart', { username, parttype, partname, args })
-		res.status(200).json({ message: 'Shell command sent successfully.' })
-	})
+	// router.post('/api/runpart', authenticate, async (req, res) => {
+	// 	const { username } = await getUserByReq(req)
+	// 	const { parttype, partname, args } = req.body
+	// 	await processIPCCommand('runpart', { username, parttype, partname, args })
+	// 	res.status(200).json({ message: 'Shell command sent successfully.' })
+	// })
 
-	router.post('/api/loadpart', authenticate, async (req, res) => {
-		const { username } = await getUserByReq(req)
-		const { parttype, partname } = req.body
-		if (!parttype || !partname) return res.status(400).json({ success: false, error: 'Part type and name are required.' })
-		await loadPart(username, parttype, partname)
-		res.status(200).json({ success: true, message: `Part ${parttype}/${partname} loaded successfully.` })
-	})
+	// router.post('/api/loadpart', authenticate, async (req, res) => {
+	// 	const { username } = await getUserByReq(req)
+	// 	const { parttype, partname } = req.body
+	// 	if (!parttype || !partname) return res.status(400).json({ success: false, error: 'Part type and name are required.' })
+	// 	await loadPart(username, parttype, partname)
+	// 	res.status(200).json({ success: true, message: `Part ${parttype}/${partname} loaded successfully.` })
+	// })
 
-	for (const part of partTypeList) {
-		router.get('/api/getlist/' + part, authenticate, async (req, res) => {
-			const { username } = await getUserByReq(req)
-			res.status(200).json(getPartList(username, part))
-		})
-		router.get('/api/getloadedlist/' + part, authenticate, async (req, res) => {
-			const { username } = await getUserByReq(req)
-			res.status(200).json(getLoadedPartList(username, part))
-		})
-		router.get('/api/getallcacheddetails/' + part, authenticate, async (req, res) => {
-			const { username } = await getUserByReq(req)
-			const details = await getAllCachedPartDetails(username, part)
-			res.status(200).json(details)
-		})
-		router.get('/api/getdetails/' + part, authenticate, async (req, res) => {
-			const { username } = await getUserByReq(req)
-			const { name, nocache } = req.query
-			const details = await getPartDetails(username, part, name, nocache)
-			res.status(200).json(details)
-		})
-		router.get(new RegExp('^/' + part + '/'), authenticate, async (req, res, next) => {
-			const { username } = await getUserByReq(req)
-			const oripath = decodeURIComponent(req.path)
-			const patharr = oripath.split('/')
-			patharr[patharr.length - 1] ||= 'index.html'
-			const partName = patharr[2]
-			const realPath = part + '/' + partName + '/public'
-			const userPath = getUserDictionary(username) + '/' + realPath
-			const publicPath = __dirname + '/src/public/' + realPath
-			let path
-			if (fs.existsSync(userPath)) path = userPath
-			else if (fs.existsSync(publicPath)) path = publicPath
-			else return next()
+	// for (const part of partTypeList) {
+	// 	router.get('/api/getlist/' + part, authenticate, async (req, res) => {
+	// 		const { username } = await getUserByReq(req)
+	// 		res.status(200).json(getPartList(username, part))
+	// 	})
+	// 	router.get('/api/getloadedlist/' + part, authenticate, async (req, res) => {
+	// 		const { username } = await getUserByReq(req)
+	// 		res.status(200).json(getLoadedPartList(username, part))
+	// 	})
+	// 	router.get('/api/getallcacheddetails/' + part, authenticate, async (req, res) => {
+	// 		const { username } = await getUserByReq(req)
+	// 		const details = await getAllCachedPartDetails(username, part)
+	// 		res.status(200).json(details)
+	// 	})
+	// 	router.get('/api/getdetails/' + part, authenticate, async (req, res) => {
+	// 		const { username } = await getUserByReq(req)
+	// 		const { name, nocache } = req.query
+	// 		const details = await getPartDetails(username, part, name, nocache)
+	// 		res.status(200).json(details)
+	// 	})
+	// 	router.get(new RegExp('^/' + part + '/'), authenticate, async (req, res, next) => {
+	// 		const { username } = await getUserByReq(req)
+	// 		const oripath = decodeURIComponent(req.path)
+	// 		const patharr = oripath.split('/')
+	// 		patharr[patharr.length - 1] ||= 'index.html'
+	// 		const partName = patharr[2]
+	// 		const realPath = part + '/' + partName + '/public'
+	// 		const userPath = getUserDictionary(username) + '/' + realPath
+	// 		const publicPath = __dirname + '/src/public/' + realPath
+	// 		let path
+	// 		if (fs.existsSync(userPath)) path = userPath
+	// 		else if (fs.existsSync(publicPath)) path = publicPath
+	// 		else return next()
 
-			watchFrontendChanges(`/${part}/${partName}/`, path)
-			path += '/' + patharr.slice(3).join('/')
-			if (!fs.existsSync(path)) return next()
-			if (fs.statSync(path).isDirectory()) return res.status(301).redirect(req.originalUrl.replace(oripath, oripath + '/'))
-			else try { return res.status(200).sendFile(path) }
-			catch (e) { throw skip_report(e) } // 抽象linux环境，关我屁事
-		})
-	}
+	// 		watchFrontendChanges(`/${part}/${partName}/`, path)
+	// 		path += '/' + patharr.slice(3).join('/')
+	// 		if (!fs.existsSync(path)) return next()
+	// 		if (fs.statSync(path).isDirectory()) return res.status(301).redirect(req.originalUrl.replace(oripath, oripath + '/'))
+	// 		else try { return res.status(200).sendFile(path) }
+	// 		catch (e) { throw skip_report(e) } // 抽象linux环境，关我屁事
+	// 	})
+	// }
 
-	router.get('/api/defaultpart/getall', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		res.status(200).json(getDefaultParts(user))
-	})
+	// router.get('/api/defaultpart/getall', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	res.status(200).json(getDefaultParts(user))
+	// })
 
-	router.post('/api/defaultpart/add', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { parttype, partname } = req.body
-		setDefaultPart(user, parttype, partname)
-		res.status(200).json({ message: 'success' })
-	})
+	// router.post('/api/defaultpart/add', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { parttype, partname } = req.body
+	// 	setDefaultPart(user, parttype, partname)
+	// 	res.status(200).json({ message: 'success' })
+	// })
 
-	router.post('/api/defaultpart/unset', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { parttype, partname } = req.body
-		unsetDefaultPart(user, parttype, partname)
-		res.status(200).json({ message: 'success' })
-	})
+	// router.post('/api/defaultpart/unset', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { parttype, partname } = req.body
+	// 	unsetDefaultPart(user, parttype, partname)
+	// 	res.status(200).json({ message: 'success' })
+	// })
 
-	router.get('/api/defaultpart/getany/:parttype', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { parttype } = req.params
-		res.status(200).json(getAnyDefaultPart(user, parttype) || '')
-	})
+	// router.get('/api/defaultpart/getany/:parttype', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { parttype } = req.params
+	// 	res.status(200).json(getAnyDefaultPart(user, parttype) || '')
+	// })
 
-	router.get('/api/defaultpart/getallbytype/:parttype', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { parttype } = req.params
-		res.status(200).json(getAllDefaultPartsFromLoader(user, parttype))
-	})
+	// router.get('/api/defaultpart/getallbytype/:parttype', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { parttype } = req.params
+	// 	res.status(200).json(getAllDefaultPartsFromLoader(user, parttype))
+	// })
 
-	router.get('/api/defaultpart/getanypreferred/:parttype', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { parttype } = req.params
-		res.status(200).json(getAnyPreferredDefaultPart(user, parttype) || '')
-	})
+	// router.get('/api/defaultpart/getanypreferred/:parttype', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { parttype } = req.params
+	// 	res.status(200).json(getAnyPreferredDefaultPart(user, parttype) || '')
+	// })
 
-	router.get('/api/getusersetting', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { key } = req.query
-		res.status(200).json({ key, value: user[key] })
-	})
+	// router.get('/api/getusersetting', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { key } = req.query
+	// 	res.status(200).json({ key, value: user[key] })
+	// })
 
-	router.post('/api/setusersetting', authenticate, async (req, res) => {
-		const user = await getUserByReq(req)
-		const { key, value } = req.body
-		user[key] = value
-		save_config()
-		res.status(200).json({ message: 'success' })
-	})
+	// router.post('/api/setusersetting', authenticate, async (req, res) => {
+	// 	const user = await getUserByReq(req)
+	// 	const { key, value } = req.body
+	// 	user[key] = value
+	// 	save_config()
+	// 	res.status(200).json({ message: 'success' })
+	// })
 }

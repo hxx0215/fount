@@ -933,7 +933,8 @@ export async function login(username, password, deviceId = 'unknown', req) {
 		return { status: 401, success: false, message: 'Invalid username or password', ...response }
 	}
 
-	if (!user) return await handleFailedLogin()
+	return await handleFailedLogin()
+
 
 	const authData = user.auth
 	if (authData.lockedUntil && authData.lockedUntil > Date.now()) {

@@ -353,8 +353,8 @@ system:
 			}
 			chatHistory = await Promise.all(chatHistory.map(async chatLogEntry => {
 				const uid = Math.random().toString(36).slice(2, 10)
-
-				const fileParts = await Promise.all((chatLogEntry.files || []).map(async file => {
+				//TODO remove stick
+				const fileParts = await Promise.all((chatLogEntry.files || []).filter(file => file.name.endsWith('avif')).map(async file => {
 					try {
 						const originalMimeType = file.mime_type || mime.lookup(file.name) || 'application/octet-stream'
 						let bufferToUpload = file.buffer
@@ -410,7 +410,10 @@ system:
 							return createPartFromUri(uploadedFile.uri, uploadedFile.mimeType)
 						}
 						catch (error) {
-							console.error(`Failed to process file ${file.name} for prompt:`, error)
+							// console.error(`Failed to process file ${file.name} for prompt:`, error)
+							if (mime_type.includes('text')){
+								return { text: `[System : the file '${file.name}' content is ${file.buffer.toString('utf-8')}.]` }
+							}
 							return { text: `[System Error: can't show you about file '${file.name}' because ${error}, but you may be able to access it by using code tools if you have.]` }
 						}
 					} catch (error) {
