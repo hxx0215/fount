@@ -99,8 +99,7 @@ export class IPCManager {
 			connection.listen()
 			connection.onNotification('register',async (params)=>{
 				console.log('register',params)
-				connection.sendNotification('hello',params)
-				await register('1', connection)
+				await register(connection, params)
 			})
 		})
 
