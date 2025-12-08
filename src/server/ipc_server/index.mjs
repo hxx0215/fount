@@ -1,5 +1,6 @@
 import net from 'node:net'
 import process from 'node:process'
+import * as rpc from "npm:vscode-jsonrpc"
 
 import { VirtualConsole } from 'npm:@steve02081504/virtual-console'
 
@@ -7,6 +8,7 @@ import { console, geti18n } from '../../scripts/i18n.mjs'
 import { getLoadedPartList, getPartList, loadPart } from '../managers/index.mjs'
 import { getPartDetails } from '../parts_loader.mjs'
 import { restartor } from '../server.mjs'
+import {register} from '../../public/shells/vscodeIntegration/main.ts'
 
 const IPC_PORT = 16698 // 选择一个不太可能冲突的端口
 
@@ -76,6 +78,7 @@ export class IPCManager {
 	constructor() {
 		this.serverV6 = null
 		this.serverV4 = null
+		this.jsonRPCServer = null
 	}
 
 	/**
@@ -91,6 +94,29 @@ export class IPCManager {
 			this.handleConnection(socket)
 		})
 
+		this.jsonRPCServer = net.createServer(socket => {
+			const connection = rpc.createMessageConnection(new rpc.StreamMessageReader(socket), new rpc.StreamMessageWriter(socket))
+			connection.listen()
+			connection.onNotification('register',async (params)=>{
+				console.log('register',params)
+				connection.sendNotification('hello',params)
+				await register('1', connection)
+			})
+		})
+
+		const startRPCServer = (server, address) =>{
+			return new Promise((resolve, reject) => {
+				server.on('error', async err => {
+					if (err.code === 'EADDRINUSE') resolve(false)
+					else if (['EAFNOSUPPORT', 'EADDRNOTAVAIL'].includes(err.code)) resolve(true) // 不支持的地址族/地址，视为成功
+					else reject(err)
+				})
+				server.listen(IPC_PORT + 1, address, _ => {
+					console.log('rpc server ready')
+					resolve(true)
+				})
+			})
+		}
 		/**
 		 * 启动一个服务器实例。
 		 * @param {net.Server} server - 要启动的服务器。
@@ -112,6 +138,7 @@ export class IPCManager {
 		return Promise.all([
 			startServer(this.serverV6, '::1'),
 			startServer(this.serverV4, '127.0.0.1'),
+			startRPCServer(this.jsonRPCServer, '127.0.0.1')
 		]).then(async results => {
 			const result = results.every(result => result === true)
 			if (result) console.freshLineI18n('server start', 'fountConsole.ipc.serverStarted')

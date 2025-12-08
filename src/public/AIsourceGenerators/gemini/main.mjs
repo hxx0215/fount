@@ -354,7 +354,7 @@ system:
 			chatHistory = await Promise.all(chatHistory.map(async chatLogEntry => {
 				const uid = Math.random().toString(36).slice(2, 10)
 				//TODO remove stick
-				const fileParts = await Promise.all((chatLogEntry.files || []).filter(file => file.name.endsWith('avif')).map(async file => {
+				const fileParts = await Promise.all((chatLogEntry.files || []).filter(file => !file.name.endsWith('avif')).map(async file => {
 					try {
 						const originalMimeType = file.mime_type || mime.lookup(file.name) || 'application/octet-stream'
 						let bufferToUpload = file.buffer
