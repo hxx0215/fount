@@ -19,7 +19,7 @@ async function registerSocket(username: string, params: RegisterInfo, conn: rpc.
       const c = await LoadChar(username,charName)
       const interfaces: any = c.interfaces as any
       if (interfaces.vscodeIntegration ) {
-        interfaces.vscodeIntegration.register(params.id, conn)
+        interfaces.vscodeIntegration.register(params, conn)
       }
     })
   }else{
