@@ -5,6 +5,7 @@ import path from 'node:path'
 import process from 'node:process'
 
 import * as mime from 'npm:mime-types'
+import {isText} from 'npm:istextorbinary'
 
 import { escapeRegExp } from '../../../scripts/escape.mjs'
 import { margeStructPromptChatLog, structPromptToSingleNoChatLog } from '../../shells/chat/src/prompt_struct.mjs'
@@ -319,6 +320,7 @@ async function GetSource(config) {
 					handle_parts(chunk.candidates?.[0]?.content?.parts)
 			}
 			else {
+				fs.appendFileSync('/home/azureuser/fount-log/message.txt', JSON.stringify(model_params) + '\n')
 				const response = await ai.models.generateContent(model_params)
 				handle_parts(response.candidates?.[0]?.content?.parts)
 			}
@@ -389,7 +391,7 @@ system:
 								'audio/mpeg',
 							].includes(mime_type)) mime_type = 'audio/mp3'
 						}
-						if (!supportedFileTypes.includes(mime_type)) {
+						if (!supportedFileTypes.includes(mime_type) && !isText(null,file.buffer)) {
 							console.warn(`Unsupported file type: ${mime_type} for file ${file.name}`)
 							return { text: `[System Notice: can't show you about file '${file.name}' because you cant take the file input of type '${mime_type}', but you may be able to access it by using code tools if you have.]` }
 						}
@@ -421,10 +423,13 @@ system:
 						}
 						catch (error) {
 							// console.error(`Failed to process file ${file.name} for prompt:`, error)
-							if (mime_type.includes('text')){
+							if (mime_type.includes('text') || isText(null, file.buffer)){
+								console.log('file is text send it direct')
 								return { text: `[System : the file '${file.name}' content is ${file.buffer.toString('utf-8')}.]` }
 							}
-							return { text: `[System Error: can't show you about file '${file.name}' because ${error}, but you may be able to access it by using code tools if you have.]` }
+							const base64 = createPartFromBase64(bufferToUpload.toString('base64'), mime_type)
+							return base64
+							// return { text: `[System Error: can't show you about file '${file.name}' because ${error}, but you may be able to access it by using code tools if you have.]` }
 						}
 					} catch (error) {
 						// Catch-all for any other errors during file processing to prevent crash
@@ -651,6 +656,7 @@ ${is_ImageGeneration
 					err.name = 'AbortError'
 					throw err
 				}
+				fs.appendFileSync('/home/azureuser/fount-log/message.txt', JSON.stringify(model_params) + '\n')
 				const response = await ai.models.generateContent(model_params, { signal })
 				handle_parts(response.candidates?.[0]?.content?.parts)
 			}
