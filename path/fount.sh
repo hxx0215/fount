@@ -31,9 +31,9 @@ get_system_locales() {
 	echo "${locales[@]}"
 }
 
-# 从 src/locales/list.csv 获取可用区域设置
+# 从 src/public/locales/list.csv 获取可用区域设置
 get_available_locales() {
-	local locale_list_file="$FOUNT_DIR/src/locales/list.csv"
+	local locale_list_file="$FOUNT_DIR/src/public/locales/list.csv"
 	if [ -f "$locale_list_file" ]; then
 		# 跳过标题并获取第一列
 		tail -n +2 "$locale_list_file" | cut -d, -f1
@@ -85,11 +85,11 @@ load_locale_data() {
 		FOUNT_LOCALE=$(get_best_locale "$system_locales" "$available_locales")
 		export FOUNT_LOCALE
 	fi
-	local locale_file="$FOUNT_DIR/src/locales/$FOUNT_LOCALE.json"
+	local locale_file="$FOUNT_DIR/src/public/locales/$FOUNT_LOCALE.json"
 	if [ ! -f "$locale_file" ]; then
 		FOUNT_LOCALE="en-UK"
 		export FOUNT_LOCALE
-		locale_file="$FOUNT_DIR/src/locales/en-UK.json"
+		locale_file="$FOUNT_DIR/src/public/locales/en-UK.json"
 	fi
 	# 检查 jq
 	if ! command -v jq &>/dev/null; then
@@ -358,6 +358,109 @@ install_package() {
 	return 1
 }
 
+# 辅助函数: 智能地使用包管理器进行更新
+upgrade_with_manager() {
+	local manager_cmd="$1"
+	local package_to_upgrade="$2"
+	local update_args=""
+	local upgrade_args=""
+	local has_sudo=""
+
+	if ! command -v "$manager_cmd" &>/dev/null; then
+		return 1
+	fi
+
+	if [[ $(id -u) -ne 0 ]] && command -v sudo &>/dev/null; then
+		has_sudo="sudo"
+	fi
+
+	case "$manager_cmd" in
+	"apt-get")
+		update_args="update -y"
+		upgrade_args="install --only-upgrade -y"
+		;;
+	"pacman")
+		update_args="-Sy --noconfirm"
+		upgrade_args="-S --noconfirm"
+		;;
+	"dnf")
+		update_args="makecache"
+		upgrade_args="update -y"
+		;;
+	"yum")
+		update_args="makecache fast"
+		upgrade_args="update -y"
+		;;
+	"zypper")
+		update_args="refresh"
+		upgrade_args="update -y --no-confirm"
+		;;
+	"pkg")
+		update_args="update -y"
+		upgrade_args="upgrade -y"
+		;;
+	"apk")
+		update_args="update"
+		upgrade_args="upgrade"
+		;;
+	"brew")
+		has_sudo=""
+		upgrade_args="upgrade"
+		;;
+	"snap")
+		if ! command -v sudo &>/dev/null; then return 1; fi
+		has_sudo="sudo"
+		upgrade_args="refresh"
+		;;
+	*)
+		return 1
+		;;
+	esac
+
+	if [[ -n "$update_args" ]]; then
+		# shellcheck disable=SC2086
+		$has_sudo "$manager_cmd" $update_args >/dev/null 2>&1 || true
+	fi
+
+	# shellcheck disable=SC2086
+	if $has_sudo "$manager_cmd" $upgrade_args "$package_to_upgrade" >/dev/null 2>&1; then
+		return 0
+	fi
+
+	return 1
+}
+
+# 函数: 更新包
+upgrade_package() {
+	local command_name="$1"
+	# 如果第二个参数为空，则默认为命令名
+	local package_list_str="${2:-$command_name}"
+	# shellcheck disable=SC2206
+	local package_list=($package_list_str)
+
+	for package in "${package_list[@]}"; do
+		# 尝试所有包管理器，但一次只尝试一个包
+		if
+			upgrade_with_manager "pkg" "$package" ||
+				upgrade_with_manager "apt-get" "$package" ||
+				upgrade_with_manager "pacman" "$package" ||
+				upgrade_with_manager "dnf" "$package" ||
+				upgrade_with_manager "yum" "$package" ||
+				upgrade_with_manager "zypper" "$package" ||
+				upgrade_with_manager "apk" "$package" ||
+				upgrade_with_manager "brew" "$package" ||
+				upgrade_with_manager "snap" "$package"
+		then
+			# 只要有一个包管理器成功更新，就检查命令是否仍然可用
+			if command -v "$command_name" &>/dev/null; then
+				return 0
+			fi
+		fi
+	done
+
+	return 1
+}
+
 # 函数: 卸载包
 uninstall_package() {
 	local package_name="$1"
@@ -598,7 +701,7 @@ get_profile_files() {
 
 # 函数: 创建桌面快捷方式
 create_desktop_shortcut() {
-	local icon_path="$FOUNT_DIR/src/pages/favicon.ico"
+	local icon_path="$FOUNT_DIR/src/public/pages/favicon.ico"
 
 	if [ "$OS_TYPE" = "Linux" ]; then
 		install_package "xdg-open" "xdg-utils" || return 1
@@ -645,7 +748,7 @@ EOF
 		rm -rf "$app_path" # Clean up old version first
 
 		mkdir -p "$app_path/Contents/MacOS" "$app_path/Contents/Resources"
-		local icns_path="$FOUNT_DIR/src/pages/favicon.icns"
+		local icns_path="$FOUNT_DIR/src/public/pages/favicon.icns"
 		local icon_name="favicon.icns"
 		if [ ! -f "$icns_path" ] && command -v sips &>/dev/null; then
 			sips -s format icns "$icon_path" --out "$icns_path"
@@ -784,6 +887,9 @@ remove_desktop_shortcut() {
 # 函数: 将 fount 路径添加到 PATH
 ensure_fount_path() {
 	if [[ ":$PATH:" != *":$FOUNT_DIR/path:"* ]]; then
+		if [ ! -f "$HOME/.profile" ]; then
+			touch "$HOME/.profile"
+		fi
 		for profile_file in $(get_profile_files); do
 			if [ -f "$profile_file" ] && ! grep -q "export PATH=.*$FOUNT_DIR/path" "$profile_file"; then
 				if [ "$(tail -c 1 "$profile_file")" != $'\n' ]; then echo >>"$profile_file"; fi
@@ -1010,13 +1116,19 @@ fi
 
 # 函数: 安装 Deno
 install_deno() {
-	if command -v deno &>/dev/null && [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
+	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
 	if [[ -z "$(command -v deno)" && -f "$HOME/.deno/env" ]]; then
 		# shellcheck source=/dev/null
 		. "$HOME/.deno/env"
 	fi
-	if command -v deno &>/dev/null && [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
+	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
 
+	# 首先尝试使用包管理器安装
+	if install_package "deno" "deno"; then
+		return 0
+	fi
+
+	# 包管理器安装失败，回退到官方脚本
 	ensure_dependencies "deno_install" || exit 1
 	if [[ $IN_TERMUX -eq 1 ]]; then
 		get_i18n 'deno.installingTermux'
@@ -1096,6 +1208,12 @@ base_deno_upgrade() {
 		return 1
 	fi
 
+	# 首先尝试使用包管理器更新
+	if upgrade_package "deno" "deno"; then
+		return 0
+	fi
+
+	# 包管理器更新失败，回退到官方升级命令
 	local deno_upgrade_channel="stable"
 	if [[ "$deno_version_before" == *"+"* ]]; then
 		deno_upgrade_channel="canary"
@@ -1261,6 +1379,7 @@ keepalive)
 	exit_code=$?
 	# shellcheck disable=SC2181
 	while [ $exit_code -ne 0 ]; do
+		if [ $exit_code -eq 130 ]; then exit 130; fi # ctrl+c
 		if [ $exit_code -ne 131 ]; then
 			current_time=$(date +%s)
 			elapsed_time=$((current_time - start_time))
@@ -1303,6 +1422,9 @@ remove)
 		if [ -f "$profile_file" ]; then
 			# shellcheck disable=SC2016
 			run_sed_inplace '/export PATH="\$PATH:'"$ESCAPED_FOUNT_DIR"'\/path"/d' "$profile_file"
+			if [ "$(tr -d '\n\r\t ' <"$profile_file" | wc -c)" -eq 0 ]; then
+				rm -f "$profile_file"
+			fi
 		fi
 	done < <(get_profile_files)
 	PATH=$(echo "$PATH" | tr ':' '\n' | grep -v "$FOUNT_DIR/path" | tr '\n' ':' | sed 's/:*$//')

@@ -1,25 +1,24 @@
-import process from 'node:process'
-
 import { Client } from 'npm:@xhayper/discord-rpc'
 
 import { in_docker, in_termux } from './env.mjs'
 
 const FountStartTimestamp = new Date()
-let _activity = {
+let activity = {
 }
 /**
  * 设置 Discord RPC 活动。
  */
-async function _setActivity() {
+async function setActivity() {
 	if (!client) return
-	for (const key in _activity) if (_activity[key] === undefined) delete _activity[key]
+	for (const key in activity) if (activity[key] === undefined) delete activity[key]
 	await client.user?.setActivity({
 		startTimestamp: FountStartTimestamp,
-		..._activity
+		...activity
 	})
 }
 
 let interval = null
+let loginInterval = null
 let client = null
 
 /**
@@ -35,16 +34,15 @@ export function StartRPC(
 		state: Array(Math.floor(Math.random() * 7)).fill('fo-').join('') + 'fount!',
 		startTimestamp: undefined,
 		largeImageKey: 'icon',
-		largeImageText: 'github.com/steve02081504/fount',
+		largeImageText: 'bit.ly/get-fount',
 		smallImageKey: undefined,
 		smallImageText: undefined,
 		instance: false,
 	}
 ) {
-	if (process.platform === 'win32') return // https://github.com/denoland/deno/issues/28332
-
 	if (in_docker || in_termux) return
 
+	if (loginInterval) clearInterval(loginInterval)
 	if (interval) clearInterval(interval)
 	StopRPC()
 	client = new Client({ clientId })
@@ -52,22 +50,31 @@ export function StartRPC(
 	SetActivity(activity)
 
 	client.on('ready', async () => {
-		await _setActivity()
+		await setActivity()
 
 		// activity can only be set every 15 seconds
-		interval = setInterval(() => { _setActivity() }, 15e3)
+		interval = setInterval(() => { setActivity() }, 15e3)
 	})
 
-	client.login().catch(console.error)
+	loginInterval = setInterval(async () => {
+		try {
+			await client.login()
+			clearInterval(loginInterval)
+		}
+		catch (error) {
+			if (error.name == 'COULD_NOT_CONNECT') return
+			console.error(error)
+		}
+	}, 15e3)
 }
 
 /**
  * 设置 Discord RPC 活动。
- * @param {object} activity - 要设置的活动。
+ * @param {object} newActivity - 要设置的活动。
  * @returns {void}
  */
-export function SetActivity(activity) {
-	_activity = activity
+export function SetActivity(newActivity) {
+	activity = newActivity
 }
 
 /**
