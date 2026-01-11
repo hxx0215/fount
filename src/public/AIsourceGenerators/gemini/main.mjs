@@ -366,7 +366,7 @@ system:
 			chatHistory = await Promise.all(chatHistory.map(async chatLogEntry => {
 				const uid = Math.random().toString(36).slice(2, 10)
 				//TODO remove stick
-				const fileParts = await Promise.all((chatLogEntry.files || []).filter(file => !file.name.endsWith('avif')).map(async file => {
+				const originalFileParts = await Promise.all((chatLogEntry.files || []).filter(file => !file.name.endsWith('avif') && !file.name.startsWith('wanyu_')).map(async file => {
 					try {
 						const originalMimeType = file.mime_type || mime.lookup(file.name) || 'application/octet-stream'
 						let bufferToUpload = file.buffer
@@ -393,7 +393,7 @@ system:
 						}
 						if (!supportedFileTypes.includes(mime_type) && !isText(null,file.buffer)) {
 							console.warn(`Unsupported file type: ${mime_type} for file ${file.name}`)
-							return { text: `[System Notice: can't show you about file '${file.name}' because you cant take the file input of type '${mime_type}', but you may be able to access it by using code tools if you have.]` }
+							return { text: `[System_Notice: can't show you about file '${file.name}' because you cant take the file input of type '${mime_type}', but you may be able to access it by using code tools if you have.]` }
 						}
 
 						let fileTokenCost = 0
@@ -408,11 +408,11 @@ system:
 
 							if (fileTokenCost > tokenLimitForFile) {
 								console.warn(`File '${file.name}' is too large (${fileTokenCost} tokens), exceeds 90% of limit (${tokenLimitForFile}). Replacing with text notice.`)
-								return { text: `[System Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
+								return { text: `[System_Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
 							}
 						} catch (error) {
 							console.error(`Failed to count tokens for file ${file.name} for prompt:`, error)
-							return { text: `[System Error: can't show you about file '${file.name}' because failed to count tokens, but you may be able to access it by using code tools if you have.]` }
+							return { text: `[System_Error: can't show you about file '${file.name}' because failed to count tokens, but you may be able to access it by using code tools if you have.]` }
 						}
 
 						totalFileTokens += fileTokenCost // 累加文件 token
@@ -434,9 +434,16 @@ system:
 					} catch (error) {
 						// Catch-all for any other errors during file processing to prevent crash
 						console.error(`Unexpected error processing file ${file?.name}:`, error)
-						return { text: `[System Error: can't show you about file '${file?.name || 'unknown'}' because an unexpected error occurred: ${error.message || error}, but you may be able to access it by using code tools if you have.]` }
+						return { text: `[System_Error: can't show you about file '${file?.name || 'unknown'}' because an unexpected error occurred: ${error.message || error}, but you may be able to access it by using code tools if you have.]` }
 					}
 				}))
+				//patch 
+				const fileParts = originalFileParts.filter(p => {
+					if (!p.text){
+						return true
+					}
+					return p.text && !p.text.startsWith('[System_')
+				})
 
 				return {
 					role: chatLogEntry.role == 'user' || chatLogEntry.role == 'system' ? 'user' : 'model',
