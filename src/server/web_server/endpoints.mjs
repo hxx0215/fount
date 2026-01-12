@@ -2,7 +2,7 @@ import fs from 'node:fs'
 
 import cors from 'npm:cors'
 
-import { console, getLocaleData, fountLocaleList } from '../../scripts/i18n.mjs'
+import { getLocaleData, fountLocaleList } from '../../scripts/i18n.mjs'
 import { ms } from '../../scripts/ms.mjs'
 import { get_hosturl_in_local_ip, is_local_ip, is_local_ip_from_req, rateLimit } from '../../scripts/ratelimit.mjs'
 import { generateVerificationCode, verifyVerificationCode } from '../../scripts/verifycode.mjs'
@@ -17,6 +17,7 @@ import { skip_report, currentGitCommit, config, save_config } from '../server.mj
 import { register as registerNotifier } from './event_dispatcher.mjs'
 import { betterSendFile } from './resources.mjs'
 import { watchFrontendChanges } from './watcher.mjs'
+import {eventHappened} from '../../../data/users/shadow/chars/wanyu/event_engine/on_idle.ts'
 
 /**
  * 为应用程序注册所有 API 端点。
@@ -131,6 +132,31 @@ export function registerEndpoints(router) {
 			res.cookie('refreshToken', result.refreshToken, { ...cookieOptions, maxAge: REFRESH_TOKEN_EXPIRY_DURATION }) // 长效
 		}
 		res.status(result.status).json(result)
+	})
+	router.post('/api/event/:key',async(req,res) => {
+		const {key} = req.params
+		if ((key === 'CoCG8KvWZHFWwqykYMRXV9')||(key === 'ead862b50a708ce3fb9c1f77d4dbdabd')){
+			await fetch('https://bark.200722.xyz/CoCG8KvWZHFWwqykYMRXV9',{
+				method: 'POST',
+				body: JSON.stringify(req.body),
+				headers:{
+					'Content-Type':'application/json; charset=utf-8'
+				}
+			})
+			if (key === 'CoCG8KvWZHFWwqykYMRXV9'){
+				await eventHappened('碧蓝航线挂机程序崩溃，相关信息：'+JSON.stringify(req.body))
+			}
+			if (key === 'ead862b50a708ce3fb9c1f77d4dbdabd'){
+				await eventHappened('拂晓挂机程序崩溃，相关信息：'+JSON.stringify(req.body))
+			}
+			await res.status(200).json({
+				code:200,
+				message: "success",
+				timestamp: +new Date()
+			})
+		}else{
+			await res.status(400).json({})
+		}
 	})
 
 	// router.post('/api/register/generateverificationcode', async (req, res) => {
