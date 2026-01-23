@@ -146,7 +146,7 @@ export function setTheme(theme) {
 	localStorage.setItem('fountTheme', theme)
 	if (theme === 'auto') theme = null
 	theme ||= window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-	if (document.documentElement.dataset.theme !== theme) document.documentElement.setAttribute('data-theme', theme)
+	if (document.documentElement.dataset.theme !== theme) document.documentElement.dataset.theme = theme
 	const bcColor = getComputedStyle(document.documentElement).getPropertyValue('background-color').trim()
 	let metaThemeColor = document.querySelector('meta[name="theme-color"]')
 	if (!metaThemeColor) {
@@ -173,7 +173,7 @@ export function setPreRender(hostUrl = urlParams.get('hostUrl') ?? localStorage.
 		specScript.type = 'speculationrules'
 		specScript.textContent = JSON.stringify({
 			prerender: [{
-				urls: [hostUrl + '/shells/home']
+				urls: [hostUrl + '/parts/shells/home']
 			}]
 		})
 		document.head.prepend(specScript)
@@ -181,7 +181,7 @@ export function setPreRender(hostUrl = urlParams.get('hostUrl') ?? localStorage.
 	else {
 		const link = document.createElement('link')
 		link.rel = 'prerender'
-		link.href = hostUrl + '/shells/home'
+		link.href = hostUrl + '/parts/shells/home'
 		document.head.prepend(link)
 	}
 }
