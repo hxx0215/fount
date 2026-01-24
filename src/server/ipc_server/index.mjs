@@ -2,7 +2,7 @@ import net from 'node:net'
 import process from 'node:process'
 import * as rpc from "npm:vscode-jsonrpc"
 
-import { VirtualConsole } from 'npm:@steve02081504/virtual-console'
+import { VirtualConsole } from '../../vendor/VirtualConsole.mjs'
 
 import { console, geti18n } from '../../scripts/i18n.mjs'
 import { getLoadedPartList, getPartList, loadPart, getPartDetails } from '../parts_loader.mjs'
