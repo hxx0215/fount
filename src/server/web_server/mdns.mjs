@@ -15,7 +15,7 @@ export let mdns
  */
 export async function initMdns(port, protocol, config) {
 	const mdns_config = {
-		name: 'fount',
+		name: `fount-${port}`,
 		port,
 		type: protocol,
 		txt: {

@@ -9,7 +9,7 @@ import { getLoadedPartList, getPartList, loadPart, getPartDetails } from '../par
 import { restartor } from '../server.mjs'
 // import {register} from '../../public/shells/vscodeIntegration/main.ts'
 
-const IPC_PORT = 16698 // 选择一个不太可能冲突的端口
+const IPC_PORT = 16699 // 选择一个不太可能冲突的端口
 
 /**
  * 处理 IPC 命令。
