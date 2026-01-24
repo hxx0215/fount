@@ -212,13 +212,10 @@ application consistency, reducing code duplication, and ensuring stability.
 
 ### 6.1. Credential Manager (`credentialManager.mjs`)
 
-- **Purpose**: Handles encryption, decryption, and transfer of credentials.
-- `encrypt(plaintext, secret)`: Encrypts a plaintext string.
-- `decrypt(encryptedJson, secret)`: Decrypts an encrypted payload.
-- `transferEncryptedCredentials(uuid, redirectUrl)`: Encrypts and transfers
-  credentials to a target URL.
-- `retrieveAndDecryptCredentials(fileId, from, hashParams, uuid)`: Retrieves and
-  decrypts credentials from a source.
+- **Purpose**: Handles decryption of credentials from URL parameters. Used to
+  support auto-login via encrypted URL parameters.
+- `retrieveAndDecryptCredentials(hashParams, uuid)`: Retrieves and decrypts
+  credentials from URL hash parameters.
 
 ### 6.2. POW Captcha (`POWcaptcha.mjs`)
 

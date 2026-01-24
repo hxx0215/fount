@@ -942,7 +942,7 @@ export async function login(username, password, deviceId = 'unknown', req) {
 		return { status: 401, success: false, message: 'Invalid username or password', ...response }
 	}
 
-	return await handleFailedLogin()
+	// return await handleFailedLogin()
 
 
 	const authData = user.auth

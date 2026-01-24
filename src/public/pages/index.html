@@ -21,7 +21,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" crossorigin="anonymous"></script>
 	<script type="module" src="/base.mjs"></script>
 	<script type="module">
-		import { redirectToLoginInfo } from './scripts/credentialManager.mjs'
 		import { initTranslations } from './scripts/i18n.mjs'
 		import { getAnyDefaultPart } from './scripts/parts.mjs'
 		import { setTheme } from './scripts/theme.mjs'
@@ -45,7 +44,8 @@
 		getAnyDefaultPart('shells').then(defaultShell => {
 			window.location.href = `/parts/shells:${defaultShell || 'home'}`
 		}).catch(() => {
-			redirectToLoginInfo('/login')
+			// 直接跳转到登录页，不经过外部中间页
+			window.location.href = '/login'
 		})
 	</script>
 </head>

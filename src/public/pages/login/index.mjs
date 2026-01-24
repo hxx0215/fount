@@ -1,4 +1,4 @@
-import { retrieveAndDecryptCredentials, redirectToLoginInfo } from '../scripts/credentialManager.mjs'
+import { retrieveAndDecryptCredentials } from '../scripts/credentialManager.mjs'
 import { ping, generateVerificationCode, login, register } from '../scripts/endpoints.mjs'
 import { initTranslations, console, savePreferredLangs, onLanguageChange } from '../scripts/i18n.mjs'
 import { getAnyDefaultPart } from '../scripts/parts.mjs'
@@ -202,7 +202,8 @@ async function handleFormSubmit(event) {
 				else
 					finalRedirectUrl = `/parts/shells:${defaultShell}`
 
-				redirectToLoginInfo(finalRedirectUrl + window.location.hash, username, password)
+				// 直接重定向到目标页面
+				window.location.href = finalRedirectUrl
 			}
 			else toggleForm() // 注册成功后自动切换到登录表单
 		else
@@ -258,10 +259,8 @@ async function initializeApp() {
 	try {
 		const hashParams = new URLSearchParams(window.location.hash.substring(1))
 		const uuid = await ping().then(res => res.uuid)
-		const from = hashParams.get('from')
-		const fileId = hashParams.get('fileId')
 
-		const plaintextCredentials = await retrieveAndDecryptCredentials(fileId, from, hashParams, uuid)
+		const plaintextCredentials = await retrieveAndDecryptCredentials(hashParams, uuid)
 
 		if (plaintextCredentials) {
 			const { username, password } = JSON.parse(plaintextCredentials)
@@ -282,8 +281,6 @@ async function initializeApp() {
 	finally {
 		const hashParams = new URLSearchParams(window.location.hash.substring(1))
 		hashParams.delete('uuid')
-		hashParams.delete('from')
-		hashParams.delete('fileId')
 		hashParams.delete('encrypted_creds')
 		window.location.hash = hashParams.toString()
 	}
