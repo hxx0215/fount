@@ -1,6 +1,6 @@
 import { mkdir, rm } from 'node:fs/promises'
 
-import { exec } from 'npm:@steve02081504/exec'
+import { exec } from '../../../../vendor/exec.mjs'
 
 /**
  * 克隆 Git 仓库。

@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import process from 'node:process'
 
-import { where_command } from 'npm:@steve02081504/exec'
+import { where_command } from '../../../../../vendor/exec.mjs'
 import ffmpeg from 'npm:fluent-ffmpeg'
 import * as mime from 'npm:mime-types'
 import { isText } from 'npm:istextorbinary'

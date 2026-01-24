@@ -1,4 +1,4 @@
-import { exec } from 'npm:@steve02081504/exec'
+import { exec } from '../vendor/exec.mjs'
 
 import { __dirname } from '../server/base.mjs'
 

@@ -1,6 +1,6 @@
 import process from 'node:process'
 
-import { where_command } from 'npm:@steve02081504/exec'
+import { where_command } from '../vendor/exec.mjs'
 import notifier from 'npm:node-notifier'
 
 import { __dirname } from '../server/base.mjs'

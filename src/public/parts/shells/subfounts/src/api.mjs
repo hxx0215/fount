@@ -124,7 +124,7 @@ class LocalSubfountExecutor extends SubfountExecutor {
 	 * @returns {Promise<any>} - 执行结果。
 	 */
 	async executeShell(command, shell = null, options = {}) {
-		const { exec, shell_exec_map } = await import('npm:@steve02081504/exec')
+		const { exec, shell_exec_map } = await import('../../../../../vendor/exec.mjs')
 
 		// 确定要使用的 exec 函数
 		if (shell) {

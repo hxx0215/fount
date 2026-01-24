@@ -127,7 +127,7 @@ export async function setEndpoints(router) {
 		// 获取主机 (subfount 0) 的 shell 可用性
 		let hostShells = null
 		try {
-			const { available } = await import('npm:@steve02081504/exec')
+			const { available } = await import('../../../../../vendor/exec.mjs')
 			hostShells = {
 				pwsh: available.pwsh,
 				powershell: available.powershell,

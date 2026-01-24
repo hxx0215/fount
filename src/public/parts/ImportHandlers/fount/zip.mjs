@@ -3,7 +3,7 @@ import { writeFile, mkdir, readdir, stat, readFile, rm } from 'node:fs/promises'
 import os, { tmpdir } from 'node:os'
 import path from 'node:path'
 
-import { where_command } from 'npm:@steve02081504/exec'
+import { where_command } from '../../../../vendor/exec.mjs'
 import jszip from 'npm:jszip'
 import seven from 'npm:node-7z'
 

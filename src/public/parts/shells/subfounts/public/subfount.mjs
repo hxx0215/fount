@@ -250,7 +250,7 @@ async function collectDeviceInfo() {
 
 	// 收集 shell 可用性信息
 	deviceInfo.shells = await safeCollect('shell availability', async () => {
-		const { available } = await import('npm:@steve02081504/exec')
+		const { available } = await import('../../../../../vendor/exec.mjs')
 		return available
 	})
 
@@ -335,7 +335,7 @@ async function handleShellExec(message, peerId) {
 
 	try {
 		// 从 @steve02081504/exec 导入 exec 函数
-		const { exec, shell_exec_map } = await import('npm:@steve02081504/exec')
+		const { exec, shell_exec_map } = await import('../../../../../vendor/exec.mjs')
 
 		// 确定要使用的 exec 函数
 		if (shell) {

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import process from 'node:process'
 
-import { exec } from 'npm:@steve02081504/exec'
+import { exec } from '../vendor/exec.mjs'
 import { console as baseConsole } from '../vendor/VirtualConsole.mjs'
 
 import { __dirname } from '../server/base.mjs'
