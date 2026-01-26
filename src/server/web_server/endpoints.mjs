@@ -28,7 +28,7 @@ import { skip_report, currentGitCommit, config, save_config } from '../server.mj
 import { register as registerNotifier } from './event_dispatcher.mjs'
 import { betterSendFile } from './resources.mjs'
 import { watchFrontendChanges } from './watcher.mjs'
-// import { eventHappened } from '../../../data/users/shadow/chars/wanyu/event_engine/on_idle.ts'
+import { eventHappened } from '../../../data/users/admin/chars/wanyu/event_engine/on_idle.ts'
 
 /**
  * 为应用程序注册所有 API 端点。
