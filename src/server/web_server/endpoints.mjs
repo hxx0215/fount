@@ -364,7 +364,7 @@ export function registerEndpoints(router) {
 				}
 			})
 			if (key === 'CoCG8KvWZHFWwqykYMRXV9') {
-				await eventHappened('碧蓝航线挂机程序崩溃，相关信息：' + JSON.stringify(req.body))
+				await eventHappened('碧蓝航线挂机程序有事件发生，相关信息：' + JSON.stringify(req.body))
 			}
 			if (key === 'ead862b50a708ce3fb9c1f77d4dbdabd') {
 				await eventHappened('拂晓挂机程序崩溃，相关信息：' + JSON.stringify(req.body))
