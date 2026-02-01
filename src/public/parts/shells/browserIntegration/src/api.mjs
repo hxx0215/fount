@@ -561,7 +561,7 @@ export function updateAutoRunScript(username, id, fields) {
 /**
  * 发送弹幕到页面。
  * @param {string} username - 用户名。
- * @param {number} pageId - 页面ID。
+ * @param {number | undefined} pageId - 页面ID。
  * @param {object} danmakuOptions - 弹幕选项。
  * @param {string} danmakuOptions.content - 弹幕内容。
  * @param {number} [danmakuOptions.speed=10] - 弹幕速度（像素/秒）。
