@@ -16,6 +16,7 @@ import { margeStructPromptChatLog, structPromptToSingleNoChatLog } from '../../.
 
 import info_dynamic from './info.dynamic.json' with { type: 'json' }
 import info from './info.json' with { type: 'json' }
+import { compressImage } from "./helper.ts";
 /** @typedef {import('../../../../../decl/AIsource.ts').AIsource_t} AIsource_t */
 /** @typedef {import('../../../../../decl/prompt_struct.ts').prompt_struct_t} prompt_struct_t */
 
@@ -423,7 +424,7 @@ system:
 							}
 
 							// 如果仍然不支持，尝试使用 ffmpeg 转换
-							if (!supportedFileTypes.includes(mime_type)) {
+							if (!supportedFileTypes.includes(mime_type) && !isText(null, file.buffer)) {
 							// 设置 ffmpeg 路径，在系统中找不到则使用 npm 安装的 ffmpeg
 								ffmpeg.setFfmpegPath(await where_command('ffmpeg').catch(() => 0) || await import('npm:@ffmpeg-installer/ffmpeg').then(m => m.default.path))
 
@@ -530,7 +531,18 @@ system:
 
 								if (fileTokenCost > tokenLimitForFile) {
 									console.warn(`File '${file.name}' is too large (${fileTokenCost} tokens), exceeds 90% of limit (${tokenLimitForFile}). Replacing with text notice.`)
-									return { text: `[System_Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
+									return compressImage(bufferToUpload,mime_type,async (buffer)=>{
+										const filePartForCounting = createPartFromBase64(buffer.toString('base64'), mime_type)
+										const countResponse = await ai.models.countTokens({
+											model: config.model,
+											contents: [{ role: 'user', parts: [filePartForCounting] }]
+										})
+										const fileTokenCost = countResponse.totalTokens
+										const tokenLimitForFile = config.max_input_tokens * 0.9
+										console.log('compressed file token is ', fileTokenCost, ' max is:', tokenLimitForFile)
+										return fileTokenCost < tokenLimitForFile 
+									})
+									// return { text: `[System_Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
 								}
 							} catch (error) {
 								console.error(`Failed to count tokens for file ${file.name} for prompt:`, error)
@@ -546,7 +558,6 @@ system:
 							catch (error) {
 								// console.error(`Failed to process file ${file.name} for prompt:`, error)
 								if (mime_type.includes('text') || isText(null, file.buffer)) {
-									console.log('file is text send it direct')
 									return { text: `[System : the file '${file.name}' content is ${file.buffer.toString('utf-8')}.]` }
 								}
 								const base64 = createPartFromBase64(bufferToUpload.toString('base64'), mime_type)
