@@ -15,7 +15,7 @@ import { in_docker, in_termux } from './env.mjs'
  * @returns {Promise<any>} 一个解析为通知程序响应的承诺。
  */
 export async function notify(title, message, options = {}) {
-	console.warn('no notify tools!!!!!')
+	console.trace('no notify tools!!!!!')
 	return
 	if (in_docker || in_termux) return console.log(`[Notify] ${title}\n${message}`)
 	// if linux, check notify-send for notifier workability
