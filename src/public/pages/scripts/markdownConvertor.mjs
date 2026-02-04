@@ -747,7 +747,7 @@ navigator.clipboard.writeText(decodeURIComponent('\${encoded}')).then(() => {
  */
 function rehypeCacheRead() {
 	return (tree, file) => {
-		const cache = file.data.cache
+		const { cache } = file.data
 		if (!cache) return
 
 		visit(tree, 'element', (node, index, parent) => {
@@ -832,7 +832,7 @@ function rehypeCacheRead() {
  */
 function rehypeCacheWrite() {
 	return (tree, file) => {
-		const cache = file.data.cache
+		const { cache } = file.data
 		if (!cache) return
 
 		visit(tree, 'element', (node, index, parent) => {

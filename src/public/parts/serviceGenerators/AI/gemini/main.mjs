@@ -454,7 +454,7 @@ system:
 								if (targetMimeType && supportedFileTypes.includes(targetMimeType)) {
 									let tempDir = null
 									try {
-									// 创建临时目录
+										// 创建临时目录
 										tempDir = fs.mkdtempSync(path.join(tmpdir(), 'fount-gemini-convert-'))
 										const inputPath = path.join(tempDir, file.name)
 										const outputPath = path.join(tempDir, `converted_${file.name.replace(/\.[^.]+$/, '')}.${mime.extension(targetMimeType) || (type === 'audio' ? 'wav' : 'mp4')}`)
@@ -509,7 +509,7 @@ system:
 												console.error(`Failed to cleanup temp directory ${tempDir}:`, cleanupError)
 											}
 
-									// 转换失败，继续使用原始 mime_type，后续会返回错误消息
+										// 转换失败，继续使用原始 mime_type，后续会返回错误消息
 									}
 								}
 							}
@@ -565,7 +565,7 @@ system:
 								// return { text: `[System_Error: can't show you about file '${file.name}' because ${error}, but you may be able to access it by using code tools if you have.]` }
 							}
 						} catch (error) {
-						// Catch-all for any other errors during file processing to prevent crash
+							// Catch-all for any other errors during file processing to prevent crash
 							console.error(`Unexpected error processing file ${file?.name}:`, error)
 							return { text: `[System_Error: can't show you about file '${file?.name || 'unknown'}' because an unexpected error occurred: ${error.message || error}, but you may be able to access it by using code tools if you have.]` }
 						}
@@ -633,7 +633,7 @@ ${is_ImageGeneration
 				const prefixMessages = [...baseMessages]
 				const suffixMessages = [...pauseDeclareMessages]
 				if (system_prompt)
-				// 根据注入深度决定 system_prompt 是前缀还是后缀
+					// 根据注入深度决定 system_prompt 是前缀还是后缀
 					if (config.system_prompt_at_depth && config.system_prompt_at_depth < chatHistory.length)
 						suffixMessages.push(systemPromptMessage)
 					else
@@ -648,12 +648,12 @@ ${is_ImageGeneration
 				let finalMessages
 
 				if (totalEstimatedTokens < tokenLimit * 0.9) {
-				// 快速路径：估算值远低于上限，无需API检查和截断
+					// 快速路径：估算值远低于上限，无需API检查和截断
 					const tempHistory = [...chatHistory]
 					if (system_prompt) {
 						const insertIndex = config.system_prompt_at_depth
-						? Math.max(tempHistory.length - config.system_prompt_at_depth, 0)
-						: 0
+							? Math.max(tempHistory.length - config.system_prompt_at_depth, 0)
+							: 0
 						tempHistory.splice(insertIndex, 0, systemPromptMessage)
 					}
 					finalMessages = [...baseMessages, ...tempHistory, ...pauseDeclareMessages]
@@ -674,8 +674,8 @@ ${is_ImageGeneration
 					const tempHistoryForSystemPrompt = [...historyForProcessing]
 					if (system_prompt) {
 						const insertIndex = config.system_prompt_at_depth
-						? Math.max(tempHistoryForSystemPrompt.length - config.system_prompt_at_depth, 0)
-						: 0
+							? Math.max(tempHistoryForSystemPrompt.length - config.system_prompt_at_depth, 0)
+							: 0
 						tempHistoryForSystemPrompt.splice(insertIndex, 0, systemPromptMessage)
 					}
 
@@ -689,14 +689,14 @@ ${is_ImageGeneration
 							tokenLimit,
 							historyForProcessing,
 							baseMessages,
-						system_prompt ? [...pauseDeclareMessages, systemPromptMessage] : pauseDeclareMessages
+							system_prompt ? [...pauseDeclareMessages, systemPromptMessage] : pauseDeclareMessages
 						)
 
 						const finalHistory = [...truncatedHistory]
 						if (system_prompt) {
 							const insertIndex = config.system_prompt_at_depth
-							? Math.max(finalHistory.length - config.system_prompt_at_depth, 0)
-							: 0
+								? Math.max(finalHistory.length - config.system_prompt_at_depth, 0)
+								: 0
 							finalHistory.splice(insertIndex, 0, systemPromptMessage)
 						}
 						finalMessages = [...baseMessages, ...finalHistory, ...pauseDeclareMessages]
