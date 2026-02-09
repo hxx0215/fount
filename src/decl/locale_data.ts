@@ -30,6 +30,7 @@ export type LocaleData = {
 		}
 		jobs: {
 			restartingJob: string
+			pausingJob: string
 			preloadingParts: string
 		}
 		ipc: {
@@ -102,6 +103,10 @@ export type LocaleData = {
 					tooltip: string
 				}
 				exit: {
+					title: string
+					tooltip: string
+				}
+				clearTerminalScreen: {
 					title: string
 					tooltip: string
 				}
@@ -825,6 +830,7 @@ export type LocaleData = {
 				success: string
 			}
 			commonToolCalling: string
+			noReplyContent: string
 		}
 		messageEdit: {
 			input: {
@@ -1105,6 +1111,9 @@ export type LocaleData = {
 		title: string
 		description: string
 		tabs: {
+			tabsLabel: {
+				'aria-label': string
+			}
 			fileImport: string
 			textImport: string
 		}
@@ -2140,6 +2149,48 @@ export type LocaleData = {
 			}
 		}
 	}
+	ide_integration: {
+		description: string
+		title: string
+		heading: string
+		instruction: string
+		supportedEditorsTitle: string
+		supportedEditorsIntro: string
+		supportedEditorsLoading: string
+		supportedEditorsError: string
+		acpTitle: string
+		acpDesc: string
+		acpCharLabel: string
+		acpCharPlaceholder: string
+		charListError: string
+		acpScriptLabel: string
+		acpConfigPlaceholder: string
+		acpConfigSample: string
+		acpConfigHint: string
+		copyButton: string
+		copied: string
+		apiKeySectionTitle: string
+		apiKeyHint: string
+		generateApiKeyButton: string
+		apiKeyCopied: string
+		apiKeyCreateError: string
+		apiKeyInput: {
+			'aria-label': string
+		}
+		home_function_buttons: {
+			integration_related: string
+			ide_integration_config: {
+				title: string
+			}
+		}
+		achievements: {
+			first_ide_use: {
+				name: string
+				description: string
+				locked_description: string
+			}
+		}
+	}
 	achievements: {
 		title: string
 		description: string
@@ -2230,6 +2281,15 @@ export type LocaleData = {
 		description: string
 		pageNotFoundText: string
 		homepageButton: string
+	}
+	directoryListing: {
+		title: string
+		description: string
+		indexOf: string
+		name: string
+		mimeType: string
+		size: string
+		parentLink: string
 	}
 	code_block: {
 		copy: {
@@ -2387,6 +2447,7 @@ export type LocaleKeyParams = {
 	'deskpet.toasts.started': { charname: string | number }
 	'deskpet.toasts.stop_failed': { charname: string | number; message: string | number }
 	'deskpet.toasts.stopped': { charname: string | number }
+	'directoryListing.indexOf': { path: string | number }
 	'discord_bots.alerts.botExists': { botname: string | number }
 	'easynew.alerts.error': { message: string | number }
 	'easynew.alerts.success': { partName: string | number }
@@ -2404,6 +2465,7 @@ export type LocaleKeyParams = {
 	'fountConsole.ipc.runPartLog': { args: string | number; partpath: string | number; username: string | number }
 	'fountConsole.ipc.sendCommandFailed': { error: string | number }
 	'fountConsole.ipc.socketError': { error: string | number }
+	'fountConsole.jobs.pausingJob': { partpath: string | number; uid: string | number; username: string | number }
 	'fountConsole.jobs.preloadingParts': { count: string | number }
 	'fountConsole.jobs.restartingJob': { partpath: string | number; uid: string | number; username: string | number }
 	'fountConsole.partManager.git.noUpstream': { currentBranch: string | number }
@@ -2439,6 +2501,8 @@ export type LocaleKeyParams = {
 	'fountConsole.web.requestReceived': { method: string | number; url: string | number }
 	'home.dragAndDrop.dropError': { error: string | number }
 	'home.emptyList.message': { discordLink: string | number; newpartLink: string | number }
+	'ide_integration.apiKeyCreateError': { message: string | number }
+	'ide_integration.supportedEditorsError': { message: string | number }
 	'import.alerts.importFailed': { error: string | number }
 	'import.errors.fileImportFailed': { message: string | number }
 	'import.errors.textImportFailed': { message: string | number }

@@ -23,6 +23,7 @@
 		},
 		"jobs": {
 			"restartingJob": "Riavvio dell'attività ${partpath} per l'utente ${username}: ${uid}",
+			"pausingJob": "Attività ${partpath} in pausa per l'utente ${username}: ${uid}",
 			"preloadingParts": "Precaricamento di ${count} parti"
 		},
 		"ipc": {
@@ -97,6 +98,10 @@
 				"exit": {
 					"title": "Esci",
 					"tooltip": "Esci dall'applicazione"
+				},
+				"clearTerminalScreen": {
+					"title": "Cancella lo schermo del terminale",
+					"tooltip": "Cancella lo schermo del terminale"
 				}
 			}
 		},
@@ -835,7 +840,8 @@
 				"uploading": "Creazione collegamento...",
 				"success": "Condivisione riuscita! Link copiato negli appunti. <br>Questa funzionalità è supportata da ${provider}. <br>[Sostienili. ](${sponsorLink})"
 			},
-			"commonToolCalling": "Esecuzione strumento"
+			"commonToolCalling": "Esecuzione strumento",
+			"noReplyContent": "(Nessun contenuto della risposta)"
 		},
 		"messageEdit": {
 			"input": {
@@ -1116,6 +1122,9 @@
 		"title": "Importa",
 		"description": "Porta i tuoi amati personaggi, mondi e configurazioni nell'abbraccio di fount. Che si tratti di un file o di un testo incollato, è qui che i nuovi elementi si intrecciano nel tuo arazzo personale.",
 		"tabs": {
+			"tabsLabel": {
+				"aria-label": "Selezione del tipo di importazione"
+			},
 			"fileImport": "Importa file",
 			"textImport": "Importa testo"
 		},
@@ -2151,6 +2160,48 @@
 			}
 		}
 	},
+	"ide_integration": {
+		"description": "Connetti il ruolo fount agli editor supportati (come Zed, JetBrains, Neovim) tramite il protocollo Agent Client, configura chiavi e ruoli API e coinvolgi i partner AI nel flusso di lavoro di sviluppo.",
+		"title": "Integrazione dell'IDE",
+		"heading": "Integrazione dell'IDE",
+		"instruction": "Utilizzare i ruoli fount per assistere nella programmazione negli editor abilitati ACP (come Zed, JetBrains, Neovim, ecc.).",
+		"supportedEditorsTitle": "Editor e clienti supportati",
+		"supportedEditorsIntro": "I seguenti client funzionano con fount:",
+		"supportedEditorsLoading": "caricamento…",
+		"supportedEditorsError": "Impossibile caricare l'elenco: ${message}",
+		"acpTitle": "Configura lo script ACP fount",
+		"acpDesc": "Fare riferimento al seguente esempio per configurare lo script ACP fount:",
+		"acpCharLabel": "Ruolo",
+		"acpCharPlaceholder": "Seleziona ruolo",
+		"charListError": "Impossibile ottenere l'elenco dei ruoli",
+		"acpScriptLabel": "URL dello script ACP",
+		"acpConfigPlaceholder": "Seleziona prima un ruolo e genera una chiave API",
+		"acpConfigSample": "Esempio di configurazione:",
+		"acpConfigHint": "L'ID del ruolo viene visualizzato nel menu a discesa dei ruoli in questa pagina e la chiave API può essere gestita nelle impostazioni dell'utente.",
+		"copyButton": "copia",
+		"copied": "Copiato negli appunti",
+		"apiKeySectionTitle": "Chiave API",
+		"apiKeyHint": "Utilizzato per la fonte di connessione dello script ACP (lo stesso set di chiavi del proxy API, può essere creato nelle impostazioni dell'utente).",
+		"generateApiKeyButton": "Genera nuova chiave",
+		"apiKeyCopied": "Chiave API copiata",
+		"apiKeyCreateError": "Impossibile creare la chiave API: ${message}",
+		"apiKeyInput": {
+			"aria-label": "Chiave API"
+		},
+		"home_function_buttons": {
+			"integration_related": "Relativo all'integrazione",
+			"ide_integration_config": {
+				"title": "Configurazione dell'integrazione IDE"
+			}
+		},
+		"achievements": {
+			"first_ide_use": {
+				"name": "Prima volta che utilizzo il fount in un IDE esterno",
+				"description": "Per la prima volta, utilizza i ruoli fount per assistere nella programmazione negli editor abilitati ACP come Zed, JetBrains, Neovim e altri.",
+				"locked_description": "Connettersi al ruolo fount in un IDE esterno e completare una sessione."
+			}
+		}
+	},
 	"achievements": {
 		"title": "Risultato",
 		"description": "Esplora le tappe fondamentali e i risultati del tuo viaggio con font. Ogni risultato segna un passo nella tua narrativa unica.",
@@ -2241,6 +2292,15 @@
 		"description": "Il percorso che cercavi si è dissolto nella nebbia. È stato un passo falso, una svolta dimenticata? Permettici di riportarti a riva o, magari, di fermarti per un gioco nel vuoto silenzioso.",
 		"pageNotFoundText": "Ops! Sembra che tu sia finito in una pagina inesistente.",
 		"homepageButton": "Torna alla Homepage"
+	},
+	"directoryListing": {
+		"title": "Indice della directory",
+		"description": "Sfoglia ed esplora i file e le cartelle nell'area di lavoro di fount.",
+		"indexOf": "Indice: ${path}",
+		"name": "nome",
+		"mimeType": "Tipo MIME",
+		"size": "Dimensione",
+		"parentLink": "↑ Livello precedente ../"
 	},
 	"code_block": {
 		"copy": {

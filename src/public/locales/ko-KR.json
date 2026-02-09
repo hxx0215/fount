@@ -23,6 +23,7 @@
 		},
 		"jobs": {
 			"restartingJob": "${username} 사용자에 대한 ${partpath} 작업 다시 시작: ${uid}",
+			"pausingJob": "${username} 사용자에 대한 ${partpath} 작업 일시 중지: ${uid}",
 			"preloadingParts": "${count}개 부품 사전 로드 중"
 		},
 		"ipc": {
@@ -97,6 +98,10 @@
 				"exit": {
 					"title": "종료",
 					"tooltip": "애플리케이션 종료"
+				},
+				"clearTerminalScreen": {
+					"title": "터미널 화면 지우기",
+					"tooltip": "터미널 화면 지우기"
 				}
 			}
 		},
@@ -503,7 +508,7 @@
 				"subtitle": "영혼을 만나 대화를 시작해 보세요.",
 				"card": {
 					"defaultCheckbox": {
-						"title": "기본 역할로 설정"
+						"title": "fount 역할로 설정"
 					}
 				}
 			},
@@ -835,7 +840,8 @@
 				"uploading": "링크 생성 중...",
 				"success": "공유 완료! 링크가 클립보드에 복사되었습니다. <br>이 기능은 ${provider}에서 지원합니다. <br>[후원하기.](${sponsorLink})"
 			},
-			"commonToolCalling": "도구 호출 중"
+			"commonToolCalling": "도구 호출 중",
+			"noReplyContent": "(답장 내용 없음)"
 		},
 		"messageEdit": {
 			"input": {
@@ -1116,6 +1122,9 @@
 		"title": "가져오기",
 		"description": "소중한 캐릭터, 세계, 구성을 샘의 품에 안겨주세요. 파일이든 붙여넣은 텍스트이든 여기에서 새로운 요소가 개인 태피스트리에 짜여집니다.",
 		"tabs": {
+			"tabsLabel": {
+				"aria-label": "가져오기 유형 선택"
+			},
 			"fileImport": "파일 가져오기",
 			"textImport": "텍스트 가져오기"
 		},
@@ -2151,6 +2160,48 @@
 			}
 		}
 	},
+	"ide_integration": {
+		"description": "에이전트 클라이언트 프로토콜을 통해 지원되는 편집기(예: Zed, JetBrains, Neovim)에 fount 역할을 연결하고, API 키 및 역할을 구성하고, AI 파트너를 개발 워크플로우에 참여시킵니다.",
+		"title": "IDE 통합",
+		"heading": "IDE 통합",
+		"instruction": "ACP 지원 편집기(예: Zed, JetBrains, Neovim 등)에서 fount 역할을 사용하여 프로그래밍을 지원받으세요.",
+		"supportedEditorsTitle": "지원되는 편집자 및 클라이언트",
+		"supportedEditorsIntro": "다음 클라이언트는 fount를 사용하여 작업합니다.",
+		"supportedEditorsLoading": "로드 중…",
+		"supportedEditorsError": "목록을 로드하지 못했습니다: ${message}",
+		"acpTitle": "fount ACP 스크립트 구성",
+		"acpDesc": "fount ACP 스크립트를 구성하려면 다음 예를 참조하십시오.",
+		"acpCharLabel": "역할",
+		"acpCharPlaceholder": "역할 선택",
+		"charListError": "역할 목록을 가져오지 못했습니다.",
+		"acpScriptLabel": "ACP 스크립트 URL",
+		"acpConfigPlaceholder": "역할을 선택하고 먼저 API 키를 생성하세요.",
+		"acpConfigSample": "구성 예:",
+		"acpConfigHint": "역할 ID는 이 페이지의 역할 드롭다운에 표시되며, API 키는 사용자 설정에서 관리할 수 있습니다.",
+		"copyButton": "복사",
+		"copied": "클립보드에 복사됨",
+		"apiKeySectionTitle": "API 키",
+		"apiKeyHint": "ACP 스크립트 연결 fount에 사용됩니다(API 프록시와 동일한 키 세트, 사용자 설정에서 생성 가능).",
+		"generateApiKeyButton": "새 키 생성",
+		"apiKeyCopied": "API 키가 복사되었습니다.",
+		"apiKeyCreateError": "API 키 생성 실패: ${message}",
+		"apiKeyInput": {
+			"aria-label": "API 키"
+		},
+		"home_function_buttons": {
+			"integration_related": "통합 관련",
+			"ide_integration_config": {
+				"title": "IDE 통합 구성"
+			}
+		},
+		"achievements": {
+			"first_ide_use": {
+				"name": "코드의 샘물을 발견하다",
+				"description": "처음으로 fount 역할을 사용하여 Zed, JetBrains, Neovim 등과 같은 ACP 지원 편집기에서 프로그래밍을 지원합니다.",
+				"locked_description": "외부 IDE에서 원천 역할에 연결하고 세션을 완료합니다."
+			}
+		}
+	},
 	"achievements": {
 		"title": "성취",
 		"description": "샘과 함께하는 여정의 이정표와 성과를 살펴보세요. 각 업적은 고유한 이야기의 한 단계를 나타냅니다.",
@@ -2241,6 +2292,15 @@
 		"description": "당신이 찾던 길은 안개 속으로 사라졌습니다. 실수였나요, 잊혀진 방향이었나요? 우리가 당신을 해안으로 다시 안내해 주거나 아마도 조용한 공허 속에서 게임을 잠시 멈출 수도 있습니다.",
 		"pageNotFoundText": "이런! 존재하지 않는 페이지에 접속한 것 같습니다.",
 		"homepageButton": "홈페이지로 돌아가기"
+	},
+	"directoryListing": {
+		"title": "디렉토리 인덱스",
+		"description": "Fount 작업 공간에서 파일과 폴더를 탐색하고 탐색하세요.",
+		"indexOf": "색인: ${path}",
+		"name": "이름",
+		"mimeType": "MIME 유형",
+		"size": "크기",
+		"parentLink": "↑ 이전 수준 ../"
 	},
 	"code_block": {
 		"copy": {

@@ -23,6 +23,7 @@
 		},
 		"jobs": {
 			"restartingJob": "إعادة تشغيل مهمة ${partpath} للمستخدم ${username}: ${uid}",
+			"pausingJob": "الإيقاف المؤقت لمهمة ${partpath} للمستخدم ${username}: ${uid}",
 			"preloadingParts": "التحميل المسبق لأجزاء ${count}."
 		},
 		"ipc": {
@@ -97,6 +98,10 @@
 				"exit": {
 					"title": "خروج",
 					"tooltip": "الخروج من التطبيق"
+				},
+				"clearTerminalScreen": {
+					"title": "مسح الشاشة الطرفية",
+					"tooltip": "امسح الشاشة الطرفية"
 				}
 			}
 		},
@@ -835,7 +840,8 @@
 				"uploading": "جارٍ إنشاء الرابط...",
 				"success": "تمت المشاركة بنجاح! تم نسخ الرابط إلى الحافظة. <br>هذه الميزة مدعومة من ${provider}. <br>[رعايتهم.](${sponsorLink})"
 			},
-			"commonToolCalling": "جارٍ استدعاء الأداة"
+			"commonToolCalling": "جارٍ استدعاء الأداة",
+			"noReplyContent": "(لا يوجد محتوى الرد)"
 		},
 		"messageEdit": {
 			"input": {
@@ -1116,6 +1122,9 @@
 		"title": "استيراد",
 		"description": "اجلب شخصياتك وعوالمك وتكويناتك العزيزة إلى أحضان fount. سواء كان ذلك من ملف أو نص تم لصقه، فهذا هو المكان الذي يتم فيه نسج عناصر جديدة في نسيجك الشخصي.",
 		"tabs": {
+			"tabsLabel": {
+				"aria-label": "اختيار نوع الاستيراد"
+			},
 			"fileImport": "استيراد ملف",
 			"textImport": "استيراد نص"
 		},
@@ -2151,6 +2160,48 @@
 			}
 		}
 	},
+	"ide_integration": {
+		"description": "قم بتوصيل دور fount بالمحررين المدعومين (مثل Zed وJetBrains وNeovim) من خلال Agent Client Protocol، وقم بتكوين مفاتيح واجهة برمجة التطبيقات وأدوارها، وقم بإحضار شركاء الذكاء الاصطناعي إلى سير عمل التطوير.",
+		"title": "تكامل بيئة تطوير متكاملة",
+		"heading": "تكامل بيئة تطوير متكاملة",
+		"instruction": "استخدم الأدوار الأساسية لمساعدة البرمجة في برامج التحرير التي تدعم ACP (مثل Zed وJetBrains وNeovim وما إلى ذلك).",
+		"supportedEditorsTitle": "المحررين والعملاء المدعومة",
+		"supportedEditorsIntro": "العملاء التاليين يعملون مع fount:",
+		"supportedEditorsLoading": "تحميل…",
+		"supportedEditorsError": "فشل تحميل القائمة: ${message}",
+		"acpTitle": "تكوين البرنامج النصي fount ACP",
+		"acpDesc": "ارجع إلى المثال التالي لتكوين البرنامج النصي ACP الناشئ:",
+		"acpCharLabel": "دور",
+		"acpCharPlaceholder": "حدد الدور",
+		"charListError": "فشل الحصول على قائمة الأدوار",
+		"acpScriptLabel": "عنوان URL للبرنامج النصي لـ ACP",
+		"acpConfigPlaceholder": "الرجاء تحديد دور وإنشاء مفتاح API أولاً",
+		"acpConfigSample": "مثال التكوين:",
+		"acpConfigHint": "يظهر معرف الدور في القائمة المنسدلة للدور في هذه الصفحة، ويمكن إدارة مفتاح واجهة برمجة التطبيقات في إعدادات المستخدم.",
+		"copyButton": "ينسخ",
+		"copied": "تم النسخ إلى الحافظة",
+		"apiKeySectionTitle": "مفتاح واجهة برمجة التطبيقات",
+		"apiKeyHint": "يستخدم لمصدر اتصال البرنامج النصي ACP (يمكن إنشاء نفس مجموعة المفاتيح مثل وكيل API في إعدادات المستخدم).",
+		"generateApiKeyButton": "توليد مفتاح جديد",
+		"apiKeyCopied": "تم نسخ مفتاح API",
+		"apiKeyCreateError": "فشل إنشاء مفتاح واجهة برمجة التطبيقات: ${message}",
+		"apiKeyInput": {
+			"aria-label": "مفتاح واجهة برمجة التطبيقات"
+		},
+		"home_function_buttons": {
+			"integration_related": "المتعلقة بالتكامل",
+			"ide_integration_config": {
+				"title": "تكامل بيئة تطوير متكاملة"
+			}
+		},
+		"achievements": {
+			"first_ide_use": {
+				"name": "أول مرة تستخدم فيها fount في IDE خارجي",
+				"description": "لأول مرة، استخدم الأدوار الأساسية لمساعدة البرمجة في برامج التحرير التي تدعم ACP مثل Zed وJetBrains وNeovim والمزيد.",
+				"locked_description": "اتصل بالدور الناشئ في IDE خارجي وأكمل الجلسة."
+			}
+		}
+	},
 	"achievements": {
 		"title": "إنجاز",
 		"description": "استكشف المعالم والإنجازات في رحلتك مع fount. يمثل كل إنجاز خطوة في سردك الفريد.",
@@ -2241,6 +2292,15 @@
 		"description": "الطريق الذي سعيت إليه قد ذاب في الضباب. هل كانت خطوة خاطئة، أو منعطفًا منسيًا؟ اسمح لنا بإرشادك إلى الشاطئ، أو ربما التوقف للعب لعبة وسط الفراغ الهادئ.",
 		"pageNotFoundText": "عفوًا! يبدو أنك وصلت إلى صفحة غير موجودة.",
 		"homepageButton": "العودة إلى الصفحة الرئيسية"
+	},
+	"directoryListing": {
+		"title": "فهرس الدليل",
+		"description": "تصفح واستكشف الملفات والمجلدات الموجودة في مساحة العمل.",
+		"indexOf": "الفهرس: ${path}",
+		"name": "اسم",
+		"mimeType": "نوع MIME",
+		"size": "الحجم",
+		"parentLink": "↑ المستوى السابق ../"
 	},
 	"code_block": {
 		"copy": {

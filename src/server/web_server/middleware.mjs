@@ -5,6 +5,7 @@ import fileUpload from 'npm:express-fileupload'
 
 import { console } from '../../scripts/i18n.mjs'
 import { auth_request } from '../auth.mjs'
+import { info } from '../info.mjs'
 import { webRequestHappend } from '../server.mjs'
 
 /**
@@ -30,11 +31,6 @@ export function registerMiddleware(router) {
 		if (new Date().getMonth() === 3 && new Date().getDate() === 1)
 			res.setHeader('X-Powered-By', 'Skynet/0.2')
 		else res.setHeader('X-Powered-By', 'PHP/4.2.0')
-		if (!req.path.endsWith('/heartbeat'))
-			console.logI18n('fountConsole.web.requestReceived', {
-				method: req.method + ' '.repeat(Math.max(0, 8 - req.method.length)),
-				url: req.url.replace(/fount-apikey=[^&]*/, 'fount-apikey=45450721')
-			})
 		webRequestHappend()
 		return next()
 	})

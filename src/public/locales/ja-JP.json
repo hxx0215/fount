@@ -23,6 +23,7 @@
 		},
 		"jobs": {
 			"restartingJob": "ユーザー ${username} のタスク ${partpath} を再起動しています: ${uid}",
+			"pausingJob": "ユーザー ${username} の ${partpath} タスクを一時停止しています: ${uid}",
 			"preloadingParts": "${count} 個のパーツをプリロード中"
 		},
 		"ipc": {
@@ -97,6 +98,10 @@
 				"exit": {
 					"title": "終了",
 					"tooltip": "アプリケーションを終了します"
+				},
+				"clearTerminalScreen": {
+					"title": "ターミナルをクリア",
+					"tooltip": "ターミナル画面のクリア"
 				}
 			}
 		},
@@ -503,7 +508,7 @@
 				"subtitle": "魂と出会い、会話を始めましょう。",
 				"card": {
 					"defaultCheckbox": {
-						"title": "デフォルトの役割として設定"
+						"title": "デフォルトのロールとして設定"
 					}
 				}
 			},
@@ -833,9 +838,10 @@
 			},
 			"share": {
 				"uploading": "リンクを作成中...",
-				"success": "共有に成功しました！リンクがクリップボードにコピーされました。<br>この機能は ${provider} によって提供されています。<br>[支援する](${sponsorLink})"
+				"success": "共有に成功しました！リンクがクリップボードにコピーしました。<br>この機能は ${provider} によって提供されています。<br>[支援する](${sponsorLink})"
 			},
-			"commonToolCalling": "ツールを呼び出し中"
+			"commonToolCalling": "ツールを呼び出し中",
+			"noReplyContent": "（返信内容なし）"
 		},
 		"messageEdit": {
 			"input": {
@@ -1116,6 +1122,9 @@
 		"title": "インポート",
 		"description": "あなたの大切なキャラクター、世界、構成をFountに抱かせましょう。ファイルからでも、貼り付けたテキストからでも、ここで新しい要素があなたの個人的なタペストリーに織り込まれます。",
 		"tabs": {
+			"tabsLabel": {
+				"aria-label": "インポートタイプの選択"
+			},
 			"fileImport": "ファイルからインポート",
 			"textImport": "テキストからインポート"
 		},
@@ -1238,7 +1247,7 @@
 			"fetchPartsFailed": "コンポーネントリストの取得に失敗しました。",
 			"loadPartDetailsFailed": "コンポーネント詳細の読み込みに失敗しました: ${message}",
 			"exportFailed": "エクスポートに失敗しました: ${message}",
-			"shareLinkCopied": "共有リンクがクリップボードにコピーされました！",
+			"shareLinkCopied": "共有リンクがクリップボードにコピーしました",
 			"shareFailed": "共有リンクの作成に失敗しました: ${message}"
 		},
 		"achievements": {
@@ -1322,7 +1331,7 @@
 			"copyPathBtnIcon": {
 				"alt": "コピーアイコン"
 			},
-			"copiedAlert": "パスをクリップボードにコピーしました！"
+			"copiedAlert": "パスをクリップボードにコピーしました"
 		},
 		"changePassword": {
 			"title": "パスワード変更",
@@ -1385,7 +1394,7 @@
 			"copyButton": {
 				"title": "新しい API キーをコピーする"
 			},
-			"copiedAlert": "APIキーがクリップボードにコピーされました！"
+			"copiedAlert": "APIキーがクリップボードにコピーしました"
 		},
 		"logout": {
 			"title": "ログアウト",
@@ -1434,8 +1443,8 @@
 			"copyButton": "コピー",
 			"regenerateButton": "再生成",
 			"infoMessage": "これらの資格情報をSubfountクライアントと共有して、接続を確立します。",
-			"connectionCodeCopied": "接続コードがクリップボードにコピーされました",
-			"passwordCopied": "パスワードがクリップボードにコピーされました",
+			"connectionCodeCopied": "接続コードがクリップボードにコピーしました",
+			"passwordCopied": "パスワードがクリップボードにコピーしました",
 			"regenerateSuccess": "接続コードが再生成されました"
 		},
 		"connectedSubfounts": {
@@ -1778,10 +1787,10 @@
 			"placeholder": "ボットを検索..."
 		},
 		"charSelectDropdown": {
-			"placeholder": "役割を選択"
+			"placeholder": "ロールを選択"
 		},
 		"charSearch": {
-			"placeholder": "役割を検索..."
+			"placeholder": "ロールを検索..."
 		},
 		"configCard": {
 			"title": "ボット設定",
@@ -1854,10 +1863,10 @@
 			"placeholder": "ボットを検索..."
 		},
 		"charSelectDropdown": {
-			"placeholder": "役割を選択"
+			"placeholder": "ロールを選択"
 		},
 		"charSearch": {
-			"placeholder": "役割を検索..."
+			"placeholder": "ロールを検索..."
 		},
 		"configCard": {
 			"title": "ボット設定",
@@ -1947,7 +1956,7 @@
 		},
 		"autorun": {
 			"title": "スクリプトを自動的に実行します",
-			"description": "特定のWebサイトと一致するときに自動的に実行されるJavaScriptスニペットを管理します。これらのスクリプトは、閲覧体験を強化または自動化するために、AIの役割またはプラグインによって提供できます。",
+			"description": "特定のWebサイトと一致するときに自動的に実行されるJavaScriptスニペットを管理します。これらのスクリプトは、閲覧体験を強化または自動化するために、AIのロールまたはプラグインによって提供できます。",
 			"form_title": "新しいスクリプトを追加します",
 			"comment_label": "コメント（オプション）",
 			"url_regex_label": "URL正規表現",
@@ -2049,10 +2058,10 @@
 			}
 		},
 		"charSelectDropdown": {
-			"placeholder": "役割を選択してください"
+			"placeholder": "ロールを選択してください"
 		},
 		"charSearch": {
-			"placeholder": "役割を検索..."
+			"placeholder": "ロールを検索..."
 		},
 		"runningCard": {
 			"title": "走っているペット",
@@ -2110,7 +2119,7 @@
 			"aria-label": "URL"
 		},
 		"copyButton": "URLをコピー",
-		"copied": "URLをクリップボードにコピーしました！",
+		"copied": "URLをクリップボードにコピーしました",
 		"home_function_buttons": {
 			"main": {
 				"title": "他のデバイスへのアクセス"
@@ -2130,7 +2139,7 @@
 		"usageExampleTitle": "使用例",
 		"usageExampleInstruction": "`curl`を使用して利用可能なモデルのリストを取得する方法の例です。",
 		"copyButton": "コピー",
-		"copied": "クリップボードにコピーしました",
+		"copied": "クリップボードにコピー完了",
 		"apiKeySectionTitle": "あなたのAPIキー",
 		"apiKey": "あなたのAPIキー：",
 		"noApiKey": "このページのAPIキーはまだ生成されていません。",
@@ -2148,6 +2157,48 @@
 						"title": "プロキシとして"
 					}
 				}
+			}
+		}
+	},
+	"ide_integration": {
+		"description": "エージェント クライアント プロトコルを介してfountロールをサポートされているエディター (Zed、JetBrains、Neovim など) に接続し、API キーとロールを構成して、AI パートナーを開発ワークフローに参加させます。",
+		"title": "IDE連携",
+		"heading": "IDE連携",
+		"instruction": "fountロールを使用して、ACP 対応エディター (Zed、JetBrains、Neovim など) でのプログラミングを支援します。",
+		"supportedEditorsTitle": "サポートされているエディターとクライアント",
+		"supportedEditorsIntro": "以下のクライアントで fount が利用可能です。",
+		"supportedEditorsLoading": "読み込み中…",
+		"supportedEditorsError": "リストの読み込みに失敗しました: ${message}",
+		"acpTitle": "fount ACP スクリプトを構成する",
+		"acpDesc": "fount ACP スクリプトを構成するには、次の例を参照してください。",
+		"acpCharLabel": "ロール",
+		"acpCharPlaceholder": "ロールの選択",
+		"charListError": "ロールリストの取得に失敗しました",
+		"acpScriptLabel": "ACP スクリプトの URL",
+		"acpConfigPlaceholder": "最初にロールを選択し、API キーを生成してください",
+		"acpConfigSample": "構成例:",
+		"acpConfigHint": "ロール ID はこのページのロール ドロップダウンに表示され、API キーはユーザー設定で管理できます。",
+		"copyButton": "コピー",
+		"copied": "クリップボードにコピー完了",
+		"apiKeySectionTitle": "APIキー",
+		"apiKeyHint": "ACP スクリプト接続の fountに使用されます (API プロキシと同じキーのセット。ユーザー設定で作成できます)。",
+		"generateApiKeyButton": "新しいキーを生成する",
+		"apiKeyCopied": "APIキーをクリップボードにコピーしました",
+		"apiKeyCreateError": "API キーの作成に失敗しました: ${message}",
+		"apiKeyInput": {
+			"aria-label": "APIキー"
+		},
+		"home_function_buttons": {
+			"integration_related": "統合関連",
+			"ide_integration_config": {
+				"title": "IDE 連携設定"
+			}
+		},
+		"achievements": {
+			"first_ide_use": {
+				"name": "工欲善其事",
+				"description": "初めて、fount ロールを使用して、Zed、JetBrains、Neovim などの ACP 対応エディターでのプログラミングを支援します。",
+				"locked_description": "外部 IDE で fount ロールに接続し、セッションを完了します。"
 			}
 		}
 	},
@@ -2205,7 +2256,7 @@
 		"loading": "読み込み中...",
 		"checking": "チェック中...",
 		"failed": "エラー",
-		"copySuccess": "デバッグ レポートがクリップボードにコピーされました",
+		"copySuccess": "デバッグ レポートがクリップボードにコピーしました",
 		"copyFailed": "レポートのコピーに失敗しました",
 		"home_function_buttons": {
 			"debug": {
@@ -2242,6 +2293,15 @@
 		"pageNotFoundText": "おっと！存在しないページにアクセスしたようです。",
 		"homepageButton": "ホームページに戻る"
 	},
+	"directoryListing": {
+		"title": "ディレクトリインデックス",
+		"description": "fountワークスペース内のファイルとフォルダーを参照して探索します。",
+		"indexOf": "インデックス: ${path}",
+		"name": "名前",
+		"mimeType": "MIMEタイプ",
+		"size": "サイズ",
+		"parentLink": "↑ 前のレベル ../"
+	},
 	"code_block": {
 		"copy": {
 			"dataset": {
@@ -2251,7 +2311,7 @@
 		},
 		"copied": {
 			"dataset": {
-				"tip": "クリップボードにコピーしました！"
+				"tip": "クリップボードにコピーしました"
 			}
 		},
 		"download": {

@@ -2,11 +2,12 @@ import fs from 'node:fs'
 
 import cors from 'npm:cors'
 
-import { console, getLocaleData, fountLocaleList } from '../../scripts/i18n.mjs'
+import { console, getLocaleDataForUser, fountLocaleList } from '../../scripts/i18n.mjs'
 import { ms } from '../../scripts/ms.mjs'
 import { get_hosturl_in_local_ip, is_local_ip, is_local_ip_from_req, rateLimit } from '../../scripts/ratelimit.mjs'
 import { generateVerificationCode, verifyVerificationCode } from '../../scripts/verifycode.mjs'
 import { login, register, logout, authenticate, getUserByReq, getUserDictionary, getUserByUsername, auth_request, generateApiKey, revokeApiKey, verifyApiKey, setApiCookieResponse, ACCESS_TOKEN_EXPIRY_DURATION, REFRESH_TOKEN_EXPIRY_DURATION, getSecureCookieOptions } from '../auth.mjs'
+import { currentGitCommit } from '../autoupdate.mjs'
 import { __dirname } from '../base.mjs'
 import { processIPCCommand } from '../ipc_server/index.mjs'
 import {
@@ -23,8 +24,9 @@ import {
 	getAllCachedPartDetails,
 	getPartBranches
 } from '../parts_loader.mjs'
-import { skip_report, currentGitCommit, config, save_config } from '../server.mjs'
+import { skip_report, config, save_config } from '../server.mjs'
 
+import { renderDirectoryListingHtml } from './directory_listing.mjs'
 import { register as registerNotifier } from './event_dispatcher.mjs'
 import { betterSendFile } from './resources.mjs'
 import { watchFrontendChanges } from './watcher.mjs'
@@ -120,7 +122,7 @@ export function registerEndpoints(router) {
 			console.error('Error setting language preference for user:', error)
 		}
 
-		return res.status(200).json(await getLocaleData(username, preferredLanguages))
+		return res.status(200).json(await getLocaleDataForUser(username, preferredLanguages))
 	})
 
 	router.get('/api/getavailablelocales', async (req, res) => {
@@ -292,8 +294,14 @@ export function registerEndpoints(router) {
 			if (fs.existsSync(path)) {
 				finalPath = path
 				if (fs.statSync(path).isDirectory())
-					if (req.path.endsWith('/')) finalPath += '/index.html'
-					else return res.redirect(301, req.url.replace(req.path, req.path + '/'))
+					if (req.path.endsWith('/')) {
+						const indexPath = path + '/index.html'
+						if (fs.existsSync(indexPath)) finalPath = indexPath
+						else return res.set('Content-Type', 'text/html; charset=utf-8').send(await renderDirectoryListingHtml(req.path, path))
+					}
+					else
+						return res.redirect(301, req.url.replace(req.path, req.path + '/'))
+
 				watchFrontendChanges(`/parts/${partpath}/`, directory)
 				break
 			}

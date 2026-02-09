@@ -23,6 +23,7 @@
 		},
 		"jobs": {
 			"restartingJob": "Restarting ${partpath} task for user ${username}: ${uid}",
+			"pausingJob": "Pausing ${partpath} task for user ${username}: ${uid}",
 			"preloadingParts": "Preloading ${count} parts"
 		},
 		"ipc": {
@@ -97,6 +98,10 @@
 				"exit": {
 					"title": "Exit",
 					"tooltip": "Exit the application"
+				},
+				"clearTerminalScreen": {
+					"title": "Clear the terminal screen",
+					"tooltip": "Clear the terminal screen"
 				}
 			}
 		},
@@ -835,7 +840,8 @@
 				"uploading": "Creating link...",
 				"success": "Link created successfully! Copied to clipboard. <br>This feature is supported by ${provider}. <br>[Sponsor them.](${sponsorLink})"
 			},
-			"commonToolCalling": "Calling tool"
+			"commonToolCalling": "Calling tool",
+			"noReplyContent": "(No reply content)"
 		},
 		"messageEdit": {
 			"input": {
@@ -1116,6 +1122,9 @@
 		"title": "Import",
 		"description": "Bring your cherished characters, worlds, and configurations into fount's embrace. Whether from file or pasted text, this is where new elements are woven into your personal tapestry.",
 		"tabs": {
+			"tabsLabel": {
+				"aria-label": "Import type selection"
+			},
 			"fileImport": "File Import",
 			"textImport": "Text Import"
 		},
@@ -2151,6 +2160,48 @@
 			}
 		}
 	},
+	"ide_integration": {
+		"description": "Connect the fount role to supported editors (such as Zed, JetBrains, Neovim) through Agent Client Protocol (ACP), configure API keys and roles, and bring AI partners into the development workflow.",
+		"title": "IDE integration",
+		"heading": "IDE integration",
+		"instruction": "Use fount roles to assist programming in ACP-enabled editors (such as Zed, JetBrains, Neovim, etc.).",
+		"supportedEditorsTitle": "Supported editors and clients",
+		"supportedEditorsIntro": "The following clients work with fount:",
+		"supportedEditorsLoading": "Loading…",
+		"supportedEditorsError": "Failed to load list: ${message}",
+		"acpTitle": "Configure fount ACP script",
+		"acpDesc": "Refer to the following example to configure the fount ACP script:",
+		"acpCharLabel": "Role",
+		"acpCharPlaceholder": "Select role",
+		"charListError": "Failed to get role list",
+		"acpScriptLabel": "ACP script URL",
+		"acpConfigPlaceholder": "Please select a role and generate an API key first",
+		"acpConfigSample": "Configuration example:",
+		"acpConfigHint": "The role id is shown in the role drop-down on this page, and the API key can be managed in user settings.",
+		"copyButton": "Copy",
+		"copied": "Copied to clipboard",
+		"apiKeySectionTitle": "API key",
+		"apiKeyHint": "Used for ACP script connection to fount (same set of keys as API proxy, can be created in user settings).",
+		"generateApiKeyButton": "Generate new key",
+		"apiKeyCopied": "API key copied",
+		"apiKeyCreateError": "Failed to create API key: ${message}",
+		"apiKeyInput": {
+			"aria-label": "API key"
+		},
+		"home_function_buttons": {
+			"integration_related": "Integration related",
+			"ide_integration_config": {
+				"title": "IDE integration configuration"
+			}
+		},
+		"achievements": {
+			"first_ide_use": {
+				"name": "Beyond the Sandbox",
+				"description": "For the first time, use fount roles to assist programming in ACP-enabled editors like Zed, JetBrains, Neovim, and more.",
+				"locked_description": "Connect to the fount role in an external IDE and complete a session."
+			}
+		}
+	},
 	"achievements": {
 		"title": "Achievement",
 		"description": "Explore the milestones and accomplishments of your journey with fount. Each achievement marks a step in your unique narrative.",
@@ -2241,6 +2292,15 @@
 		"description": "The path you sought has dissolved into mist. Was it a misstep, a forgotten turn? Allow us to guide you back to shore, or perhaps, pause for a game amidst the quiet void.",
 		"pageNotFoundText": "Oops! It seems you've stumbled upon a page that doesn't exist.",
 		"homepageButton": "Back to Homepage"
+	},
+	"directoryListing": {
+		"title": "Directory Index",
+		"description": "Browse and explore the files and folders in the fount workspace.",
+		"indexOf": "Index: ${path}",
+		"name": "Name",
+		"mimeType": "MIME type",
+		"size": "Size",
+		"parentLink": "↑ Previous level ../"
 	},
 	"code_block": {
 		"copy": {

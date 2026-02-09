@@ -3,13 +3,17 @@
  * 解析命令行参数，配置服务器，并启动初始化过程。
  * 它还通过 IPC 处理向正在运行的服务器实例发送命令。
  */
-import { existsSync } from 'node:fs'
+import fs from 'node:fs'
 import process from 'node:process'
 
 import { console } from '../scripts/i18n.mjs'
 
+import { enableAutoUpdate, disableAutoUpdate } from './autoupdate.mjs'
 import { __dirname, set_start } from './base.mjs'
+import { IdleManager } from './idle.mjs'
+import { PauseAllJobs, ReStartJobs } from './jobs.mjs'
 import { init } from './server.mjs'
+import { startTimerHeartbeat, stopTimerHeartbeat } from './timers.mjs'
 
 set_start()
 
@@ -31,13 +35,29 @@ const fount_config = {
 	needs_output: process.stdout.writable && process.stdout.isTTY,
 	starts: {
 		Base: {
-			Jobs: !existsSync(__dirname + '/.nojobs'),
-			Timers: !existsSync(__dirname + '/.notimers'),
-			Idle: !existsSync(__dirname + '/.noidle'),
-			AutoUpdate: !existsSync(__dirname + '/.noupdate'),
+			Jobs: !fs.existsSync(__dirname + '/.nojobs'),
+			Timers: !fs.existsSync(__dirname + '/.notimers'),
+			Idle: !fs.existsSync(__dirname + '/.noidle'),
+			AutoUpdate: !fs.existsSync(__dirname + '/.noupdate'),
 		}
 	}
 }
+
+fs.watch(__dirname, (event, filename) => {
+	if (filename == '.noerrorreport') set_sentry_enabled(!fs.existsSync(__dirname + '/.noerrorreport'))
+	if (filename == '.nojobs')
+		if (fs.existsSync(__dirname + '/.nojobs')) PauseAllJobs().catch(console.error)
+		else ReStartJobs().catch(console.error)
+	if (filename == '.notimers')
+		if (fs.existsSync(__dirname + '/.notimers')) stopTimerHeartbeat()
+		else startTimerHeartbeat()
+	if (filename == '.noidle')
+		if (fs.existsSync(__dirname + '/.noidle')) IdleManager.stop()
+		else IdleManager.start()
+	if (filename == '.noupdate')
+		if (fs.existsSync(__dirname + '/.noupdate')) disableAutoUpdate()
+		else enableAutoUpdate()
+})
 
 let command_obj
 

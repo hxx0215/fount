@@ -1,5 +1,6 @@
 import fs from 'node:fs'
-import path_module from 'node:path'
+import path from 'node:path'
+import { setTimeout } from 'node:timers'
 import url from 'node:url'
 
 import { FullProxy } from 'npm:full-proxy'
@@ -12,7 +13,7 @@ import { getLocalizedInfo } from '../scripts/locale.mjs'
 import { nicerWriteFileSync } from '../scripts/nicerWriteFile.mjs'
 import { doProfile } from '../scripts/profiler.mjs'
 
-import { getUserByUsername, getUserDictionary } from './auth.mjs'
+import { getAllUsers, getUserByUsername, getUserDictionary } from './auth.mjs'
 import { __dirname } from './base.mjs'
 import { events } from './events.mjs'
 import { restartor, save_config, setDefaultStuff, skip_report } from './server.mjs'
@@ -187,13 +188,12 @@ function walkFountJsonFiles(rootPath) {
 		} catch { continue }
 
 		for (const dirent of dirents) {
-			const fullPath = path_module.join(current, dirent.name)
+			const fullPath = path.join(current, dirent.name)
 			if (dirent.isDirectory())
 				stack.push(fullPath)
 
 			else if (dirent.isFile() && dirent.name === 'fount.json')
 				files.push(fullPath)
-
 		}
 	}
 
@@ -240,7 +240,7 @@ function mergeFountJsonIntoBranches(branches, filePath) {
 function buildPartBranches(username) {
 	const branches = {}
 	const roots = [
-		path_module.join(__dirname, 'src/public/parts'),
+		path.join(__dirname, 'src/public/parts'),
 		getUserDictionary(username),
 	]
 
@@ -341,8 +341,8 @@ export async function loadPart(username, partpath, Initargs, functions) {
 	if (!fs.existsSync(GetPartPath(username, partpath) + '/main.mjs')) debugger
 
 	// 支持层级化加载
-	const parentPath = path_module.dirname(partpath)
-	const partname = path_module.basename(partpath)
+	const parentPath = path.dirname(partpath)
+	const partname = path.basename(partpath)
 	if (parentPath !== '.' && parentPath !== '/')
 		try {
 			if (fs.existsSync(GetPartPath(username, parentPath) + '/main.mjs')) {
@@ -381,8 +381,8 @@ export const getPartList = getPartListBase
  */
 export async function unloadPart(username, partpath, unLoadargs, options) {
 	// 尝试委托给父部件
-	const parentPath = path_module.dirname(partpath)
-	const partname = path_module.basename(partpath)
+	const parentPath = path.dirname(partpath)
+	const partname = path.basename(partpath)
 	if (parentPath !== '.' && parentPath !== '/')
 		try {
 			if (isPartLoaded(username, parentPath)) {
@@ -419,7 +419,7 @@ export function getLoadedPartList(username, partpath) {
  * @returns {Promise<any>} 一个解析为重新加载的部件实例的承诺。
  */
 export async function reloadPart(username, partpath) {
-	setTimeout(restartor, 1000) // 我们将重新启动整个服务器，因为 deno 不支持单个 js 文件的热重载
+	setTimeout(restartor, 1000).unref() // 我们将重新启动整个服务器，因为 deno 不支持单个 js 文件的热重载
 	/*
 	await unloadPartBase(username, partpath)
 	return await loadPartBase(username, partpath)
@@ -508,6 +508,25 @@ export async function baseloadPart(username, partpath, {
 		saveData(username, 'parts_details_cache')
 		throw e
 	})
+}
+/**
+ * 浅加载所有的默认部件，以此实现默认部件的快速启动
+ * @param {object | string} user - 用户对象或用户名。
+ * @returns {Promise<void>}
+ */
+async function shallowLoadDefaultPartsForUser(user) {
+	if (Object(user) instanceof String) user = getUserByUsername(user)
+	const defaultParts = user.defaultParts ??= {}
+	for (const parent in defaultParts)
+		for (const child of defaultParts[parent] ?? [])
+			await baseloadPart(user.username, parent + '/' + child).catch(_ => 0)
+}
+/**
+ * 浅加载所有用户的默认部件，以此实现默认部件的快速启动
+ * @returns {Promise<void>}
+ */
+export async function shallowLoadAllDefaultParts() {
+	for (const user of Object.values(getAllUsers())) await shallowLoadDefaultPartsForUser(user)
 }
 
 /**
@@ -792,8 +811,8 @@ export async function uninstallPartBase(username, partpath, unLoadargs, uninstal
 	parts_set[username] ??= {}
 	/** @type {T | undefined} */
 	let part = parts_set[username][partpath]
-	const parent = path_module.dirname(partpath)
-	const partname = path_module.basename(partpath)
+	const parent = path.dirname(partpath)
+	const partname = path.basename(partpath)
 	if (getAllDefaultParts(username, parent).includes(partname))
 		unsetDefaultPart(username, parent, partname)
 	try {
@@ -883,7 +902,7 @@ async function nocacheGetPartBaseDetails(username, partpath) {
 		return {
 			info: {
 				'': {
-					name: path_module.basename(partpath),
+					name: path.basename(partpath),
 					avatar: 'https://api.iconify.design/line-md/emoji-frown-open.svg',
 					description: 'error loading part',
 					description_markdown: `# error loading part\n\n\`\`\`\`ansi\n${error.message}\n${error.stack}\n\`\`\`\``,
@@ -968,7 +987,7 @@ export async function getAllCachedPartDetails(username, partpath) {
 		if (user.sfw) info = getSfwInfo(info)
 
 		// Return keyed by NAME, not full path, to likely match frontend expectations for a list
-		const name = path_module.basename(cachedPath)
+		const name = path.basename(cachedPath)
 		cachedDetails[name] = { ...details, info }
 	})
 

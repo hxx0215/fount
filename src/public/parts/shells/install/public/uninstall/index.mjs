@@ -46,6 +46,9 @@ async function uninstallPart(partpath) {
 	return await response.json()
 }
 
+/**
+ * 隐藏消息。
+ */
 function hideMessage() {
 	getToastContainer().innerHTML = ''
 }
@@ -65,9 +68,9 @@ const confirmButton = document.getElementById('confirm-uninstall')
 const cancelButton = document.getElementById('cancel-uninstall')
 
 /**
- *
+ * 渲染文本。
  */
-const renderTexts = () => {
+function renderTexts() {
 	if (!activePartpath) return
 	const [type, ...name] = activePartpath.split('/')
 	title.textContent = geti18n('uninstall.titleWithName', { type, name: name.join('/') })
@@ -75,9 +78,9 @@ const renderTexts = () => {
 }
 
 /**
- *
+ * 设置事件监听器。
  */
-const setupEvents = () => {
+function setupEvents() {
 	confirmButton.addEventListener('click', async () => {
 		if (!activePartpath) return
 		hideMessage()

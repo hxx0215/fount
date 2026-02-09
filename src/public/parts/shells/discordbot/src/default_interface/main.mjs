@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer'
+import { setInterval, clearInterval, setTimeout } from 'node:timers'
 
 import { Events, ChannelType, GatewayIntentBits, Partials, escapeMarkdown } from 'npm:discord.js'
 
@@ -237,7 +238,7 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 		 * @returns {Promise<void>}
 		 */
 		async function DoMessageReply(triggerMessage, channelId) {
-			let typingInterval = setInterval(() => { triggerMessage.channel.sendTyping().catch(_ => 0) }, 7000)
+			let typingInterval = setInterval(() => { triggerMessage.channel.sendTyping().catch(_ => 0) }, 7000).unref()
 
 			/**
 			 * 发送消息并缓存AI原始回复对象 (如果提供了)
@@ -267,7 +268,7 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 			async function sendSplitReply(fountReply) {
 				const MAX_FILES_PER_MESSAGE = 10
 				const filesToSend = (fountReply.files || []).map(f => ({ attachment: f.buffer, name: f.name, description: f.description }))
-				const textChunks = splitDiscordReply(fountReply.content || '')
+				const textChunks = splitDiscordReply(fountReply.content_for_show || fountReply.content || '')
 
 				const fileChunks = []
 				for (let i = 0; i < filesToSend.length; i += MAX_FILES_PER_MESSAGE)
