@@ -6,6 +6,7 @@
 	],
 	"imports": {
 		"lru-cache": "npm:lru-cache@^11.2.4",
+		"mem0ai": "npm:mem0ai@^2.2.2",
 		"npm:express": "npm:express@^5.1.0",
 		"npm:express-fileupload": "npm:express-fileupload@^1.5.0",
 		"npm:cookie-parser": "npm:cookie-parser@^1.4.0",

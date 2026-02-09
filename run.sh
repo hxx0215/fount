@@ -7,7 +7,7 @@ C_RED='\033[0;31m'
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 FOUNT_AUTO_INSTALLED_PACKAGES="${FOUNT_AUTO_INSTALLED_PACKAGES:-}"
-
+export MEM0_TELEMETRY=False
 # 函数: 安装包
 install_package() {
 	_command_name="$1"

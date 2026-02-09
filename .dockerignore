@@ -15,3 +15,7 @@ AGENTS.md
 *.ps1
 .directory
 desktop.ini
+/wanyu-playground
+/imgs
+/logs
+
