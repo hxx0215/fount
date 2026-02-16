@@ -1,4 +1,18 @@
 {
+	"en-UK": {
+		"name": "File Operations",
+		"avatar": "",
+		"description": "Provides file operation capabilities for AI characters",
+		"description_markdown": "The **File Operations** plugin provides AI characters with file system operation capabilities. It supports viewing, replacing, and overriding files.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"file-operations",
+			"filesystem",
+			"plugin"
+		]
+	},
 	"zh-CN": {
 		"name": "文件操作",
 		"avatar": "",
@@ -13,18 +27,242 @@
 			"插件"
 		]
 	},
-	"en-UK": {
-		"name": "File Operations",
+	"ar-SA": {
+		"name": "عمليات الملف",
 		"avatar": "",
-		"description": "Provides file operation capabilities for AI characters",
-		"description_markdown": "The **File Operations** plugin provides AI characters with file system operation capabilities. It supports viewing, replacing, and overriding files.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"description": "توفير إمكانيات تشغيل الملفات لأحرف الذكاء الاصطناعي",
+		"description_markdown": "**عملية الملف** يوفر البرنامج الإضافي إمكانيات تشغيل نظام الملفات لأحرف الذكاء الاصطناعي. يدعم عرض الملفات واستبدالها والكتابة فوقها.\n\nجزء من الكود يأتي من [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
 		"version": "0.0.0",
 		"author": "steve02081504",
 		"home_page": "",
 		"tags": [
-			"file-operations",
-			"filesystem",
-			"plugin"
+			"عمليات الملف",
+			"نظام الملفات",
+			"البرنامج المساعد"
+		]
+	},
+	"de-DE": {
+		"name": "Dateioperationen",
+		"avatar": "",
+		"description": "Stellen Sie Dateioperationsfunktionen für KI-Charaktere bereit",
+		"description_markdown": "Das Plugin **File Operation** bietet Dateisystem-Operationsfunktionen für KI-Zeichen. Unterstützt das Anzeigen, Ersetzen und Überschreiben von Dateien.\n\nEin Teil des Codes stammt von [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Dateioperationen",
+			"Dateisystem",
+			"Plug-in"
+		]
+	},
+	"emoji": {
+		"name": "文件操作",
+		"avatar": "",
+		"description": "为 AI 角色提供文件操作能力",
+		"description_markdown": "**文件操作**插件为 AI 角色提供了文件系统操作能力。支持查看、替换和覆写文件。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"文件操作",
+			"文件系统",
+			"插件"
+		]
+	},
+	"es-ES": {
+		"name": "Operaciones de archivos",
+		"avatar": "",
+		"description": "Proporcionar capacidades de operación de archivos para personajes AI",
+		"description_markdown": "El complemento **File Operation** proporciona capacidades de operación del sistema de archivos para caracteres AI. Admite ver, reemplazar y sobrescribir archivos.\n\nParte del código proviene de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Operaciones de archivos",
+			"sistema de archivos",
+			"complemento"
+		]
+	},
+	"fr-FR": {
+		"name": "Opérations sur les fichiers",
+		"avatar": "",
+		"description": "Fournir des capacités d'opération de fichiers pour les personnages IA",
+		"description_markdown": "Le plug-in **File Operation** fournit des fonctionnalités d'exploitation du système de fichiers pour les personnages IA. Prend en charge l'affichage, le remplacement et l'écrasement des fichiers.\n\nUne partie du code provient de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Opérations sur les fichiers",
+			"système de fichiers",
+			"plug-in"
+		]
+	},
+	"hi-IN": {
+		"name": "फ़ाइल संचालन",
+		"avatar": "",
+		"description": "एआई वर्णों के लिए फ़ाइल संचालन क्षमताएं प्रदान करें",
+		"description_markdown": "**फ़ाइल संचालन** प्लग-इन एआई वर्णों के लिए फ़ाइल सिस्टम संचालन क्षमताएं प्रदान करता है। फ़ाइलों को देखने, बदलने और ओवरराइट करने का समर्थन करता है।\n\nकोड का एक भाग [जेंटियनएफ़्रोडाइट](https://github.com/steve02081504/GentianAphroadite) से आता है।",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"फ़ाइल संचालन",
+			"फाइल सिस्टम",
+			"लगाना"
+		]
+	},
+	"is-IS": {
+		"name": "Skráaraðgerðir",
+		"avatar": "",
+		"description": "Bjóða upp á skráraðgerðarmöguleika fyrir gervigreindarstafi",
+		"description_markdown": "**File Operation** viðbót veitir aðgerðarmöguleika skráakerfis fyrir gervigreindarstafi. Styður að skoða, skipta út og skrifa yfir skrár.\n\nHluti af kóðanum kemur frá [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Skráaraðgerðir",
+			"skráarkerfi",
+			"viðbót"
+		]
+	},
+	"it-IT": {
+		"name": "Operazioni sui file",
+		"avatar": "",
+		"description": "Fornire funzionalità operative sui file per i personaggi AI",
+		"description_markdown": "Il plug-in **Operazione file** fornisce funzionalità operative del file system per i personaggi AI. Supporta la visualizzazione, la sostituzione e la sovrascrittura dei file.\n\nParte del codice proviene da [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Operazioni sui file",
+			"file system",
+			"collegare"
+		]
+	},
+	"ja-JP": {
+		"name": "ファイル操作",
+		"avatar": "",
+		"description": "AIキャラクターにファイル操作機能を提供する",
+		"description_markdown": "**ファイル操作** プラグインは、AI キャラクターにファイル システム操作機能を提供します。ファイルの表示、置換、上書きをサポートします。\n\nコードの一部は [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite) から取得しています。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"ファイル操作",
+			"ファイルシステム",
+			"プラグイン"
+		]
+	},
+	"ko-KR": {
+		"name": "파일 작업",
+		"avatar": "",
+		"description": "AI 캐릭터에 대한 파일 작업 기능 제공",
+		"description_markdown": "**파일 작업** 플러그인은 AI 캐릭터에 대한 파일 시스템 작업 기능을 제공합니다. 파일 보기, 바꾸기 및 덮어쓰기를 지원합니다.\n\n코드의 일부는 [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite)에서 제공됩니다.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"파일 작업",
+			"파일 시스템",
+			"플러그인"
+		]
+	},
+	"lzh": {
+		"name": "文件操作",
+		"avatar": "",
+		"description": "为 AI 角色提供文件操作能力",
+		"description_markdown": "**文件操作**插件为 AI 角色提供了文件系统操作能力。支持查看、替换和覆写文件。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"文件操作",
+			"文件系统",
+			"插件"
+		]
+	},
+	"nl-NL": {
+		"name": "Bestandsbewerkingen",
+		"avatar": "",
+		"description": "Biedt bestandsbewerkingsmogelijkheden voor AI-tekens",
+		"description_markdown": "De plug-in **Bestandsbewerking** biedt mogelijkheden voor bestandssysteembediening voor AI-tekens. Ondersteunt het bekijken, vervangen en overschrijven van bestanden.\n\nEen deel van de code komt van [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Bestandsbewerkingen",
+			"bestandssysteem",
+			"plug-in"
+		]
+	},
+	"pt-PT": {
+		"name": "Operações de arquivo",
+		"avatar": "",
+		"description": "Fornece recursos de operação de arquivo para personagens AI",
+		"description_markdown": "O plug-in **Operação de arquivo** fornece recursos de operação do sistema de arquivos para personagens AI. Suporta visualização, substituição e substituição de arquivos.\n\nParte do código vem de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Operações de arquivo",
+			"sistema de arquivos",
+			"plug-in"
+		]
+	},
+	"ru-RU": {
+		"name": "Операции с файлами",
+		"avatar": "",
+		"description": "Предоставить возможности работы с файлами для персонажей AI.",
+		"description_markdown": "Плагин **File Operation** предоставляет возможности работы с файловой системой для персонажей AI. Поддерживает просмотр, замену и перезапись файлов.\n\nЧасть кода взята из [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Операции с файлами",
+			"файловая система",
+			"плагин"
+		]
+	},
+	"uk-UA": {
+		"name": "Файлові операції",
+		"avatar": "",
+		"description": "Надайте можливості роботи з файлами для персонажів ШІ",
+		"description_markdown": "Плагін **File Operation** надає можливості роботи з файловою системою для персонажів ШІ. Підтримує перегляд, заміну та перезапис файлів.\n\nЧастину коду взято з [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Файлові операції",
+			"файлова система",
+			"плагін"
+		]
+	},
+	"vi-VN": {
+		"name": "Thao tác với tệp",
+		"avatar": "",
+		"description": "Cung cấp khả năng thao tác file cho ký tự AI",
+		"description_markdown": "Trình cắm **Vận hành tệp** cung cấp khả năng vận hành hệ thống tệp cho các ký tự AI. Hỗ trợ xem, thay thế và ghi đè tập tin.\n\nMột phần mã đến từ [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Thao tác với tệp",
+			"hệ thống tập tin",
+			"trình cắm thêm"
+		]
+	},
+	"zh-TW": {
+		"name": "文件操作",
+		"avatar": "",
+		"description": "為 AI 角色提供檔案操作能力",
+		"description_markdown": "**檔案操作**外掛程式為 AI 角色提供了檔案系統操作能力。支援檢視、取代和覆寫檔案。\n\n部分程式碼來自[龍膽](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"文件操作",
+			"檔案系統",
+			"外掛"
 		]
 	}
 }

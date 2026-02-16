@@ -1,4 +1,19 @@
 {
+	"en-UK": {
+		"name": "Code Execution",
+		"avatar": "",
+		"description": "Provides code execution capabilities for AI characters",
+		"description_markdown": "The **Code Execution** plugin provides AI characters with the ability to execute JavaScript and Shell code, including inline code execution.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"code-execution",
+			"javascript",
+			"shell",
+			"plugin"
+		]
+	},
 	"zh-CN": {
 		"name": "代码执行",
 		"avatar": "",
@@ -14,19 +29,259 @@
 			"插件"
 		]
 	},
-	"en-UK": {
-		"name": "Code Execution",
+	"ar-SA": {
+		"name": "تنفيذ التعليمات البرمجية",
 		"avatar": "",
-		"description": "Provides code execution capabilities for AI characters",
-		"description_markdown": "The **Code Execution** plugin provides AI characters with the ability to execute JavaScript and Shell code, including inline code execution.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"description": "توفير إمكانات تنفيذ التعليمات البرمجية لأحرف الذكاء الاصطناعي",
+		"description_markdown": "يوفر المكون الإضافي **Code Execution** لأحرف الذكاء الاصطناعي القدرة على تنفيذ تعليمات JavaScript وShell البرمجية، بما في ذلك تنفيذ التعليمات البرمجية المضمنة.\n\nجزء من الكود يأتي من [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
 		"version": "0.0.0",
 		"author": "steve02081504",
 		"home_page": "",
 		"tags": [
-			"code-execution",
+			"تنفيذ التعليمات البرمجية",
+			"جافا سكريبت",
+			"صدَفَة",
+			"البرنامج المساعد"
+		]
+	},
+	"de-DE": {
+		"name": "Codeausführung",
+		"avatar": "",
+		"description": "Stellen Sie Codeausführungsfunktionen für KI-Charaktere bereit",
+		"description_markdown": "Das **Code Execution**-Plugin bietet KI-Zeichen die Möglichkeit, JavaScript- und Shell-Code auszuführen, einschließlich der Inline-Codeausführung.\n\nEin Teil des Codes stammt von [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Codeausführung",
+			"Javascript",
+			"Hülse",
+			"Plug-in"
+		]
+	},
+	"emoji": {
+		"name": "代码执行",
+		"avatar": "",
+		"description": "为 AI 角色提供代码执行能力",
+		"description_markdown": "**代码执行**插件为 AI 角色提供了执行 JavaScript 和 Shell 代码的能力，包括内联代码执行。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"代码执行",
 			"javascript",
 			"shell",
-			"plugin"
+			"插件"
+		]
+	},
+	"es-ES": {
+		"name": "ejecución de código",
+		"avatar": "",
+		"description": "Proporcionar capacidades de ejecución de código para personajes de IA.",
+		"description_markdown": "El complemento **Code Execution** proporciona a los caracteres de IA la capacidad de ejecutar código JavaScript y Shell, incluida la ejecución de código en línea.\n\nParte del código proviene de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"ejecución de código",
+			"javascript",
+			"caparazón",
+			"complemento"
+		]
+	},
+	"fr-FR": {
+		"name": "exécution de code",
+		"avatar": "",
+		"description": "Fournir des capacités d'exécution de code pour les personnages IA",
+		"description_markdown": "Le plug-in **Code Execution** offre aux personnages IA la possibilité d'exécuter du code JavaScript et Shell, y compris l'exécution de code en ligne.\n\nUne partie du code provient de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"exécution de code",
+			"javascript",
+			"coquille",
+			"plug-in"
+		]
+	},
+	"hi-IN": {
+		"name": "कोड निष्पादन",
+		"avatar": "",
+		"description": "एआई वर्णों के लिए कोड निष्पादन क्षमताएं प्रदान करें",
+		"description_markdown": "**कोड निष्पादन** प्लगइन एआई वर्णों को इनलाइन कोड निष्पादन सहित जावास्क्रिप्ट और शेल कोड निष्पादित करने की क्षमता प्रदान करता है।\n\nकोड का एक भाग [जेंटियनएफ़्रोडाइट](https://github.com/steve02081504/GentianAphroadite) से आता है।",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"कोड निष्पादन",
+			"जावास्क्रिप्ट",
+			"शंख",
+			"लगाना"
+		]
+	},
+	"is-IS": {
+		"name": "kóða framkvæmd",
+		"avatar": "",
+		"description": "Bjóða upp á getu til að keyra kóða fyrir gervigreindarstafi",
+		"description_markdown": "**Code Execution** viðbótin veitir gervigreindarstöfum getu til að keyra JavaScript og Shell kóða, þar á meðal keyrslu innbyggðra kóða.\n\nHluti af kóðanum kemur frá [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"kóða framkvæmd",
+			"javascript",
+			"skel",
+			"viðbót"
+		]
+	},
+	"it-IT": {
+		"name": "esecuzione del codice",
+		"avatar": "",
+		"description": "Fornire funzionalità di esecuzione del codice per i personaggi AI",
+		"description_markdown": "Il plug-in **Esecuzione codice** fornisce ai personaggi AI la possibilità di eseguire codice JavaScript e Shell, inclusa l'esecuzione di codice in linea.\n\nParte del codice proviene da [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"esecuzione del codice",
+			"javascript",
+			"conchiglia",
+			"collegare"
+		]
+	},
+	"ja-JP": {
+		"name": "コードの実行",
+		"avatar": "",
+		"description": "AI キャラクターにコード実行機能を提供する",
+		"description_markdown": "**コード実行** プラグインは、インライン コード実行を含む JavaScript およびシェル コードを実行する機能を AI キャラクターに提供します。\n\nコードの一部は [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite) から取得しています。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"コードの実行",
+			"JavaScript",
+			"シェル",
+			"プラグイン"
+		]
+	},
+	"ko-KR": {
+		"name": "코드 실행",
+		"avatar": "",
+		"description": "AI 캐릭터에 대한 코드 실행 기능 제공",
+		"description_markdown": "**코드 실행** 플러그인은 AI 캐릭터에게 인라인 코드 실행을 포함하여 JavaScript 및 셸 코드를 실행할 수 있는 기능을 제공합니다.\n\n코드의 일부는 [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite)에서 제공됩니다.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"코드 실행",
+			"자바스크립트",
+			"껍데기",
+			"플러그인"
+		]
+	},
+	"lzh": {
+		"name": "代码执行",
+		"avatar": "",
+		"description": "为 AI 角色提供代码执行能力",
+		"description_markdown": "**代码执行**插件为 AI 角色提供了执行 JavaScript 和 Shell 代码的能力，包括内联代码执行。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"代码执行",
+			"javascript",
+			"shell",
+			"插件"
+		]
+	},
+	"nl-NL": {
+		"name": "uitvoering van code",
+		"avatar": "",
+		"description": "Bied mogelijkheden voor code-uitvoering voor AI-tekens",
+		"description_markdown": "De plug-in **Code Execution** biedt AI-tekens de mogelijkheid om JavaScript- en Shell-code uit te voeren, inclusief het uitvoeren van inline code.\n\nEen deel van de code komt van [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"uitvoering van code",
+			"javascript",
+			"schelp",
+			"plug-in"
+		]
+	},
+	"pt-PT": {
+		"name": "execução de código",
+		"avatar": "",
+		"description": "Fornece recursos de execução de código para personagens de IA",
+		"description_markdown": "O plug-in **Code Execution** fornece aos personagens de IA a capacidade de executar código JavaScript e Shell, incluindo execução de código in-line.\n\nParte do código vem de [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"execução de código",
+			"javascript",
+			"concha",
+			"plug-in"
+		]
+	},
+	"ru-RU": {
+		"name": "выполнение кода",
+		"avatar": "",
+		"description": "Обеспечьте возможности выполнения кода для персонажей AI.",
+		"description_markdown": "Плагин **Code Execution** предоставляет персонажам AI возможность выполнять код JavaScript и Shell, включая выполнение встроенного кода.\n\nЧасть кода взята из [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"выполнение кода",
+			"javascript",
+			"оболочка",
+			"плагин"
+		]
+	},
+	"uk-UA": {
+		"name": "виконання коду",
+		"avatar": "",
+		"description": "Надати можливості виконання коду для символів ШІ",
+		"description_markdown": "Плагін **Виконання коду** надає персонажам штучного інтелекту можливість виконувати код JavaScript і оболонки, включаючи виконання вбудованого коду.\n\nЧастину коду взято з [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"виконання коду",
+			"javascript",
+			"оболонка",
+			"плагін"
+		]
+	},
+	"vi-VN": {
+		"name": "thực thi mã",
+		"avatar": "",
+		"description": "Cung cấp khả năng thực thi mã cho các ký tự AI",
+		"description_markdown": "Plugin **Thực thi mã** cung cấp cho các ký tự AI khả năng thực thi mã JavaScript và Shell, bao gồm cả việc thực thi mã nội tuyến.\n\nMột phần mã đến từ [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"thực thi mã",
+			"javascript",
+			"vỏ bọc",
+			"trình cắm thêm"
+		]
+	},
+	"zh-TW": {
+		"name": "程式碼執行",
+		"avatar": "",
+		"description": "為 AI 角色提供程式碼執行能力",
+		"description_markdown": "**程式碼執行**外掛程式為 AI 角色提供了執行 JavaScript 和 Shell 程式碼的能力，包括內嵌程式碼執行。\n\n部分程式碼來自[龍膽](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"程式碼執行",
+			"javascript",
+			"shell",
+			"外掛"
 		]
 	}
 }
