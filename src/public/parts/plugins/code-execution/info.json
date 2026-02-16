@@ -1,0 +1,32 @@
+{
+	"zh-CN": {
+		"name": "代码执行",
+		"avatar": "",
+		"description": "为 AI 角色提供代码执行能力",
+		"description_markdown": "**代码执行**插件为 AI 角色提供了执行 JavaScript 和 Shell 代码的能力，包括内联代码执行。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"代码执行",
+			"javascript",
+			"shell",
+			"插件"
+		]
+	},
+	"en-UK": {
+		"name": "Code Execution",
+		"avatar": "",
+		"description": "Provides code execution capabilities for AI characters",
+		"description_markdown": "The **Code Execution** plugin provides AI characters with the ability to execute JavaScript and Shell code, including inline code execution.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"code-execution",
+			"javascript",
+			"shell",
+			"plugin"
+		]
+	}
+}

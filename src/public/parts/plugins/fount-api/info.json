@@ -1,0 +1,30 @@
+{
+	"zh-CN": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "为 AI 角色提供 fount API 访问能力",
+		"description_markdown": "**fount API** 插件为 AI 角色提供了访问 fount 系统的能力。它允许角色通过 fetch 获取操作指引，并自动管理 API Key，使角色能够在 JavaScript 代码中使用 `fountApiKey` 变量调用 fount API。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"插件"
+		]
+	},
+	"en-UK": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "Provides fount API access for AI characters",
+		"description_markdown": "The **fount API** plugin provides AI characters with the ability to access the fount system. It allows characters to fetch operation guides and automatically manages API Keys, enabling characters to use the `fountApiKey` variable in JavaScript code to call fount APIs.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"plugin"
+		]
+	}
+}

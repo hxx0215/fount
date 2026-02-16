@@ -1,0 +1,30 @@
+{
+	"zh-CN": {
+		"name": "文件操作",
+		"avatar": "",
+		"description": "为 AI 角色提供文件操作能力",
+		"description_markdown": "**文件操作**插件为 AI 角色提供了文件系统操作能力。支持查看、替换和覆写文件。\n\n部分代码来自[龙胆](https://github.com/steve02081504/GentianAphrodite)。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"文件操作",
+			"文件系统",
+			"插件"
+		]
+	},
+	"en-UK": {
+		"name": "File Operations",
+		"avatar": "",
+		"description": "Provides file operation capabilities for AI characters",
+		"description_markdown": "The **File Operations** plugin provides AI characters with file system operation capabilities. It supports viewing, replacing, and overriding files.\n\nSome code is derived from [GentianAphrodite](https://github.com/steve02081504/GentianAphrodite).",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"file-operations",
+			"filesystem",
+			"plugin"
+		]
+	}
+}
