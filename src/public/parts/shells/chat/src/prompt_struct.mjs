@@ -130,6 +130,12 @@ export function structPromptToSingleNoChatLog(/** @type {prompt_struct_t} */ pro
  * @returns {chatLogEntry_t[]} - 聊天记录条目数组。
  */
 export function margeStructPromptChatLog(/** @type {prompt_struct_t} */ prompt) {
+	// console.log('chat log', prompt.chat_log.length)
+	// console.log('user prompt', JSON.stringify(prompt.user_prompt?.additional_chat_log))
+	// console.log('world prompt', JSON.stringify(prompt.world_prompt?.additional_chat_log))
+	// console.log('other', JSON.stringify(Object.values(prompt.other_chars_prompts).map(char => char?.additional_chat_log || []).flat()))
+	// console.log('plugin',JSON.stringify(Object.values(prompt.plugin_prompts).map(plugin => plugin?.additional_chat_log || []).flat()))
+	// console.log('addition',JSON.stringify(prompt.char_prompt?.additional_chat_log))
 	const result = [
 		...prompt.chat_log,
 		...prompt.user_prompt?.additional_chat_log || [],

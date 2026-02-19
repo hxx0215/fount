@@ -1,0 +1,268 @@
+{
+	"en-UK": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "Provides fount API access for AI characters",
+		"description_markdown": "The **fount API** plugin provides AI characters with the ability to access the fount system. It allows characters to fetch operation guides and automatically manages API Keys, enabling characters to use the `fountApiKey` variable in JavaScript code to call fount APIs.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"plugin"
+		]
+	},
+	"zh-CN": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "为 AI 角色提供 fount API 访问能力",
+		"description_markdown": "**fount API** 插件为 AI 角色提供了访问 fount 系统的能力。它允许角色通过 fetch 获取操作指引，并自动管理 API Key，使角色能够在 JavaScript 代码中使用 `fountApiKey` 变量调用 fount API。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"插件"
+		]
+	},
+	"ar-SA": {
+		"name": "واجهة برمجة التطبيقات",
+		"avatar": "",
+		"description": "توفير إمكانية الوصول إلى واجهة برمجة التطبيقات (API) لأحرف الذكاء الاصطناعي",
+		"description_markdown": "يوفر المكون الإضافي **fount API** لأحرف الذكاء الاصطناعي القدرة على الوصول إلى نظام النافورة. فهو يسمح للدور بالحصول على تعليمات التشغيل من خلال الجلب وإدارة مفتاح واجهة برمجة التطبيقات (API Key) تلقائيًا، مما يسمح للدور باستخدام متغير \"fountApiKey\" في كود JavaScript لاستدعاء واجهة برمجة تطبيقات Fount.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"ينبوع",
+			"واجهة برمجة التطبيقات",
+			"البرنامج المساعد"
+		]
+	},
+	"de-DE": {
+		"name": "Font-API",
+		"avatar": "",
+		"description": "Bieten Sie AI-Zeichen Zugriff auf die Font-API",
+		"description_markdown": "Das **Font-API**-Plugin bietet KI-Charakteren die Möglichkeit, auf das Font-System zuzugreifen. Es ermöglicht der Rolle, Betriebsanweisungen durch Abruf zu erhalten und verwaltet den API-Schlüssel automatisch, sodass die Rolle die Variable „fountApiKey“ im JavaScript-Code verwenden kann, um die Fount-API aufzurufen.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"Quelle",
+			"API",
+			"Plug-in"
+		]
+	},
+	"emoji": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "为 AI 角色提供 fount API 访问能力",
+		"description_markdown": "**fount API** 插件为 AI 角色提供了访问 fount 系统的能力。它允许角色通过 fetch 获取操作指引，并自动管理 API Key，使角色能够在 JavaScript 代码中使用 `fountApiKey` 变量调用 fount API。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"插件"
+		]
+	},
+	"es-ES": {
+		"name": "API de fuente",
+		"avatar": "",
+		"description": "Proporcionar acceso API de fuente a caracteres de IA",
+		"description_markdown": "El complemento **fount API** proporciona a los caracteres AI la capacidad de acceder al sistema de fuentes. Permite que el rol obtenga instrucciones de operación mediante la recuperación y administra automáticamente la clave API, lo que permite que el rol use la variable `fountApiKey` en el código JavaScript para llamar a la API fuente.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fuente",
+			"API",
+			"complemento"
+		]
+	},
+	"fr-FR": {
+		"name": "API de police",
+		"avatar": "",
+		"description": "Fournir un accès API de police aux personnages IA",
+		"description_markdown": "Le plugin **font API** fournit aux personnages IA la possibilité d'accéder au système de polices. Il permet au rôle d'obtenir des instructions d'opération via la récupération et gère automatiquement la clé API, permettant au rôle d'utiliser la variable « fountApiKey » dans le code JavaScript pour appeler l'API de police.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"source",
+			"API",
+			"plug-in"
+		]
+	},
+	"hi-IN": {
+		"name": "फाउंटेन एपीआई",
+		"avatar": "",
+		"description": "एआई वर्णों तक फाउंटेन एपीआई पहुंच प्रदान करें",
+		"description_markdown": "**फाउंटेन एपीआई** प्लगइन एआई वर्णों को फाउंटेन सिस्टम तक पहुंचने की क्षमता प्रदान करता है। यह भूमिका को फ़ेच के माध्यम से ऑपरेशन निर्देश प्राप्त करने की अनुमति देता है और स्वचालित रूप से एपीआई कुंजी का प्रबंधन करता है, जिससे भूमिका को फाउंटेन एपीआई को कॉल करने के लिए जावास्क्रिप्ट कोड में `fountApiKey` वेरिएबल का उपयोग करने की अनुमति मिलती है।",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"झरना",
+			"एपीआई",
+			"लगाना"
+		]
+	},
+	"is-IS": {
+		"name": "uppspretta API",
+		"avatar": "",
+		"description": "Veittu font API aðgang að gervigreindum stöfum",
+		"description_markdown": "**Found API** viðbótin veitir gervigreindarstöfum möguleika á að fá aðgang að fontakerfinu. Það gerir hlutverkinu kleift að fá aðgerðaleiðbeiningar í gegnum niðurhal og stýrir sjálfkrafa API lyklinum, sem gerir hlutverkinu kleift að nota 'fountApiKey' breytuna í JavaScript kóða til að kalla fram API.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"uppspretta",
+			"api",
+			"viðbót"
+		]
+	},
+	"it-IT": {
+		"name": "API di carattere",
+		"avatar": "",
+		"description": "Fornire accesso API font ai caratteri AI",
+		"description_markdown": "Il plugin **font API** fornisce ai personaggi AI la possibilità di accedere al sistema di font. Consente al ruolo di ottenere istruzioni operative tramite il recupero e gestisce automaticamente la chiave API, consentendo al ruolo di utilizzare la variabile \"fountApiKey\" nel codice JavaScript per chiamare l'API fount.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fonte",
+			"API",
+			"collegare"
+		]
+	},
+	"ja-JP": {
+		"name": "カウントAPI",
+		"avatar": "",
+		"description": "AI キャラクターに Font API アクセスを提供する",
+		"description_markdown": "**Fount API** プラグインは、AI キャラクターに Fount システムにアクセスする機能を提供します。これにより、ロールはフェッチを通じて操作命令を取得し、API キーを自動的に管理できるようになり、ロールが JavaScript コード内の `fountApiKey` 変数を使用して fount API を呼び出すことができるようになります。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"泉",
+			"API",
+			"プラグイン"
+		]
+	},
+	"ko-KR": {
+		"name": "분수 API",
+		"avatar": "",
+		"description": "AI 캐릭터에 대한 Font API 액세스 제공",
+		"description_markdown": "**fount API** 플러그인은 AI 캐릭터에게 분수 시스템에 액세스할 수 있는 기능을 제공합니다. 역할이 가져오기를 통해 작업 지침을 얻을 수 있도록 하고 API 키를 자동으로 관리하므로 역할이 JavaScript 코드의 'fountApiKey' 변수를 사용하여 Fount API를 호출할 수 있습니다.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"세례반",
+			"API",
+			"플러그인"
+		]
+	},
+	"lzh": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "为 AI 角色提供 fount API 访问能力",
+		"description_markdown": "**fount API** 插件为 AI 角色提供了访问 fount 系统的能力。它允许角色通过 fetch 获取操作指引，并自动管理 API Key，使角色能够在 JavaScript 代码中使用 `fountApiKey` 变量调用 fount API。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"插件"
+		]
+	},
+	"nl-NL": {
+		"name": "bron-API",
+		"avatar": "",
+		"description": "Geef font-API-toegang tot AI-tekens",
+		"description_markdown": "De plug-in **fount API** biedt AI-tekens de mogelijkheid om toegang te krijgen tot het fontsysteem. Hiermee kan de rol bedieningsinstructies verkrijgen via fetch en wordt de API-sleutel automatisch beheerd, waardoor de rol de `fountApiKey`-variabele in JavaScript-code kan gebruiken om de fount-API aan te roepen.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"bron",
+			"api",
+			"plug-in"
+		]
+	},
+	"pt-PT": {
+		"name": "API de fonte",
+		"avatar": "",
+		"description": "Forneça acesso à API de fontes para personagens de IA",
+		"description_markdown": "O plugin **Fount API** fornece aos personagens de IA a capacidade de acessar o sistema de fontes. Ele permite que a função obtenha instruções de operação por meio de busca e gerencie automaticamente a chave de API, permitindo que a função use a variável `fountApiKey` no código JavaScript para chamar a API da fonte.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fonte",
+			"API",
+			"plug-in"
+		]
+	},
+	"ru-RU": {
+		"name": "API-интерфейс фондирования",
+		"avatar": "",
+		"description": "Обеспечить доступ API-интерфейса к AI-персонажам.",
+		"description_markdown": "Плагин **fount API** предоставляет AI-персонажам возможность доступа к системе шрифтов. Это позволяет роли получать инструкции по эксплуатации посредством выборки и автоматически управлять ключом API, позволяя роли использовать переменную FountApiKey в коде JavaScript для вызова API-интерфейса Fount.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"источник",
+			"API",
+			"плагин"
+		]
+	},
+	"uk-UA": {
+		"name": "API джерела",
+		"avatar": "",
+		"description": "Надайте доступ API шрифту до символів ШІ",
+		"description_markdown": "Плагін **fount API** надає персонажам AI можливість доступу до системи шрифтів. Це дозволяє ролі отримувати інструкції щодо роботи через вибірку та автоматично керувати ключем API, дозволяючи ролі використовувати змінну «fountApiKey» у коді JavaScript для виклику API фонту.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"джерело",
+			"api",
+			"плагін"
+		]
+	},
+	"vi-VN": {
+		"name": "API đài phun nước",
+		"avatar": "",
+		"description": "Cung cấp quyền truy cập API nguồn cho các ký tự AI",
+		"description_markdown": "Plugin **fount API** cung cấp cho các ký tự AI khả năng truy cập vào hệ thống đài phun nước. Nó cho phép vai trò nhận hướng dẫn thao tác thông qua tìm nạp và tự động quản lý Khóa API, cho phép vai trò sử dụng biến `fountApiKey` trong mã JavaScript để gọi API fount.",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"đài phun nước",
+			"API",
+			"trình cắm thêm"
+		]
+	},
+	"zh-TW": {
+		"name": "fount API",
+		"avatar": "",
+		"description": "為 AI 角色提供 fount API 存取能力",
+		"description_markdown": "**fount API** 外掛程式為 AI 角色提供了存取 fount 系統的能力。它允許角色透過 fetch 取得操作指引，並自動管理 API Key，使角色能夠在 JavaScript 程式碼中使用 `fountApiKey` 變數呼叫 fount API。",
+		"version": "0.0.0",
+		"author": "steve02081504",
+		"home_page": "",
+		"tags": [
+			"fount",
+			"api",
+			"外掛"
+		]
+	}
+}
