@@ -739,13 +739,7 @@ ${is_ImageGeneration
 					text = text.replace(/<\/content\s*$/, '').replace(/<\/message\s*$/, '').replace(/<\/\s*$/, '')
 					// 清理 declare 标签
 					text = text.replace(/<declare>[^]*?<\/declare>\s*$/, '').replace(/<declare>[^]*$/, '')
-					const prefix = `${prompt_struct.Charname} \\(咱自己\\)`
-					const regex = new RegExp(`^${prefix}: “([\\s\\S]*)”$|${prefix}`)
-					const newText = text.replace(regex,'$1')
-					if (newText !== text){
-						console.log('replaced (咱自己)')
-					}
-					res.content = newText
+					res.content = prompt_struct.Charname.includes('(咱自己)') ? text.replaceAll(prompt_struct.Charname,''): text
 					return res
 				}
 
