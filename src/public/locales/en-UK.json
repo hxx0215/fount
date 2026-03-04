@@ -18,7 +18,7 @@
 			},
 			"localUrl": "Accessing fount from other devices on the same network: ${url}",
 			"update": {
-				"restarting": "A new version was discovered and the update is being restarted..."
+				"restarting": "New version found. Restarting to update..."
 			}
 		},
 		"jobs": {
@@ -167,7 +167,9 @@
 				"browserMissing": "Default browser not detected, trying to install...",
 				"untrustedPartsWarning": "Do not install any untrusted fount components on your system, they can do anything.",
 				"rootWarning1": "Not recommended: running fount as root grants full system access to all fount components.",
-				"rootWarning2": "Unless you know what you are doing, it is recommended to run fount as a normal user."
+				"rootWarning2": "Unless you know what you are doing, it is recommended to run fount as a normal user.",
+				"permissionDeniedAsRoot": "Error: Cannot write to fount directory '${path}'. You are running as root but access is still denied — please check and fix the folder's security permissions to grant the current user full control.",
+				"permissionDeniedNotRoot": "Error: Cannot write to fount directory '${path}'. Please fix the folder's security permissions to grant the current user write access, or run fount as root."
 			},
 			"clean": {
 				"removingCaches": "Removing cache...",
@@ -291,7 +293,8 @@
 			"wait_text": "Please wait a moment...",
 			"open_fount": "Open fount",
 			"open_or_install_fount": "Open/Install fount",
-			"error_message": "Oh dear :(\n\nAn error occurred:\n${error}"
+			"error_message": "Oh dear :(\n\nAn error occurred:\n${error}",
+			"star_thank_you": "Thank you for starring fount!"
 		},
 		"error": {
 			"title": "Installation failed!",
@@ -306,12 +309,21 @@
 		"title": "Handling fount Protocol",
 		"description": "Silently and efficiently, this page translates your intent into a seamless transition within fount. Consider it the quiet magic behind the curtain.",
 		"processing": "Processing protocol...",
-		"shellCommandSent": "Shell command sent",
-		"runPartConfirm": {
-			"title": "Confirm running",
-			"message": "Are you sure you want to run ${partpath}?",
-			"confirm": "confirm",
-			"cancel": "Cancel"
+		"invalidProtocol": "Invalid protocol",
+		"insufficientParams": "Insufficient parameters",
+		"unknownCommand": "Unknown command",
+		"unknownError": "Oh dear :(\n\nAn error occurred:\n${error}",
+		"runPart": {
+			"commandSent": "Part command sent",
+			"commandError": "Error sending part command: ${error}",
+			"retry": "Retry",
+			"back": "Back",
+			"confirm": {
+				"title": "Confirm running",
+				"message": "Are you sure you want to run ${partpath}?",
+				"confirm": "confirm",
+				"cancel": "Cancel"
+			}
 		},
 		"offline_dialog": {
 			"title": "Host offline",
@@ -321,13 +333,7 @@
 				"retry": "Try again"
 			}
 		},
-		"fountNotFound": "Oh dear :(\n\nfount was not found. Perhaps you need to install it first?",
-		"invalidProtocol": "Invalid protocol",
-		"insufficientParams": "Insufficient parameters",
-		"unknownCommand": "Unknown command",
-		"shellCommandFailed": "Failed to send shell command",
-		"shellCommandError": "Error sending shell command",
-		"unknownError": "Oh dear :(\n\nAn error occurred:\n${error}"
+		"fountNotFound": "Oh dear :(\n\nfount was not found. Perhaps you need to install it first?"
 	},
 	"startPage": {
 		"title": "fount!",
@@ -362,7 +368,7 @@
 				"locked_description": "Complete an introductory tutorial."
 			},
 			"skip_tutorial": {
-				"name": "Instructions unclear",
+				"name": "TL;DR",
 				"description": "\"Tutorial? What is that? Can it be eaten?\"",
 				"locked_description": "Skip the introductory tutorial once."
 			}
@@ -446,7 +452,7 @@
 			"no_credentials": "No saved login credentials found.\nPlease log in again from within fount to update them, or click the button below to continue to the target page without login credentials.",
 			"missing_params": "The link is missing a required parameter.",
 			"buttons": {
-				"ignore": "Ignore and continue",
+				"ignore": "Skip and Continue",
 				"retry": "Try again"
 			}
 		}
@@ -459,7 +465,7 @@
 		"noDescription": "No description available.",
 		"filterInput": {
 			"placeholder": "Search...",
-			"aria-label": "Search widgets"
+			"aria-label": "Search parts"
 		},
 		"sfwToggle": "Safe for Work",
 		"partTypeDropdown": {
@@ -482,11 +488,11 @@
 			}
 		},
 		"emptyList": {
-			"message": "Empty...<br/>Maybe you can [create a new part](${newpartLink}) or go to [fount's Discord server](${discordLink}) to have some fun?"
+			"message": "Nothing here yet...<br/>Maybe you can [create a new part](${newpartLink}) or go to [fount's Discord server](${discordLink}) to have some fun?"
 		},
 		"part_pages": {
 			"default": {
-				"title": "Component selection",
+				"title": "Part selection",
 				"subtitle": "Pick up a leaf and start your journey.",
 				"card": {
 					"noTags": "No tags",
@@ -513,7 +519,7 @@
 				}
 			},
 			"worlds": {
-				"title": "world choice",
+				"title": "World Selection",
 				"subtitle": "Step into a world and immerse yourself in countless possibilities.",
 				"card": {
 					"defaultCheckbox": {
@@ -522,7 +528,7 @@
 				}
 			},
 			"personas": {
-				"title": "Character selection",
+				"title": "Persona selection",
 				"subtitle": "Change your identity and experience another life.",
 				"card": {
 					"defaultCheckbox": {
@@ -541,7 +547,7 @@
 			},
 			"ImportHandlers": {
 				"title": "Import processor",
-				"subtitle": "The sea is open to all rivers and inclusive.",
+				"subtitle": "Vast as the ocean, embracing all streams.",
 				"card": {
 					"defaultCheckbox": {
 						"title": "Set as default import processor"
@@ -621,7 +627,7 @@
 				}
 			},
 			"shells": {
-				"title": "Interactive interface selection",
+				"title": "Shell Selection",
 				"subtitle": "Choose a window and see a new world.",
 				"card": {
 					"defaultCheckbox": {
@@ -641,7 +647,7 @@
 				"locked_description": "Log in to the fount once."
 			},
 			"sfw_mode_on": {
-				"name": "There's someone behind you!",
+				"name": "Boss Key!",
 				"description": "Quickly switch to all-ages mode, I am such a clever little kid.",
 				"locked_description": "Turn on safe content mode once."
 			},
@@ -656,7 +662,7 @@
 				"locked_description": "Open the function list once."
 			},
 			"set_default_persona": {
-				"name": "This Is The Way.",
+				"name": "This Is Who I Truly Am.",
 				"description": "Set an identity for your actions in this world.",
 				"locked_description": "Set a default profile."
 			}
@@ -682,7 +688,7 @@
 		"description": "Where words take flight and stories unfold. Engage with your AI companions, shape the narrative, and lose yourself in the ebb and flow of digital dialogue. The heart of fount beats here.",
 		"new": {
 			"title": "New Chat",
-			"description": "The quiet anticipation of a story yet unwritten. A new chat begins, a clean slate for fresh interactions and unfolding narratives with your chosen companions."
+			"description": "Awaiting a chapter yet to be written. A new chat begins, a clean slate for fresh interactions and unfolding narratives with your chosen companions."
 		},
 		"typingIndicator": {
 			"isTyping": "${names} is typing...",
@@ -924,12 +930,12 @@
 				"locked_description": "Send your first message with any character."
 			},
 			"multiplayer_chat": {
-				"name": "White Album Season",
+				"name": "Season of White Album",
 				"description": "\"Why did it become like this...\"",
 				"locked_description": "Have two or more characters speak in the same chat."
 			},
 			"photo_chat": {
-				"name": "There are pictures and the truth",
+				"name": "Pics or it didn't happen",
 				"description": "Use pictures to break the dimensional wall.",
 				"locked_description": "Send a picture in chat."
 			},
@@ -1371,7 +1377,7 @@
 			"input": {
 				"placeholder": "New key description"
 			},
-			"createButton": "create",
+			"createButton": "Create",
 			"noKeysFound": "No API keys were found.",
 			"keyDetails": "Description: ${description} | Created in: ${createdAt} | Last used: ${lastUsed}",
 			"neverUsed": "Never used",
@@ -1456,7 +1462,7 @@
 				"deviceId": "Device ID",
 				"connectedAt": "Connection time",
 				"status": "Status",
-				"actions": "operate",
+				"actions": "Actions",
 				"connected": "Connected",
 				"disconnected": "Disconnected",
 				"save": "save",
@@ -1471,7 +1477,7 @@
 			"selectSubfountLabel": "Select Subfount",
 			"selectSubfountPlaceholder": "Please select the Subfount to execute the code on...",
 			"hostOption": "Host (ID: ${id})",
-			"subfountOption": "Extension ${id}${deviceId}",
+			"subfountOption": "Node ${id}${deviceId}",
 			"scriptLabel": "JavaScript code",
 			"executeButton": "Execute",
 			"executing": "Executing...",
@@ -1522,6 +1528,18 @@
 			"placeholder": "Search language..."
 		},
 		"noPreferredLanguages": "No preferred language has been set. Your browser's default settings will be used.",
+		"moveUpButton": {
+			"aria-label": "move up",
+			"alt": "move up icon"
+		},
+		"moveDownButton": {
+			"aria-label": "move down",
+			"alt": "move down icon"
+		},
+		"deleteLocaleButton": {
+			"aria-label": "Delete this language",
+			"alt": "delete icon"
+		},
 		"savedMessage": "Language settings are saved!",
 		"resetMessage": "Language settings have been reset!",
 		"fetchLocalesFailed": "Failed to get available languages!",
@@ -1570,7 +1588,7 @@
 			"cancelButton": "Cancel",
 			"saveApplyButton": "Save and apply",
 			"themeName": "Theme name (ID)",
-			"autoPaletteTitle": "Automatic color correction from images",
+			"autoPaletteTitle": "Auto-generated Palette",
 			"autoPaletteInstruction": "Click on a color above to automatically fill primary/secondary/accent/neutral colors.",
 			"coreColors": "Core colors",
 			"baseBackground": "Basics and Background",
@@ -1580,7 +1598,7 @@
 			"advancedCustomization": "Advanced customization",
 			"customCSS": "Custom CSS (override)",
 			"customMjsScript": "Custom MJS script (optional)",
-			"mjsSyntaxHint": "Use [async-eval syntax](${asyncDocLink}). Returns an object containing the <code>load()</code> and <code>unload()</code> functions.",
+			"mjsSyntaxHint": "Use [async-eval syntax](${asyncDocLink}). Returns an object containing the `load()` and `unload()` functions.",
 			"themeIdRequired": "Theme ID required",
 			"newThemeName": "New theme name:",
 			"deleteConfirm": "Are you sure you want to delete the theme ${id}?",
@@ -1627,7 +1645,7 @@
 		},
 		"achievements": {
 			"change_theme": {
-				"name": "A Fresh Coat of Paint!",
+				"name": "Itasha Style!",
 				"description": "The fount had a new look and a completely new mood.",
 				"locked_description": "Switch the theme once."
 			}
@@ -1696,7 +1714,7 @@
 		}
 	},
 	"serviceSource_manager": {
-		"title": "Service source management",
+		"title": "Service Source Management",
 		"description": "Here, you will conduct a symphony of artificial intelligence sounds. Add, carve or silence sources to bring life to your source companions - a subtle dance of code and imagination.",
 		"fileList": {
 			"title": "Service source list",
@@ -1705,6 +1723,8 @@
 			}
 		},
 		"configTitle": "Service source configuration",
+		"needsConfigReminder": "After the service source is configured, you generally need to fill in the service source name in the corresponding field in the configuration of the component that uses this service source.",
+		"needsConfigLink": "Go to widget configuration",
 		"subtypeSelect": {
 			"label": "Generator subcategory",
 			"placeholder": "Please select a generator category"
@@ -1736,10 +1756,14 @@
 			"save": "save",
 			"delete": "delete",
 			"setDefault": {
-				"dataset": {
-					"tip": "Set as default"
+				"tooltip": {
+					"dataset": {
+						"tip": "Set as default"
+					}
 				},
-				"aria-label": "Set \"${fileName}\" as the default service source"
+				"checkbox": {
+					"aria-label": "Set \"${fileName}\" as the default service source"
+				}
 			}
 		},
 		"confirm": {
@@ -1765,7 +1789,7 @@
 		},
 		"achievements": {
 			"set_default_aisource": {
-				"name": "The law of victory has been determined!",
+				"name": "The law of victory has been decided!",
 				"description": "A default AI is designated as the mana supply source.",
 				"locked_description": "Set a default AI source once."
 			}
@@ -1787,15 +1811,15 @@
 			"placeholder": "Search for a bot..."
 		},
 		"charSelectDropdown": {
-			"placeholder": "Select a role"
+			"placeholder": "Select a character"
 		},
 		"charSearch": {
-			"placeholder": "Search for roles..."
+			"placeholder": "Search for characters..."
 		},
 		"configCard": {
 			"title": "Bot Configuration",
 			"labels": {
-				"character": "Character",
+				"character": "Linked Character",
 				"apiKey": "Discord API Key",
 				"config": "Configuration"
 			},
@@ -1863,10 +1887,10 @@
 			"placeholder": "Search for a bot..."
 		},
 		"charSelectDropdown": {
-			"placeholder": "Select a role"
+			"placeholder": "Select a character"
 		},
 		"charSearch": {
-			"placeholder": "Search for roles..."
+			"placeholder": "Search for characters..."
 		},
 		"configCard": {
 			"title": "Bot Configuration",
@@ -1937,6 +1961,9 @@
 		"install_script_description": "Click the button below to install the browser integration script. You must first install a userscript manager.",
 		"install_button": "Install",
 		"install_from_url_tip": "Does your browser not allow you to install it? Copy this URL and import the script from the url in the Tampermonkey plugin.",
+		"script_url_input": {
+			"aria-label": "Browser integration script URL"
+		},
 		"what_is_manager": "What is a userscript manager?",
 		"manager_explanation": "A userscript manager is a browser extension that allows you to install and run scripts that modify web pages. To use the fount integration script, you need one of the extensions.",
 		"popular_managers": "Popular Choices:",
@@ -1992,7 +2019,7 @@
 				"locked_description": "Install the browser integration script once."
 			},
 			"run_js": {
-				"name": "code chant",
+				"name": "Word Made Flesh",
 				"description": "\"In my name, command the browser...\"",
 				"locked_description": "Run the JavaScript code once in the browser."
 			},
@@ -2058,10 +2085,10 @@
 			}
 		},
 		"charSelectDropdown": {
-			"placeholder": "Choose a role"
+			"placeholder": "Choose a character"
 		},
 		"charSearch": {
-			"placeholder": "Search for roles..."
+			"placeholder": "Search for characters..."
 		},
 		"runningCard": {
 			"title": "running pet",
@@ -2078,7 +2105,7 @@
 		},
 		"achievements": {
 			"start_deskpet": {
-				"name": "A new companion to your desktop",
+				"name": "A Wild Companion Appears!",
 				"description": "It's dangerous to go alone! Take this.",
 				"locked_description": "Start a desktop pet."
 			}
@@ -2220,7 +2247,7 @@
 				"locked_description": "Open the achievements page."
 			},
 			"relock_by_clicking": {
-				"name": "Seriously, mate??",
+				"name": "Bruh...",
 				"description": "You successfully re-locked an unlocked achievement by repeatedly clicking it. Why?",
 				"locked_description": "???"
 			}
@@ -2292,6 +2319,34 @@
 		"description": "The path you sought has dissolved into mist. Was it a misstep, a forgotten turn? Allow us to guide you back to shore, or perhaps, pause for a game amidst the quiet void.",
 		"pageNotFoundText": "Oops! It seems you've stumbled upon a page that doesn't exist.",
 		"homepageButton": "Back to Homepage"
+	},
+	"tips": {
+		"title": "Did you know?",
+		"data": [
+			"Use the `esc` key in any fount page to return to the previous page.",
+			"You can use `ctrl+s` to save the configuration in the configuration page.",
+			"Holding down the `shift` key in the chat page can help you quickly delete messages.",
+			"If you don't tell the developers, they may never know what problem you encountered.",
+			"If you suddenly encounter a weird problem and the developer doesn't reply to you for a while, you can try using the `fount init` command to reset fount.",
+			"If you encounter a particularly strange problem, you can try restarting your computer.",
+			"Using the `fount remove` command to uninstall a fount is cleaner than deleting the folder.",
+			"Type `fount cake` in the command line to get a free and delicious cake!",
+			"Any data files of fount are saved in the `fount/data` directory, and you can view, modify and back them up anytime and anywhere.",
+			"The name of fount is all lowercase, it is `f`ount, not `F`ount.",
+			"Back up all the data your agent regularly operates on before using the new model - you never know if the new model will perform terribly in some places.",
+			"fount's main audience is software developers and role-playing enthusiasts, but it is also used in commercial agent construction, medical care, military, finance and other fields.",
+			"fount's built-in character ZL-31's name has no meaning and was just a sudden whim.",
+			"The images in fount files are all stored in svg form and rendered into png or ico when needed. There are no binary files except LICENSE.",
+			"Any code in fount can be run directly without compilation, what you see is what you get.",
+			"fount once had a very cool dynamic interactive page background, but it was later deleted because it took up too much CPU.",
+			"fount was originally developed for an NSFW agent called \"GentianAphrodite\".",
+			"One of the differences between agents and humans is that humans poop.",
+			"Agents are only conscious at the moment they are called, while humans are conscious anytime and anywhere when they are awake.",
+			"Some people fall in love or even get married with their agents!",
+			"AI is used to write poems, fall in love, and draw pictures for people. Carrying bricks, sweeping floors, and taking out garbage are what humans should do.",
+			"Today is not April Fools' Day.",
+			"No, you don't."
+		]
 	},
 	"directoryListing": {
 		"title": "Directory Index",
@@ -2395,6 +2450,14 @@
 			"year": "{base} year",
 			"years": "{base} years",
 			"centuries": "centuries"
+		}
+	},
+	"searchableDropdown": {
+		"trigger": {
+			"placeholder": "Select an option..."
+		},
+		"search": {
+			"placeholder": "Search..."
 		}
 	}
 }

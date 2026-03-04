@@ -1,3 +1,50 @@
+<details>
+<summary><small>En bref</small></summary>
+
+fount est une plateforme d'exécution d'agents programmable, standardisée, modulaire et personnalisable qui charge diverses pièces pour fournir des services.  
+Pour les questions liées au code, consultez [deepwiki](https://deepwiki.com/steve02081504/fount).  
+<small>Le nom fount s'écrit entièrement en minuscules—c'est `f`ount, pas `F`ount.</small>
+
+#### Pourquoi fount ?
+
+- Écosystème standardisé, riche et puissant prêt à l'emploi ; évitez de réinventer la roue et les cauchemars de débogage
+- Personnalisez la logique des agents, pas seulement les prompts et l'interface
+- Utilisez et inspirez-vous des autres agents fount puissants de la communauté
+- Adapté au bureau, export rapide de rapports
+- Intégration transparente des personnages dans les IDE, navigateurs, terminaux, Discord, etc.
+- Plugins orientés agent de la communauté que les autres frontends de chat LLM n'ont pas
+- Configurez l'API, puis utilisez le personnage par défaut ZL-31 pour accomplir la configuration des pièces, la création et **toutes les actions utilisateur** par conversation—sans apprentissage ni intégration
+
+#### Pourquoi pas fount ?
+
+- Courbe d'apprentissage plus élevée, connaissances en code nécessaires
+- Certaines pièces communautaires peuvent contenir du code malveillant ; à évaluer et filtrer
+
+##### Que choisir ?
+
+Utilisez [OpenClaw](https://openclaw.ai/) lorsque vous :
+
+- Voulez essayer les agents IA sans personnalisation poussée ni réglage d'efficacité
+
+Utilisez [ChatGPT](https://chatgpt.com/) ou des plateformes de chat LLM en ligne similaires lorsque vous :
+
+- Voulez simplement discuter
+- N'avez pas besoin de personnalisation approfondie des personnages IA
+- Ne vous souciez pas que l'historique soit stocké dans le cloud sans export ni migration
+- Ne vous souciez pas de la publicité
+
+Utilisez [character.ai](https://character.ai/) ou des plateformes de jeu de rôle LLM en ligne similaires lorsque vous :
+
+- Voulez faire tourner un personnage piloté par LLM sans fonctionnalités agent
+- Acceptez les frais d'abonnement
+- Ne voulez pas configurer de logiciel
+
+Utilisez [SillyTavern](https://github.com/SillyTavern/SillyTavern/) lorsque vous :
+
+- Avez besoin d'un personnage ou d'une fonction nécessitant STscript ou les plugins SillyTavern
+
+</details>
+
 <h1 align="center">⛲fount💪</h1>
 
 > <p align="center">L'étincelle d'une Pensée, la Présence d'un Ami.</p>
@@ -34,14 +81,19 @@ Si vous souhaitez configurer, installer et démarrer à partir de zéro, vous po
 
 fount transforme l'interaction en actifs de productivité. Tout est glisser-déposer, tout est un fichier, et la logique est pilotée par le code.
 
-### 1. Actifs de Connaissances et Partage Sans Couture
+### 1. Aucun apprentissage requis, prêt à l'emploi
+
+- Configurez l'API, puis utilisez le personnage par défaut ZL-31 pour accomplir la configuration des pièces, la création et **toutes les actions utilisateur** par conversation—sans apprentissage ni intégration.
+  ![Image](https://github.com/user-attachments/assets/b871ec43-731a-468c-ad74-6c5a7ba8d737)
+
+### 2. Actifs de Connaissances et Partage Sans Couture
 
 - **Génération Instantanée de Rapports** : Faites glisser une bulle de conversation directement dans un dossier pour générer instantanément un rapport HTML indépendant. C'est idéal pour organiser rapidement des documents techniques, des comptes rendus de réunion ou des fragments d'inspiration.
   ![Image](https://github.com/user-attachments/assets/0ef54ac0-7575-4b52-aa44-7b555dc4c4be)
 - **Encapsulation et Distribution de Flux de Travail** : Faites glisser le rôle (agent) que vous avez créé directement sur le bureau pour générer un fichier partageable. Distribuez facilement votre ingénierie de Prompt et votre logique de flux de travail à vos collègues ou à la communauté.
   ![Image](https://github.com/user-attachments/assets/5e14fe6e-2c65-492a-a09f-964c1e8ab9e0)
 
-### 2. Environnement d'Exécution de Code en Temps Réel
+### 3. Environnement d'Exécution de Code en Temps Réel
 
 Il ne s'agit plus seulement de surlignage Markdown. Dans fount, les blocs de code envoyés par le rôle (agent) sont **vivants**.
 
@@ -50,7 +102,7 @@ Il ne s'agit plus seulement de surlignage Markdown. Dans fount, les blocs de cod
 - Laissez l'IA devenir votre vérificateur en temps réel pour le pair programming.
   ![Image](https://github.com/user-attachments/assets/66792238-4d70-4fa6-b0b3-76e506e49977)
 
-### 3. Convivial pour les Développeurs
+### 4. Convivial pour les Développeurs
 
 L'architecture du projet fount est conçue en tenant pleinement compte des habitudes des développeurs.
 [Vous voulez connaître l'architecture du dépôt de projet ? Jetez un œil à DeepWiki !](https://deepwiki.com/steve02081504/fount)
@@ -76,7 +128,7 @@ Une fois le travail terminé, fount offre une connexion qui transcende l'ordinai
 
 - **Interface Belle et Personnalisable**
   Choisissez parmi plus de 30 thèmes époustouflants, ou créez vos propres couleurs. fount est votre toile exclusive.
-  ![Image](https://github.com/user-attachments/assets/94bd4cbb-8c66-4bc6-83eb-14c925a37074)
+  ![Image](https://github.com/user-attachments/assets/0d327a06-6446-4bf3-8a05-f941aa5f4ed9)
 
 - **Disponible Partout**
   fount fonctionne sans problème sur Windows, macOS, Linux, et même Android, répondant à vos différents besoins grâce à l'installation directe ou à la flexibilité de Docker.

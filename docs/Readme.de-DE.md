@@ -1,6 +1,53 @@
+<details>
+<summary><small>Kurzfassung</small></summary>
+
+fount ist eine programmierbare, standardisierte, modulare und anpassbare Laufzeitumgebung für AI-Agenten, die verschiedene Komponenten lädt, um Dienste bereitzustellen.  
+Für codebezogene Fragen siehe [deepwiki](https://deepwiki.com/steve02081504/fount).  
+<small>Der Name fount wird ausschließlich kleingeschrieben—also `f`ount, nicht `F`ount.</small>
+
+#### Warum fount?
+
+- Standardisiertes, reiches, leistungsstarkes Ökosystem sofort nutzbar; kein Rad neu erfinden, keine Debug-Alpträume
+- Agent-Logik anpassen, nicht nur Prompts und UI
+- Andere starke fount-Agenten der Community nutzen und als Referenz verwenden
+- Ideal für den Büroalltag, schneller Report-Export
+- Nahtlose Integration von Charakteren in IDEs, Browser, Terminals, Discord usw.
+- Agent-orientierte Plugins aus der Community, die andere LLM-Chat-Frontends nicht haben
+- API konfigurieren, dann den Standard-Charakter ZL-31 nutzen, um Komponenten-Konfiguration, Erstellung und **alle Benutzeraktionen** per Dialog zu erledigen—ohne Einarbeitung
+
+#### Warum nicht fount?
+
+- Höhere Einarbeitungskosten, Code-Kenntnisse nötig
+- Einige Community-Komponenten können schädlichen Code enthalten; prüfen und auswählen
+
+##### Was soll ich verwenden?
+
+[OpenClaw](https://openclaw.ai/) nutzen, wenn du:
+
+- Agenten ohne tiefe Anpassung oder Effizienz-Tuning ausprobieren möchtest
+
+[ChatGPT](https://chatgpt.com/) oder ähnliche Online-LLM-Chat-Plattformen nutzen, wenn du:
+
+- Nur chatten möchtest
+- Keine tiefe Anpassung von KI-Charakteren brauchst
+- Mit Cloud-Speicherung ohne Export/Migration einverstanden bist
+- Mit Werbung einverstanden bist
+
+[character.ai](https://character.ai/) oder ähnliche Online-LLM-Rollenspiel-Plattformen nutzen, wenn du:
+
+- Einen LLM-gesteuerten Charakter ohne Agent-Funktionen betreiben möchtest
+- Mit Abo-Kosten einverstanden bist
+- Keine Software konfigurieren möchtest
+
+[SillyTavern](https://github.com/SillyTavern/SillyTavern/) nutzen, wenn du:
+
+- Einen Charakter oder eine Funktion brauchst, die STscript oder SillyTavern-Plugins erfordert
+
+</details>
+
 <h1 align="center">⛲fount💪</h1>
 
-> <p align="center">Ein Funke der Fantasie, zum Leben erweckt</p>
+> <p align="center">Ein Geistesblitz, aus Gedanken geboren</p>
 
 <p align="center">
 <a href="https://github.com/topics/fount-repo"><img src="https://steve02081504.github.io/fount/badges/fount_repo.svg" alt="fount repo"></a>
@@ -20,9 +67,9 @@
 
 fount ist eine **moderne, erweiterbare Laufzeitumgebung für AI-Agenten**.
 
-Wir glauben, dass **hocheffiziente Produktivitätswerkzeuge** und **immersive emotionale Interaktion** sich nicht ausschließen müssen. fount ist eine Brücke: Tagsüber kann es der zuverlässige Helfer sein, der Sie beim Schreiben komplexer Codes oder beim Organisieren von Besprechungsprotokollen unterstützt; nachts kann es der digitale Vertraute sein, der Ihre Emotionen versteht und mit Ihnen mitfühlt.
+Wir glauben, dass **hocheffiziente Produktivitätswerkzeuge** und **immersive, emotionale Interaktion** sich nicht ausschließen müssen. fount ist eine Brücke: Tagsüber kann es der zuverlässige Helfer sein, der Sie beim Schreiben komplexer Codes oder beim Organisieren von Besprechungsprotokollen unterstützt; nachts kann es der digitale Vertraute sein, der Ihre Emotionen versteht und mit Ihnen mitfühlt.
 
-Nach ![relative date](https://img.shields.io/date/1727107200?label=Investierte%20Zeit) sorgfältiger Ausarbeitung, durch die Leidenschaft von ![GitHub contributors](https://img.shields.io/github/contributors/steve02081504/fount?label=Mitwirkende) und mit einer lebendigen Community von ![number of active users](https://img.shields.io/jsdelivr/gh/hy/steve02081504/fount?label=Aktive%20Benutzer) ist fount heute eine ausgereifte, stabile und sich ständig weiterentwickelnde AI-Interaktionsplattform.
+Nach ![relative date](https://img.shields.io/date/1727107200?label=Investierte%20Zeit) hingebungsvoller Entwicklung, durch die Leidenschaft von ![GitHub contributors](https://img.shields.io/github/contributors/steve02081504/fount?label=Mitwirkende) und mit einer lebendigen Community von ![number of active users](https://img.shields.io/jsdelivr/gh/hy/steve02081504/fount?label=Aktive%20Benutzer) ist fount heute eine ausgereifte, stabile und sich ständig weiterentwickelnde AI-Interaktionsplattform.
 
 Wenn Sie von Grund auf konfigurieren, einrichten und loslegen möchten, können Sie das Community-Tutorial [**fount-Anleitung für Dummies von Grund auf**](https://github.com/Xiaoqiush81/fount-Guide-for-dummies) konsultieren (das Tutorial ist auf Chinesisch, Nicht-Chinesisch-Sprecher können die Übersetzungsfunktion des Browsers nutzen).
 
@@ -32,16 +79,21 @@ Wenn Sie von Grund auf konfigurieren, einrichten und loslegen möchten, können 
 
 ## 🚀 Effizienz und Engineering: Gemacht für Büroangestellte, Entwickler und Geeks
 
-fount verwandelt Interaktion in Produktivitäts-Assets. Alles ist ziehbar (Drag-and-Drop), alles ist eine Datei, die Logik wird durch Code angetrieben.
+fount verwandelt Interaktion in Produktivitäts-Assets. Alles funktioniert per Drag-and-Drop, alles ist eine Datei, die Logik wird durch Code angetrieben.
 
-### 1. Wissens-Asset-Erstellung und nahtloses Teilen
+### 1. Kein Lernen nötig, sofort nutzbar
+
+- API konfigurieren, dann den Standard-Charakter ZL-31 nutzen, um Komponenten-Konfiguration, Erstellung und **alle Benutzeraktionen** per Dialog zu erledigen—ohne Einarbeitung.
+  ![Bild](https://github.com/user-attachments/assets/b871ec43-731a-468c-ad74-6c5a7ba8d737)
+
+### 2. Wissens-Asset-Erstellung und nahtloses Teilen
 
 - **Sofortige Berichtserstellung**: Ziehen Sie eine Dialogblase direkt in einen Ordner, um sofort einen unabhängigen HTML-Bericht zu generieren. Ideal für die schnelle Organisation von technischen Dokumenten, Besprechungsprotokollen oder Ideenfragmenten.
   ![Bild](https://github.com/user-attachments/assets/0ef54ac0-7575-4b52-aa44-7b555dc4c4be)
 - **Workflow-Kapselung und -Verteilung**: Ziehen Sie die von Ihnen erstellte Rolle direkt auf den Desktop, um eine teilbare Datei zu erzeugen. Verteilen Sie Ihr Prompt-Engineering und Ihre Workflow-Logik mühelos an Kollegen oder die Community.
   ![Bild](https://github.com/user-attachments/assets/5e14fe6e-2c65-492a-a09f-964c1e8ab9e0)
 
-### 2. Echtzeit-Codeausführungsumgebung
+### 3. Echtzeit-Codeausführungsumgebung
 
 Nicht mehr nur Markdown-Hervorhebung. In fount sind die vom Agenten gesendeten Codeblöcke **lebendig**.
 
@@ -50,7 +102,7 @@ Nicht mehr nur Markdown-Hervorhebung. In fount sind die vom Agenten gesendeten C
 - Lassen Sie die KI zum Echtzeit-Verifizierer für Ihre Pair-Programming-Sitzungen werden.
   ![Bild](https://github.com/user-attachments/assets/66792238-4d70-4fa6-b0b3-76e506e49977)
 
-### 3. Entwicklerfreundlich
+### 4. Entwicklerfreundlich
 
 Die Projektarchitektur von fount wurde unter umfassender Berücksichtigung der Gewohnheiten von Entwicklern konzipiert.
 [Möchten Sie die Architektur des Projekt-Repositorys kennen? Werfen Sie einen Blick auf DeepWiki!](https://deepwiki.com/steve02081504/fount)
@@ -64,19 +116,19 @@ Die Projektarchitektur von fount wurde unter umfassender Berücksichtigung der G
 
 Nach Feierabend bietet fount eine Verbindung, die über das Übliche hinausgeht. Wir haben uns von der Steifheit traditioneller Werkzeuge verabschiedet und streben nach einer natürlichen, flüssigen und tiefgründigen "High-Fidelity"-Interaktion.
 
-- **Nahtlose Gespräche, jederzeit und überall**
+- **Nahtlose Plauderei, jederzeit und überall**
   Ein auf dem Computer begonnenes Gespräch kann nahtlos auf dem Handy oder Tablet fortgesetzt werden. fount hält Ihre Unterhaltungen synchron, sodass Sie überall eng mit Ihrem Agenten verbunden sind.
 
 - **Ausdrucksstarker, immersiver Chat**
   Durch die Kraft von HTML ermöglicht fount dem Agenten, sich durch Rich Text, Bilder und sogar interaktive Elemente auszudrücken, wodurch jede Unterhaltung lebendig und tiefgründig wird.
 
-- **Treffpunkt der Ideen: Native Gruppenchats**
+- **Ein Fest der Gedanken: Native Gruppenchats**
   Laden Sie mehrere Agenten zu einem Gespräch ein und erleben Sie ihre dynamischen und fesselnden Interaktionen, sei es für ein Brainstorming im Beruf oder die Inszenierung einer Geschichte zwischen den Agenten.
   ![Bild](https://github.com/user-attachments/assets/eea1cc7c-d258-4a2d-b16f-12815a88811d)
 
 - **Ästhetische, anpassbare Oberfläche**
   Wählen Sie aus über 30 atemberaubenden Themen oder gestalten Sie Ihre eigenen Farben. fount ist Ihre exklusive Leinwand.
-  ![Bild](https://github.com/user-attachments/assets/94bd4cbb-8c66-4bc6-83eb-14c925a37074)
+  ![Bild](https://github.com/user-attachments/assets/0d327a06-6446-4bf3-8a05-f941aa5f4ed9)
 
 - **Überall einsetzbar**
   fount läuft nahtlos auf Windows, macOS, Linux und sogar Android und erfüllt Ihre unterschiedlichen Anforderungen durch direkte Installation oder die Flexibilität von Docker.
@@ -148,9 +200,9 @@ Für den Schöpfer bietet fount einen klareren Weg, um deine KI-Charaktere zum L
 
 fount basiert auf einer robusten und skalierbaren Architektur. Das Backend nutzt die Leistung und Geschwindigkeit von [Deno](https://deno.com/), mit [Express](https://expressjs.com/) für effizientes Routing. Das Frontend ist mit HTML, CSS und JavaScript für eine intuitive und ansprechende Benutzeroberfläche gestaltet.
 
-### Erweiterung: Ein Wandteppich, gewebt aus vielfältigen Fäden
+### Erweiterung: Ein Gewebe, gewebt aus vielfältigen Fäden
 
-In der Welt von fount regiert die Modularität. Ein reichhaltiges Ökosystem von Komponenten verwebt sich, um den Wandteppich deiner Erfahrung zu erschaffen. All diese können von den Nutzern mühelos installiert, erweitert und angepasst werden.
+In der Welt von fount regiert die Modularität. Ein reichhaltiges Ökosystem von Komponenten verwebt sich, um das Gewebe deiner Erfahrung zu erschaffen. All diese können von den Nutzern mühelos installiert, erweitert und angepasst werden.
 
 - **chars (Charaktere):** Das Herzstück von fount, wo Persönlichkeiten geboren werden.
 - **worlds (Welten):** _Weit mehr als bloße Lorebücher._ Sie sind die stillen Architekten der Realität, die Wissen hinzufügen, Entscheidungen beeinflussen und sogar den Chatverlauf manipulieren können.
@@ -175,7 +227,7 @@ Beginne deine Reise mit fount, einer stabilen und zuverlässigen Plattform. Ein 
 > [!CAUTION]
 > In der Welt von fount können Charaktere frei JavaScript-Befehle ausführen, was ihnen beträchtliche Macht verleiht. Wähle daher die Charaktere, denen du vertraust, mit derselben Sorgfalt wie im echten Leben, um die Sicherheit deiner lokalen Dateien zu gewährleisten.
 
-### Linux/macOS/Android: Das Flüstern der Shell – _Eine Zeile, und du bist dabei_
+### Linux/macOS/Android: Das Flüstern der Shell – _Ein Befehl, und die Reise beginnt_
 
 ```bash
 # Definiere bei Bedarf die Umgebungsvariable $FOUNT_DIR, um das fount-Verzeichnis anzugeben
@@ -198,7 +250,7 @@ curl -fsSL https://raw.githubusercontent.com/steve02081504/fount/refs/heads/mast
 . "$HOME/.profile"
 ```
 
-### Windows: Eine Auswahl von Pfaden – _Einfachheit selbst_
+### Windows: Eine Auswahl von Pfaden – _Der Weg der Einfachheit_
 
 - **Direkt und unkompliziert (Empfohlen):** Lade die `exe`-Datei von den [Releases](https://github.com/steve02081504/fount/releases) herunter und führe sie aus.
 
@@ -291,9 +343,9 @@ Das Frontend von fount ist aus modernen Web-Technologien gewoben, aber nicht all
 
 Andere Browser jedoch gehen einen anderen Weg, und ihre Begegnung mit fount kann eine leichte Dissonanz aufweisen:
 
-- **Mozilla Firefox**: Er ist wie ein eigensinniger Wanderer, oft unbeeilt in seiner Umarmung neuer Technologien, der manchmal beschließt, für immer in der Vergangenheit zu verweilen. Diese Beharrlichkeit kann jedoch zu gewissem Bedauern führen:
-  - Ohne Unterstützung für [`speculationrules`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/speculationrules) wird jeder Kaltstart und jede Protokollverarbeitung von fount 1-2 Sekunden langsamer sein als nötig – Momente, die dir leise gestohlen werden.
-  - Das Fehlen der Unterstützung für [CSS `anchor`-Positionierung](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) hinterlässt auf einigen Seiten einen Hauch von unvollkommenem Staub und trübt eine Stimmung, die rein sein sollte.
+- **Mozilla Firefox**: Er gleicht einem störrischen Wanderer, der neue Technologien oft nur zögerlich umarmt und manchmal beschließt, ewig in der Vergangenheit zu verweilen. Doch diese Beharrlichkeit fordert ihren Tribut:
+  - Ohne Unterstützung für [`speculationrules`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/speculationrules) wird jeder Kaltstart und jede Protokollverarbeitung von fount 1-2 Sekunden langsamer sein als nötig – Momente, die dir heimlich gestohlen werden.
+  - Das Fehlen der Unterstützung für [CSS `anchor`-Positionierung](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) hinterlässt einen Schleier der Unvollkommenheit auf einigen Seiten und trübt eine Stimmung, die rein sein sollte.
   - Das Fehlen der Unterstützung für [`blocking="render"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script) kann dazu führen, dass fount-Seiten beim Laden flackern und deine Augen verletzen.
   - Laut Backend-Fehlerberichten fallen fount-Seiten nur in der Welt von Firefox manchmal in mysteriöse Fehler oder erscheinen seltsam – wenn das passiert, versuche, die Seite neu zu laden; vielleicht vertreibt das den Nebel.
 

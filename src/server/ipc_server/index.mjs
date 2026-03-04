@@ -60,6 +60,7 @@ export async function processIPCCommand(command, data) {
 		}
 	}
 	catch (err) {
+		Sentry.captureException(err)
 		console.errorI18n('fountConsole.ipc.processMessageError', { error: err })
 		if (err.errors) console.dir(err.errors)
 		else if (err.error) console.dir(err.error)

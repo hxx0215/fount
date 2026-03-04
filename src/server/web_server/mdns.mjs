@@ -14,6 +14,7 @@ export let mdns
  * @returns {void} 什么都没有。
  */
 export async function initMdns(port, protocol, config) {
+	if (Deno.version.deno == '2.7.2') return // TODO: remove this after deno 2.7.3 is released
 	const mdns_config = {
 		name: `fount-${port}`,
 		port,
@@ -23,18 +24,16 @@ export async function initMdns(port, protocol, config) {
 		},
 		...config,
 	}
-	/* // https://github.com/denoland/deno/issues/30486
 	const ciao = await import('npm:@homebridge/ciao')
 	const responder = ciao.getResponder()
 	mdns = responder.createService(mdns_config)
 	mdns.advertise().catch(async error => { // 不应await此操作，会阻塞服务器
 		console.errorI18n('fountConsole.server.mdns.failed', { error })
 		mdns.stop()
-	*/
-	const { Bonjour } = await import('npm:bonjour-service')
-	const instance = new Bonjour({}, error => {
-		console.errorI18n('fountConsole.server.mdns.bonjourFailed', { error })
+		const { Bonjour } = await import('npm:bonjour-service')
+		const instance = new Bonjour({}, error => {
+			console.errorI18n('fountConsole.server.mdns.bonjourFailed', { error })
+		})
+		mdns = instance.publish(mdns_config)
 	})
-	mdns = instance.publish(mdns_config)
-	// })
 }

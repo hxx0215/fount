@@ -13,12 +13,12 @@ import { isPartLoaded, loadPart } from '../../../../server/parts_loader.mjs'
 
 import { convertCCv3ToSTv2 } from './ccv3-converter.mjs'
 import { unzipCharx } from './charx-parser.mjs'
-import info from './info.json' with { type: 'json' }
+import { matchCharxEmbeddedPrefix } from './charx-uri.mjs'
 import { getAvailablePath } from './path.mjs'
 import { extractPngCardData } from './png-parser.mjs'
 import { downloadRisuCard, downloadAsset } from './risu-api.mjs'
 
-
+const { info } = (await import('./locales.json', { with: { type: 'json' } })).default
 
 /**
  * 保存资源并规范化 URI。
@@ -62,7 +62,7 @@ async function ImportAsData(username, dataBuffer) {
 		try {
 			const charxData = await unzipCharx(dataBuffer)
 			ccv3Card = charxData.card
-			charxAssets = charxData.assets // 包含 module 内资源（uri已更新为 embeded://__module_asset__/*）和 charx assets/*
+			charxAssets = charxData.assets // 包含 module 内资源（uri 已更新为 embedded://__module_asset__/*）和 charx assets/*
 			risuModuleDef = charxData.moduleData
 			mainImageBuffer = charxData.mainImage // 可能为 undefined
 			sourceSpec = 'ccv3' // CHARX 总是 CCv3
@@ -101,16 +101,16 @@ async function ImportAsData(username, dataBuffer) {
 				const originalUri = assetDef.uri
 
 				try {
-					if (assetDef.uri.startsWith('embeded://')) {
-						const internalPath = assetDef.uri.substring('embeded://'.length)
-						assetBuffer = charxAssets.get(internalPath)
-						if (!assetBuffer) throw new Error(`Embedded asset not found in CHARX: ${internalPath}`)
-					}
-					else if (assetDef.uri.startsWith('__asset:')) {
-						const assetId = assetDef.uri.substring('__asset:'.length)
-						assetBuffer = pngEmbeddedAssets.get(assetId)
-						if (!assetBuffer) throw new Error(`PNG embedded asset not found: ${assetId}`)
-					}
+					const embeddedMatch = matchCharxEmbeddedPrefix(assetDef.uri)
+					if (embeddedMatch)
+						if (embeddedMatch.prefix === '__asset:') {
+							assetBuffer = pngEmbeddedAssets.get(embeddedMatch.path)
+							if (!assetBuffer) throw new Error(`PNG embedded asset not found: ${embeddedMatch.path}`)
+						}
+						else {
+							assetBuffer = charxAssets.get(embeddedMatch.path)
+							if (!assetBuffer) throw new Error(`Embedded asset not found in CHARX: ${embeddedMatch.path}`)
+						}
 					else if (assetDef.uri.startsWith('data:')) {
 						const parts = assetDef.uri.split(',')
 						const b64data = parts[1]
@@ -170,7 +170,8 @@ async function ImportAsData(username, dataBuffer) {
 
 
 		for (const [internalPath, buffer] of charxAssets.entries()) {
-			const alreadyProcessed = processedAssetsForST.some(pa => pa.original_uri === `embeded://${internalPath}`)
+			const alreadyProcessed = processedAssetsForST.some(pa =>
+				pa.original_uri === `embedded://${internalPath}` || pa.original_uri === `embeded://${internalPath}`)
 			if (!alreadyProcessed && internalPath.startsWith('assets/')) try {
 				const filename = path.basename(internalPath)
 				const relativeSavePath = ['risu_assets', 'charx_provided', internalPath.substring('assets/'.length)].join('/')
@@ -181,7 +182,7 @@ async function ImportAsData(username, dataBuffer) {
 					type: 'charx_unreferenced_asset',
 					name: filename,
 					ext: path.extname(filename).substring(1),
-					original_uri: `embeded://${internalPath}`,
+					original_uri: `embedded://${internalPath}`,
 					fount_uri: relativeSavePath
 				})
 			} catch (err) {
@@ -196,14 +197,17 @@ async function ImportAsData(username, dataBuffer) {
 
 		const templateMainMjsPath = path.join(import.meta.dirname, 'Template', 'main.mjs')
 		const targetMainMjsPath = path.join(targetPath, 'main.mjs')
-		const templateContent = fs.readFileSync(templateMainMjsPath, 'utf-8')
-		await writeFile(targetMainMjsPath, templateContent)
+		await fs.promises.copyFile(templateMainMjsPath, targetMainMjsPath)
+		const templateLocalesPath = path.join(import.meta.dirname, 'Template', 'locales.json')
+		const targetLocalesPath = path.join(targetPath, 'locales.json')
+		if (fs.existsSync(templateLocalesPath))
+			await fs.promises.copyFile(templateLocalesPath, targetLocalesPath)
 
 		const needsReload = isPartLoaded(username, 'chars', charName)
 		if (needsReload)
 			await loadPart(username, 'chars/' + charName)
 		else
-			import(url.pathToFileURL(targetMainMjsPath)).catch(err => console.error(`Dynamic import of ${targetMainMjsPath} failed:`, err))
+			import(url.pathToFileURL(targetMainMjsPath)).catch(_ => 0)
 
 		console.log(`Risu character "${charName}" imported successfully to ${targetPath}`)
 		return [`chars/${charName}`]

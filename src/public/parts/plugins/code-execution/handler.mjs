@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import util from 'node:util'
 
-import { async_eval } from 'https://cdn.jsdelivr.net/gh/steve02081504/async-eval/deno.mjs'
+import { async_eval } from '../../../../vendor/async-eval.mjs'
 import { available, shell_exec_map } from '../../../../vendor/exec.mjs'
 
 import { defineInlineToolUses } from '../../shells/chat/src/stream.mjs'
@@ -165,6 +165,7 @@ export async function codeExecutionReplyHandler(result, args) {
 		js_eval_context.clear_workspace = clear_workspace
 		if (args.supported_functions?.add_message)
 			/**
+			 * 注册回调函数。
 			 * @param {string} reason - 回调原因。
 			 * @param {Promise<any>} promise - 相关的 Promise 对象。
 			 * @returns {void}
@@ -173,7 +174,7 @@ export async function codeExecutionReplyHandler(result, args) {
 				if (!js_eval_context.eval_result && !(promise instanceof Promise))
 					throw new Error('callback函数的第二个参数必须是一个Promise对象')
 				/**
-				 *
+				 * 处理回调函数。
 				 * @param {any} _ - 占位符参数。
 				 * @returns {void}
 				 */
@@ -184,7 +185,7 @@ export async function codeExecutionReplyHandler(result, args) {
 		const view_files = []
 		let view_files_flag = false
 		/**
-		 *
+		 * 查看文件。
 		 * @param {...any} pathOrFileObjs - 文件路径或文件对象。
 		 * @returns {Promise<void>}
 		 */
@@ -207,7 +208,7 @@ export async function codeExecutionReplyHandler(result, args) {
 		let sent_files
 		if (args.supported_functions?.files)
 			/**
-			 * 在eval时添加文件
+			 * 在eval时添加文件。
 			 * @param {...any} pathOrFileObjs - 文件路径或文件对象。
 			 * @returns {Promise<void>}
 			 */
@@ -229,13 +230,15 @@ export async function codeExecutionReplyHandler(result, args) {
 				return '文件已发送'
 			}
 
-		// 从其他插件获取 JS 代码上下文（排除自己以避免无限递归）
-		const pluginContexts = await Promise.all(
-			Object.entries(args.plugins || {})
-				.filter(([pluginId]) => pluginId !== 'code-execution')
-				.map(([, plugin]) => plugin.interfaces?.chat?.GetJSCodeContext?.(args, args.prompt_struct))
-		)
-		return Object.assign(js_eval_context, ...pluginContexts.filter(Boolean))
+		// 从其他插件获取 JS 代码上下文
+		const pluginContexts = (
+			await Promise.all(
+				Object.values(args.plugins || {}).map(plugin =>
+					plugin.interfaces?.code_execution?.GetJSCodeContext?.(args)
+				)
+			)
+		).filter(Boolean)
+		return Object.assign(js_eval_context, ...pluginContexts)
 	}
 
 	/**

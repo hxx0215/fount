@@ -3,19 +3,21 @@ import path from 'node:path'
 
 import { loadPartBase, unloadPartBase } from '../../../server/parts_loader.mjs'
 
-import info from './info.json' with { type: 'json' }
+const { info } = (await import('./locales.json', { with: { type: 'json' } })).default
 
 /**
- *
+ * 插件根部件。
  */
 export default {
 	info,
 	/**
-	 *
+	 * 加载插件根部件。
+	 * @returns {Promise<void>} 加载插件根部件的承诺。
 	 */
 	Load: async () => { },
 	/**
-	 *
+	 * 卸载插件根部件。
+	 * @returns {Promise<void>} 卸载插件根部件的承诺。
 	 */
 	Unload: async () => { },
 	interfaces: {

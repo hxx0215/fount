@@ -1,3 +1,50 @@
+<details>
+<summary><small>Í stuttu máli</small></summary>
+
+fount er forritanlegt, staðlað, einingarlegt og stillanlegt umhverfi fyrir reiknirit sem hleður inn ýmsum hlutum til að veita þjónustu.  
+Fyrir spurningar varðandi kóða, sjá [deepwiki](https://deepwiki.com/steve02081504/fount).  
+<small>Heitið fount er skrifað í lágstöfum—það er `f`ount, ekki `F`ount.</small>
+
+#### Af hverju fount?
+
+- Staðlað, ríkt og öflugt vistkerfi tilbúið; forðast að finna upp hjólið og villuleitareymur
+- Sérsníða reikniritaröksemdir, ekki bara prompt og viðmót
+- Nota og læra af öðrum öflugum fount-reikniritum í samfélaginu
+- Vinnustofuvænt, fljótur skýrsluútflutningur
+- Óaðskiljanleg samþætting persóna í IDE, vafra, endastöðvar, Discord o.s.frv.
+- Miðill-stýrðar viðbætur frá samfélaginu sem aðrar LLM spjallviðmót hafa ekki
+- Stilltu API og notaðu sjálfgefið persónu ZL-31 til að ljúka hlutastillingu, sköpun og **öllum notendaaðgerðum** í gegnum samræður—án náms eða innleiðingar
+
+#### Af hverju ekki fount?
+
+- Brattari námsferill, kóðakunnátta þarf
+- Sumir samfélagshlutar gætu innihaldið illgjarnan kóða; meta og velja vandlega
+
+##### Hvað ætti ég að nota?
+
+Notaðu [OpenClaw](https://openclaw.ai/) þegar þú:
+
+- Vilt prófa gervigreindarreiknirit án djúprar sérsníðunar eða skilvirknistillingar
+
+Notaðu [ChatGPT](https://chatgpt.com/) eða svipaðar net-chatvettvangar fyrir LLM þegar þú:
+
+- Vilt bara spjalla
+- Þarft ekki djúpa sérsníðun á gervigreindarpersónum
+- Er ekki á móti því að chat-saga sé geymd í skýinu án útflutnings eða flutnings
+- Er ekki á móti auglýsingum
+
+Notaðu [character.ai](https://character.ai/) eða svipaðar net-leikvettvangar fyrir LLM-persónur þegar þú:
+
+- Vilt keyra LLM-drifna persónu án reikniritaeiginleika
+- Er ásættanlegur með áskriftarkostnað
+- Vilt ekki stilla hugbúnað
+
+Notaðu [SillyTavern](https://github.com/SillyTavern/SillyTavern/) þegar þú:
+
+- Þarft persónu eða eiginleika sem krefst STscript eða SillyTavern viðbóta
+
+</details>
+
 <h1 align="center">⛲fount💪</h1>
 
 > <p align="center">Neisti Hugans, Lifandi Félagi</p>
@@ -34,14 +81,19 @@ Ef þú vilt stilla, setja upp og byrja frá grunni geturðu skoðað samfélags
 
 fount umbreytir samskiptum í framleiðnieignir; allt er hægt að draga og sleppa, allt eru skrár, og rökfræðin er knúin áfram af kóða.
 
-### 1. Að Breyta Þekkingu í Eignir og Óaðfinnanleg Samnýting
+### 1. Engin námskrafa, tilbúið til notkunar
+
+- Stilltu API og notaðu sjálfgefið persónu ZL-31 til að ljúka hlutastillingu, sköpun og **öllum notendaaðgerðum** í gegnum samræður—án náms eða innleiðingar.
+  ![Mynd](https://github.com/user-attachments/assets/b871ec43-731a-468c-ad74-6c5a7ba8d737)
+
+### 2. Að Breyta Þekkingu í Eignir og Óaðfinnanleg Samnýting
 
 - **Augnabliks skýrslugerð**: Dragðu samræðubólu beint í möppu til að búa til sjálfstæða HTML skýrslu samstundis. Hentar vel til að skipuleggja fljótt tækniskjöl, fundargerðir eða hugmyndabrot.
   ![Mynd](https://github.com/user-attachments/assets/0ef54ac0-7575-4b52-aa44-7b555dc4c4be)
 - **Innkapslun og Dreifing Vinnuferla**: Dragðu búinn til miðil (agent) beint á skjáborðið til að búa til deilanlega skrá. Dreifðu Prompt verkfræði þinni og vinnuferlisrökfræði á auðveldan hátt til samstarfsmanna eða samfélagsins.
   ![Mynd](https://github.com/user-attachments/assets/5e14fe6e-2c65-492a-a09f-964c1e8ab9e0)
 
-### 2. Keyrsluumhverfi fyrir Kóða í Rauntíma
+### 3. Keyrsluumhverfi fyrir Kóða í Rauntíma
 
 Ekki bara Markdown auðkenning lengur. Í fount eru kóðablokkir sem miðillinn sendir **lifandi**:
 
@@ -50,7 +102,7 @@ Ekki bara Markdown auðkenning lengur. Í fount eru kóðablokkir sem miðillinn
 - Leyfðu gervigreindinni að verða rauntíma sannprófari fyrir parforritun þína.
   ![Mynd](https://github.com/user-attachments/assets/66792238-4d70-4fa6-b0b3-76e506e49977)
 
-### 3. Forritaravænni
+### 4. Forritaravænni
 
 Verkefnisarkitektúr fount er hannaður með venjur forritara í huga.
 [Viltu vita um arkitektúr verkefnageymslunnar? Skoðaðu DeepWiki!](https://deepwiki.com/steve02081504/fount)
@@ -76,7 +128,7 @@ Verkefnisarkitektúr fount er hannaður með venjur forritara í huga.
 
 - **Fagurt, Sérsniðið Viðmót**
   Veldu úr yfir 30 töfrandi þemum, eða búðu til þína eigin liti. fount er þitt eigin striga.
-  ![Mynd](https://github.com/user-attachments/assets/94bd4cbb-8c66-4bc6-83eb-14c925a37074)
+  ![Mynd](https://github.com/user-attachments/assets/0d327a06-6446-4bf3-8a05-f941aa5f4ed9)
 
 - **Hægt að Nota Alls Staðar**
   fount keyrir óaðfinnanlega á Windows, macOS, Linux og jafnvel Android, og uppfyllir mismunandi þarfir þínar með beinni uppsetningu eða sveigjanleika Docker.

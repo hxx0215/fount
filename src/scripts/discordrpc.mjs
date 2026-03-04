@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { setInterval, clearInterval } from 'node:timers'
 
 import { Client } from 'npm:@xhayper/discord-rpc'
@@ -8,7 +9,6 @@ import { info } from '../server/info.mjs'
 import { in_docker, in_termux } from './env.mjs'
 import { ms } from './ms.mjs'
 
-const FountStartTimestamp = new Date()
 let activity = {
 }
 /**
@@ -18,7 +18,7 @@ async function setActivity() {
 	if (!client) return
 	for (const key in activity) if (activity[key] === undefined) delete activity[key]
 	await client.user?.setActivity({
-		startTimestamp: FountStartTimestamp,
+		startTimestamp: new Date(process.env.FOUNT_SESSION_START_TIME ?? startTime.getTime()).getTime(),
 		...activity || defaultActivity()
 	})
 }
@@ -34,8 +34,9 @@ let client = null
 function defaultActivity() {
 	return {
 		details: info.activity,
+		detailsUrl: info.shortlinkUrl,
 		state: info.logotext,
-		startTimestamp: startTime.getTime(),
+		stateUrl: info.shortlinkUrl,
 		largeImageKey: 'icon',
 		largeImageText: info.shortlinkUrl.split('://')[1],
 		smallImageKey: undefined,

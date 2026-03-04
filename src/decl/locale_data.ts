@@ -175,6 +175,8 @@ export type LocaleData = {
 				untrustedPartsWarning: string
 				rootWarning1: string
 				rootWarning2: string
+				permissionDeniedAsRoot: string
+				permissionDeniedNotRoot: string
 			}
 			clean: {
 				removingCaches: string
@@ -281,6 +283,7 @@ export type LocaleData = {
 			open_fount: string
 			open_or_install_fount: string
 			error_message: string
+			star_thank_you: string
 		}
 		error: {
 			title: string
@@ -295,12 +298,21 @@ export type LocaleData = {
 		title: string
 		description: string
 		processing: string
-		shellCommandSent: string
-		runPartConfirm: {
-			title: string
-			message: string
-			confirm: string
-			cancel: string
+		invalidProtocol: string
+		insufficientParams: string
+		unknownCommand: string
+		unknownError: string
+		runPart: {
+			commandSent: string
+			commandError: string
+			retry: string
+			back: string
+			confirm: {
+				title: string
+				message: string
+				confirm: string
+				cancel: string
+			}
 		}
 		offline_dialog: {
 			title: string
@@ -311,12 +323,6 @@ export type LocaleData = {
 			}
 		}
 		fountNotFound: string
-		invalidProtocol: string
-		insufficientParams: string
-		unknownCommand: string
-		shellCommandFailed: string
-		shellCommandError: string
-		unknownError: string
 	}
 	startPage: {
 		title: string
@@ -1511,6 +1517,18 @@ export type LocaleData = {
 			placeholder: string
 		}
 		noPreferredLanguages: string
+		moveUpButton: {
+			'aria-label': string
+			alt: string
+		}
+		moveDownButton: {
+			'aria-label': string
+			alt: string
+		}
+		deleteLocaleButton: {
+			'aria-label': string
+			alt: string
+		}
 		savedMessage: string
 		resetMessage: string
 		fetchLocalesFailed: string
@@ -1694,6 +1712,8 @@ export type LocaleData = {
 			}
 		}
 		configTitle: string
+		needsConfigReminder: string
+		needsConfigLink: string
 		subtypeSelect: {
 			label: string
 			placeholder: string
@@ -1725,10 +1745,14 @@ export type LocaleData = {
 			save: string
 			delete: string
 			setDefault: {
-				dataset: {
-					tip: string
+				tooltip: {
+					dataset: {
+						tip: string
+					}
 				}
-				'aria-label': string
+				checkbox: {
+					'aria-label': string
+				}
 			}
 		}
 		confirm: {
@@ -1926,6 +1950,9 @@ export type LocaleData = {
 		install_script_description: string
 		install_button: string
 		install_from_url_tip: string
+		script_url_input: {
+			'aria-label': string
+		}
 		what_is_manager: string
 		manager_explanation: string
 		popular_managers: string
@@ -2282,6 +2309,9 @@ export type LocaleData = {
 		pageNotFoundText: string
 		homepageButton: string
 	}
+	tips: {
+		title: string
+	}
 	directoryListing: {
 		title: string
 		description: string
@@ -2386,6 +2416,14 @@ export type LocaleData = {
 			centuries: string
 		}
 	}
+	searchableDropdown: {
+		trigger: {
+			placeholder: string
+		}
+		search: {
+			placeholder: string
+		}
+	}
 }
 // 用于从嵌套对象生成点表示法键的实用类型。
 type Prev = [never, 0, 1, 2, 3, 4, 5, ...0[]]
@@ -2476,6 +2514,8 @@ export type LocaleKeyParams = {
 	'fountConsole.path.git.backupSavedTo': { path: string | number }
 	'fountConsole.path.git.noUpstreamBranch': { branch: string | number }
 	'fountConsole.path.install.packageFailed': { package: string | number }
+	'fountConsole.path.install.permissionDeniedAsRoot': { path: string | number }
+	'fountConsole.path.install.permissionDeniedNotRoot': { path: string | number }
 	'fountConsole.path.protocol.registerFailed': { message: string | number }
 	'fountConsole.path.remove.moduleRemoved': { module: string | number }
 	'fountConsole.path.remove.removeBackgroundRunnerFailed': { message: string | number }
@@ -2513,7 +2553,8 @@ export type LocaleKeyParams = {
 	'part_config.alerts.saveConfigFailed': { message: string | number }
 	'pow_captcha.errorMessage': { error: string | number }
 	'protocolhandler.offline_dialog.message': { hostUrl: string | number }
-	'protocolhandler.runPartConfirm.message': { partpath: string | number }
+	'protocolhandler.runPart.commandError': { error: string | number }
+	'protocolhandler.runPart.confirm.message': { partpath: string | number }
 	'protocolhandler.unknownError': { error: string | number }
 	'serviceSource_manager.alerts.addFileFailed': { error: string | number }
 	'serviceSource_manager.alerts.deleteFileFailed': { error: string | number }
@@ -2524,7 +2565,7 @@ export type LocaleKeyParams = {
 	'serviceSource_manager.alerts.fetchGeneratorListFailed': { error: string | number }
 	'serviceSource_manager.alerts.saveFileFailed': { error: string | number }
 	'serviceSource_manager.alerts.setDefaultFailed': { error: string | number }
-	'serviceSource_manager.buttons.setDefault.aria-label': { fileName: string | number }
+	'serviceSource_manager.buttons.setDefault.checkbox.aria-label': { fileName: string | number }
 	'serviceSource_manager.common_config_interface.loadModelsFailed': { message: string | number }
 	'subfounts.codeExecution.executionFailed': { message: string | number }
 	'subfounts.codeExecution.hostOption': { id: string | number }

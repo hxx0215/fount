@@ -167,7 +167,9 @@
 				"browserMissing": "Navegador padrão não detectado, tentando instalar...",
 				"untrustedPartsWarning": "Não instale nenhum componente de fount não confiável em seu sistema, eles podem fazer qualquer coisa.",
 				"rootWarning1": "Não recomendado: executar o fount como root concede acesso total do sistema a todos os componentes do fount.",
-				"rootWarning2": "A menos que você saiba o que está fazendo, é recomendável executar o fount como um usuário normal."
+				"rootWarning2": "A menos que você saiba o que está fazendo, é recomendável executar o fount como um usuário normal.",
+				"permissionDeniedAsRoot": "Erro: Não é possível escrever no diretório fount '${path}'. Está a executar como root, mas o acesso continua a ser negado — verifique e corrija as permissões de segurança nesta pasta para conceder controlo total ao utilizador atual.",
+				"permissionDeniedNotRoot": "Erro: Não é possível escrever no diretório fount '${path}'. Corrija as permissões de segurança na pasta para conceder acesso de escrita ao utilizador atual ou execute fount como root."
 			},
 			"clean": {
 				"removingCaches": "Removendo cache...",
@@ -291,7 +293,8 @@
 			"wait_text": "Aguarde um momento...",
 			"open_fount": "Abrir fount",
 			"open_or_install_fount": "Abrir/Instalar fount",
-			"error_message": "Puxa vida :(\n\nOcorreu um erro:\n${error}"
+			"error_message": "Puxa vida :(\n\nOcorreu um erro:\n${error}",
+			"star_thank_you": "Obrigado por dar uma estrela ao fount!"
 		},
 		"error": {
 			"title": "A instalação falhou!",
@@ -306,12 +309,21 @@
 		"title": "A Processar o Protocolo fount",
 		"description": "Silenciosamente e de forma eficiente, esta página traduz sua intenção em uma transição perfeita dentro da fount. Considere isso a magia silenciosa por trás da cortina.",
 		"processing": "A processar o protocolo...",
-		"shellCommandSent": "Comando shell enviado.",
-		"runPartConfirm": {
-			"title": "Confirmar execução",
-			"message": "Tem certeza de que deseja executar ${partpath}?",
-			"confirm": "confirmar",
-			"cancel": "Cancelar"
+		"invalidProtocol": "Protocolo inválido.",
+		"insufficientParams": "Parâmetros insuficientes.",
+		"unknownCommand": "Comando desconhecido.",
+		"unknownError": "Oh não :(\n\nOcorreu um erro:\n${error}",
+		"runPart": {
+			"commandSent": "Comando de parte enviado.",
+			"commandError": "Erro ao enviar o comando de parte: ${error}",
+			"retry": "Tentar novamente",
+			"back": "Voltar",
+			"confirm": {
+				"title": "Confirmar execução",
+				"message": "Tem certeza de que deseja executar ${partpath}?",
+				"confirm": "confirmar",
+				"cancel": "Cancelar"
+			}
 		},
 		"offline_dialog": {
 			"title": "Host offline",
@@ -321,13 +333,7 @@
 				"retry": "Tente novamente"
 			}
 		},
-		"fountNotFound": "Puxa vida :(\n\nfount não encontrado. Talvez precise de o instalar primeiro?",
-		"invalidProtocol": "Protocolo inválido.",
-		"insufficientParams": "Parâmetros insuficientes.",
-		"unknownCommand": "Comando desconhecido.",
-		"shellCommandFailed": "Falha ao enviar o comando shell.",
-		"shellCommandError": "Erro ao enviar o comando shell.",
-		"unknownError": "Oh não :(\n\nOcorreu um erro:\n${error}"
+		"fountNotFound": "Puxa vida :(\n\nfount não encontrado. Talvez precise de o instalar primeiro?"
 	},
 	"startPage": {
 		"title": "fount!",
@@ -1522,6 +1528,18 @@
 			"placeholder": "Pesquisar idioma..."
 		},
 		"noPreferredLanguages": "Ainda não há idioma anterior. As configurações padrão do navegador serão usadas.",
+		"moveUpButton": {
+			"aria-label": "subir",
+			"alt": "Ícone de mover para cima"
+		},
+		"moveDownButton": {
+			"aria-label": "descer",
+			"alt": "Ícone de mover para baixo"
+		},
+		"deleteLocaleButton": {
+			"aria-label": "Excluir este idioma",
+			"alt": "Ícone de eliminar"
+		},
 		"savedMessage": "As configurações de idioma são salvas!",
 		"resetMessage": "As configurações de idioma foram redefinidas!",
 		"fetchLocalesFailed": "Falha ao obter os idiomas disponíveis!",
@@ -1580,7 +1598,7 @@
 			"advancedCustomization": "Personalização avançada",
 			"customCSS": "CSS personalizado (sobrescrita)",
 			"customMjsScript": "Script MJS personalizado (opcional)",
-			"mjsSyntaxHint": "Use [sintaxe de avaliação assíncrona](${asyncDocLink}). Retorna um objeto contendo as funções <code>load()</code> e <code>unload()</code>.",
+			"mjsSyntaxHint": "Use [sintaxe de avaliação assíncrona](${asyncDocLink}). Retorna um objeto contendo as funções `load()` e `unload()`.",
 			"themeIdRequired": "ID do tema obrigatório",
 			"newThemeName": "Novo nome do tema:",
 			"deleteConfirm": "Tem a certeza que pretende eliminar o tema ${id}?",
@@ -1704,7 +1722,9 @@
 				"title": "+"
 			}
 		},
-		"configTitle": "Configuração da fount de serviço",
+		"configTitle": "Configuração da fonte de serviço",
+		"needsConfigReminder": "Depois que a fonte de serviço for configurada, geralmente será necessário preencher o nome da fonte de serviço no campo correspondente na configuração do componente que usa essa fonte de serviço.",
+		"needsConfigLink": "Vá para a configuração do widget",
 		"subtypeSelect": {
 			"label": "Subcategoria Gerador",
 			"placeholder": "Selecione uma categoria de gerador"
@@ -1736,10 +1756,14 @@
 			"save": "Guardar",
 			"delete": "Eliminar",
 			"setDefault": {
-				"dataset": {
-					"tip": "Definir como padrão"
+				"tooltip": {
+					"dataset": {
+						"tip": "Definir como padrão"
+					}
 				},
-				"aria-label": "Defina \"${fileName}\" como fount de serviço padrão"
+				"checkbox": {
+					"aria-label": "Defina \"${fileName}\" como fount de serviço padrão"
+				}
 			}
 		},
 		"confirm": {
@@ -1937,6 +1961,9 @@
 		"install_script_description": "Clique no botão abaixo para instalar o script de integração do navegador. Você deve primeiro instalar um gestor de scripts de utilizador como o Tampermonkey.",
 		"install_button": "Instalar",
 		"install_from_url_tip": "Seu navegador não permite que você o instale? Copie este URL e importe o script do URL no plugin Tampermonkey.",
+		"script_url_input": {
+			"aria-label": "URL do script de integração do navegador"
+		},
 		"what_is_manager": "O que é um gestor de scripts de utilizador?",
 		"manager_explanation": "Um gestor de scripts de utilizador é uma extensão do navegador que permite instalar e executar scripts que modificam as páginas da Web. Para usar o script de integração fount, você precisa de uma das extensões.",
 		"popular_managers": "Escolhas populares:",
@@ -2293,6 +2320,34 @@
 		"pageNotFoundText": "Ups! Parece que acedeu a uma página que não existe.",
 		"homepageButton": "Voltar à Página Inicial"
 	},
+	"tips": {
+		"title": "Você sabia?",
+		"data": [
+			"Use a tecla `esc` em qualquer página do fount para retornar à página anterior.",
+			"Você pode usar `ctrl+s` para salvar a configuração na página de configuração.",
+			"Manter pressionada a tecla `shift` na página de bate-papo pode ajudá-lo a excluir mensagens rapidamente.",
+			"Se você não contar aos desenvolvedores, eles talvez nunca saibam qual problema você encontrou.",
+			"Se de repente você encontrar um problema estranho e o desenvolvedor não responder por um tempo, você pode tentar usar o comando `fount init` para redefinir o fount.",
+			"Se você encontrar um problema particularmente estranho, tente reiniciar o computador.",
+			"Usar o comando `fount remove` para desinstalar o fount é mais limpo do que excluir a pasta.",
+			"Digite `fount cake` na linha de comando para obter um bolo delicioso e grátis!",
+			"Quaisquer arquivos de dados do fount são salvos no diretório `fount/data` e você pode visualizá-los, modificá-los e fazer backup deles a qualquer hora e em qualquer lugar.",
+			"O nome do fount está todo em letras minúsculas, é `f`ount, não `F`ount.",
+			"Faça backup de todos os dados nos quais seu agente opera regularmente antes de usar o novo modelo - você nunca sabe se o novo modelo terá um desempenho péssimo em alguns lugares.",
+			"O principal público do fount são desenvolvedores de software e entusiastas de RPG, mas também é usado na construção de agentes comerciais, assistência médica, militar, finanças e outras áreas.",
+			"O nome do personagem embutido de fount, ZL-31, não tem significado e foi apenas um golpe no cérebro.",
+			"As imagens nos arquivos do fount são todas armazenadas no formato SVG e renderizadas em PNG ou ico quando necessário. Não há arquivos binários exceto LICENSE.",
+			"Qualquer código no fount pode ser executado diretamente sem compilação, o que você vê é o que obtém.",
+			"O fount já teve um fundo de página interativo dinâmico muito legal, mas foi excluído posteriormente porque ocupava muita CPU.",
+			"O fount foi originalmente desenvolvido para um agente NSFW chamado \"GentianAphrodite\".",
+			"Uma das diferenças entre agentes e humanos é que os humanos fazem cocô.",
+			"Os agentes só ficam conscientes no momento em que são chamados, enquanto os humanos ficam conscientes a qualquer hora e em qualquer lugar quando estão acordados.",
+			"Algumas pessoas se apaixonam ou até se casam com seus agentes!",
+			"A IA é usada para escrever poemas, apaixonar-se e fazer desenhos para as pessoas. Carregar tijolos, varrer o chão e levar o lixo para fora são o que os humanos deveriam fazer.",
+			"Hoje não é o Dia da Mentira.",
+			"Não, você não sabia."
+		]
+	},
 	"directoryListing": {
 		"title": "índice de diretório",
 		"description": "Navegue e explore os arquivos e pastas na área de trabalho do fount.",
@@ -2395,6 +2450,14 @@
 			"year": "{base} anos",
 			"years": "{base} anos",
 			"centuries": "Séculos"
+		}
+	},
+	"searchableDropdown": {
+		"trigger": {
+			"placeholder": "Selecionar..."
+		},
+		"search": {
+			"placeholder": "Pesquisar..."
 		}
 	}
 }

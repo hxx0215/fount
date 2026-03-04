@@ -2,8 +2,8 @@ import { escapeRegExp } from '../../../../../scripts/escape.mjs'
 import { margeStructPromptChatLog, structPromptToSingleNoChatLog } from '../../../shells/chat/src/prompt_struct.mjs'
 
 import { GrokAPI } from './grokAPI.mjs'
-import info_dynamic from './info.dynamic.json' with { type: 'json' }
-import info from './info.json' with { type: 'json' }
+
+const { info, product_info } = (await import('./locales.json', { with: { type: 'json' } })).default
 
 /**
  * @typedef {import('../../../../../decl/AIsource.ts').AIsource_t} AIsource_t
@@ -11,7 +11,7 @@ import info from './info.json' with { type: 'json' }
  */
 
 /**
- *
+ * Grok AI 来源生成器部件。
  */
 export default {
 	info,
@@ -51,7 +51,7 @@ async function GetSource(config) {
 	/** @type {AIsource_t} */
 	const result = {
 		type: 'text-chat',
-		info: Object.fromEntries(Object.entries(structuredClone(info_dynamic)).map(([k, v]) => {
+		info: Object.fromEntries(Object.entries(structuredClone(product_info)).map(([k, v]) => {
 			v.name = config.name || config.model
 			return [k, v]
 		})),
@@ -119,8 +119,8 @@ async function GetSource(config) {
 
 
 			if (config.convert_config?.roleReminding ?? true) {
-				const isMutiChar = new Set(prompt_struct.chat_log.map(chatLogEntry => chatLogEntry.name).filter(Boolean)).size > 2
-				if (isMutiChar)
+				const isMultiChar = new Set(prompt_struct.chat_log.map(chatLogEntry => chatLogEntry.name).filter(Boolean)).size > 2
+				if (isMultiChar)
 					messages.push({
 						role: 'system',
 						content: `现在请以${prompt_struct.Charname}的身份续写对话。`

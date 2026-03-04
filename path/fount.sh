@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+FOUNT_SESSION_START_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+export FOUNT_SESSION_START_TIME
+if [ -z "$FOUNT_START_TIME" ]; then
+	FOUNT_START_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+fi
+export FOUNT_START_TIME
+
 # fount脚本需要兼容mac的上古版本bash，尽量避免使用新版本语法
 
 # --- 彩色输出定义 ---
@@ -641,6 +648,26 @@ handle_docker_termux_passthrough() {
 	fi
 }
 
+check_dir_writable() {
+	local dir="$1"
+	if [ ! -d "$dir" ]; then
+		mkdir -p "$dir" 2>/dev/null || return 1
+	fi
+	[ -w "$dir" ]
+}
+
+assert_fount_dir_writable() {
+	local dir="$1"
+	if ! check_dir_writable "$dir"; then
+		if [ "$(id -u)" -eq 0 ]; then
+			echo -e "${C_RED}$(get_i18n 'install.permissionDeniedAsRoot' 'path' "$dir")${C_RESET}" >&2
+		else
+			echo -e "${C_RED}$(get_i18n 'install.permissionDeniedNotRoot' 'path' "$dir")${C_RESET}" >&2
+		fi
+		exit 1
+	fi
+}
+
 update_fount_if_not_noupdate() {
 	if [ -f "$FOUNT_DIR/.noupdate" ]; then
 		get_i18n 'update.skippingFountUpdate'
@@ -1111,6 +1138,7 @@ fount_upgrade() {
 
 # 更新 fount
 if [[ $# -eq 0 || $1 != "shutdown" ]]; then
+	assert_fount_dir_writable "$FOUNT_DIR"
 	update_fount_if_not_noupdate
 fi
 
@@ -1317,11 +1345,19 @@ run() {
 		fi
 	fi
 	v8_flags="$v8_flags,--initial-heap-size=${heap_size_mb}"
+	if [ -z "$FOUNT_START_TIME" ]; then
+		FOUNT_START_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+	fi
+	export FOUNT_START_TIME
+	FOUNT_DENO_START_TIME=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
+	export FOUNT_DENO_START_TIME
 	if [[ $is_debug -eq 1 ]]; then
 		run_deno run --allow-scripts --allow-all --inspect-brk -c "$FOUNT_DIR/deno.json" --v8-flags="$v8_flags" "$FOUNT_DIR/src/server/index.mjs" "$@"
 	else
 		run_deno run --allow-scripts --allow-all -c "$FOUNT_DIR/deno.json" --v8-flags="$v8_flags" "$FOUNT_DIR/src/server/index.mjs" "$@"
 	fi
+	unset FOUNT_START_TIME
+	unset FOUNT_DENO_START_TIME
 	local exit_code=$?
 	if [[ $IN_TERMUX -eq 1 ]]; then export LANG="$LANG_BACKUP"; fi
 	return $exit_code

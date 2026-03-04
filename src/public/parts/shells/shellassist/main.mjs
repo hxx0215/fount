@@ -1,8 +1,9 @@
 import { loadPart } from '../../../../server/parts_loader.mjs'
 import { unlockAchievement } from '../achievements/src/api.mjs'
 
-import info from './info.json' with { type: 'json' }
 import { setEndpoints } from './src/endpoints.mjs'
+
+const { info } = (await import('./locales.json', { with: { type: 'json' } })).default
 
 /** @typedef {import('../../../../decl/basedefs.ts').info_t} info_t */
 
@@ -49,13 +50,13 @@ export default {
 					...data,
 					username,
 					UserCharname: data.UserCharname || username,
-					chat_scoped_char_memory: data.chat_scoped_char_memorys[data.charname] || {},
-					chat_scoped_char_memorys: undefined
+					chat_scoped_char_memory: data.chat_scoped_char_memories[data.charname] || {},
+					chat_scoped_char_memories: undefined
 				})
 				return {
 					...result,
-					chat_scoped_char_memorys: {
-						...data.chat_scoped_char_memorys,
+					chat_scoped_char_memories: {
+						...data.chat_scoped_char_memories,
 						[data.charname]: result.chat_scoped_char_memory
 					},
 					chat_scoped_char_memory: undefined

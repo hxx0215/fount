@@ -338,7 +338,6 @@ export function isPartLoaded(username, partpath) {
 export async function loadPart(username, partpath, Initargs, functions) {
 	// 记录loadPart调用
 	if (isRecordingLoadPartCalls) loadPartCallRecords.add(`${username}:${partpath}`)
-	if (!fs.existsSync(GetPartPath(username, partpath) + '/main.mjs')) debugger
 
 	// 支持层级化加载
 	const parentPath = path.dirname(partpath)
@@ -360,7 +359,10 @@ export async function loadPart(username, partpath, Initargs, functions) {
 }
 
 /**
- *
+ * 获取部件列表。
+ * @param {string} username - 用户的用户名。
+ * @param {string} partpath - 部件的路径。
+ * @returns {string[]} 部件列表。
  */
 export const getPartList = getPartListBase
 
@@ -541,7 +543,7 @@ export async function baseMjsPartUnloader(path) {
 	 */
 	async function codeunloader(path) {
 		/*
-		todo: implement codeunloader after moveing fount from deno to bun/done
+		todo: implement codeunloader after moving fount from deno to bun/done
 		deno ll never support this, see also:
 		https://github.com/denoland/deno/issues/27820
 		https://github.com/denoland/deno/issues/28126
@@ -656,7 +658,7 @@ export async function loadPartBase(username, partpath, Initargs, {
 	const parts_config = loadData(username, 'parts_config')
 	try {
 		if (!parts_init[partpath]) {
-			const profile = await doProfile(async () => {
+			const profile = await doProfile(`part:${partpath}:init`, async () => {
 				parts_init[partpath] = initPart(username, partpath, Initargs, { pathGetter, Initer, afterInit })
 				parts_init[partpath] = await parts_init[partpath]
 			})
@@ -670,7 +672,7 @@ export async function loadPartBase(username, partpath, Initargs, {
 		if (parts_init[partpath] instanceof Promise)
 			parts_init[partpath] = await parts_init[partpath]
 		if (!parts_set[username][partpath]) {
-			const profile = await doProfile(async () => {
+			const profile = await doProfile(`part:${partpath}:load`, async () => {
 				parts_set[username][partpath] = (async () => {
 					/** @type {T} */
 					const part = await baseloadPart(username, partpath, {

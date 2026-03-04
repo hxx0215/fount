@@ -167,7 +167,9 @@
 				"browserMissing": "Sjálfgefinn vafri fannst ekki, reynir að setja upp...",
 				"untrustedPartsWarning": "Ekki setja upp neina ótryggða leturíhluti á kerfið þitt, þeir geta gert hvað sem er.",
 				"rootWarning1": "Ekki mælt með því: að keyra font þar sem rót veitir fullan kerfisaðgang að öllum fontahlutum.",
-				"rootWarning2": "Nema þú vitir hvað þú ert að gera er mælt með því að keyra fount sem venjulegur notandi."
+				"rootWarning2": "Nema þú vitir hvað þú ert að gera er mælt með því að keyra fount sem venjulegur notandi.",
+				"permissionDeniedAsRoot": "Villa: Gat ekki skrifað í fount-möppuna '${path}'. Þú ert að keyra sem rót en aðgangi er enn hafnað — vinsamlegast athugaðu og leiðréttu öryggisheimildir þessarar möppu til að veita núverandi notanda fulla stjórn.",
+				"permissionDeniedNotRoot": "Villa: Gat ekki skrifað í fount-möppuna '${path}'. Vinsamlegast leiðréttu öryggisheimildir möppunnar til að veita núverandi notanda skrifaðgang, eða keyrðu fount sem rót."
 			},
 			"clean": {
 				"removingCaches": "Fjarlægir skyndiminni...",
@@ -291,7 +293,8 @@
 			"wait_text": "Vinsamlegast bíðið augnablik...",
 			"open_fount": "Opna fount",
 			"open_or_install_fount": "Opna/setja upp fount",
-			"error_message": "Æji :(\n\nVilla kom upp:\n${error}"
+			"error_message": "Æji :(\n\nVilla kom upp:\n${error}",
+			"star_thank_you": "Takk fyrir að gefa fount stjörnu!"
 		},
 		"error": {
 			"title": "Uppsetning mistókst!",
@@ -306,12 +309,21 @@
 		"title": "Meðhöndla fount samskiptareglu",
 		"description": "Á hljóðlátan og skilvirkan hátt þýðir þessi síða fyrirætlanir þínar í óaðfinnanlega umskipti innan fonts. Líttu á það sem rólega töfrana á bak við fortjaldið.",
 		"processing": "Vinn úr samskiptareglu...",
-		"shellCommandSent": "Skeljarskipun send",
-		"runPartConfirm": {
-			"title": "Staðfesta keyrslu",
-			"message": "Ertu viss um að þú viljir keyra ${partpath}?",
-			"confirm": "Staðfestu",
-			"cancel": "Hætta við"
+		"invalidProtocol": "Ógild samskiptaregla",
+		"insufficientParams": "Ófullnægjandi færibreytur",
+		"unknownCommand": "Óþekkt skipun",
+		"unknownError": "Æji :(\n\nVilla kom upp:\n${error}",
+		"runPart": {
+			"commandSent": "Hlutaskipun send",
+			"commandError": "Villa við sendingu hlutaskipunar: ${error}",
+			"retry": "Reyna aftur",
+			"back": "Til baka",
+			"confirm": {
+				"title": "Staðfesta keyrslu",
+				"message": "Ertu viss um að þú viljir keyra ${partpath}?",
+				"confirm": "Staðfestu",
+				"cancel": "Hætta við"
+			}
 		},
 		"offline_dialog": {
 			"title": "Hýsill ótengdur",
@@ -321,13 +333,7 @@
 				"retry": "Reyndu aftur"
 			}
 		},
-		"fountNotFound": "Æji :(\n\nFann ekki fount, þarftu kannski að setja það upp fyrst?",
-		"invalidProtocol": "Ógild samskiptaregla",
-		"insufficientParams": "Ófullnægjandi færibreytur",
-		"unknownCommand": "Óþekkt skipun",
-		"shellCommandFailed": "Mistókst að senda skeljarskipun",
-		"shellCommandError": "Villa við sendingu skeljarskipunar",
-		"unknownError": "Æji :(\n\nVilla kom upp:\n${error}"
+		"fountNotFound": "Æji :(\n\nFann ekki fount, þarftu kannski að setja það upp fyrst?"
 	},
 	"startPage": {
 		"title": "fount!",
@@ -638,7 +644,7 @@
 			"first_login": {
 				"name": "Halló, fontur!",
 				"description": "Stefnir í nýja heiminn, skráir þig inn í fyrsta skipti!",
-				"locked_description": "Skráðu þig einu sinni inn í gosbrunninn."
+				"locked_description": "Skráðu þig einu sinni inn í fount."
 			},
 			"sfw_mode_on": {
 				"name": "Það er einhver fyrir aftan þig!",
@@ -1522,6 +1528,18 @@
 			"placeholder": "Leita að tungumáli..."
 		},
 		"noPreferredLanguages": "Ekkert fyrri tungumál ennþá. Sjálfgefnar stillingar vafrans verða notaðar.",
+		"moveUpButton": {
+			"aria-label": "færa sig upp",
+			"alt": "færa upp táknið"
+		},
+		"moveDownButton": {
+			"aria-label": "færa sig niður",
+			"alt": "færa niður táknið"
+		},
+		"deleteLocaleButton": {
+			"aria-label": "Eyða þessu tungumáli",
+			"alt": "eyða tákni"
+		},
 		"savedMessage": "Tungumálastillingar eru vistaðar!",
 		"resetMessage": "Tungumálastillingar hafa verið endurstilltar!",
 		"fetchLocalesFailed": "Ekki tókst að fá tiltæk tungumál!",
@@ -1580,7 +1598,7 @@
 			"advancedCustomization": "Ítarleg aðlögun",
 			"customCSS": "Sérsniðin CSS (yfirskrifa)",
 			"customMjsScript": "Sérsniðið MJS forskrift (valfrjálst)",
-			"mjsSyntaxHint": "Notaðu [async-eval setningafræði](${asyncDocLink}). Skilar hlut sem inniheldur <code>load()</code> og <code>unload()</code> föllin.",
+			"mjsSyntaxHint": "Notaðu [async-eval setningafræði](${asyncDocLink}). Skilar hlut sem inniheldur `load()` og `unload()` föllin.",
 			"themeIdRequired": "Þemaauðkenni krafist",
 			"newThemeName": "Nýtt þemaheiti:",
 			"deleteConfirm": "Ertu viss um að þú viljir eyða þemanu ${id}?",
@@ -1705,6 +1723,8 @@
 			}
 		},
 		"configTitle": "Uppsetning þjónustugjafa",
+		"needsConfigReminder": "Eftir að þjónustugjafinn hefur verið stilltur þarftu almennt að fylla út heiti þjónustugjafans í samsvarandi reit í uppsetningu íhlutans sem notar þennan þjónustugjafa.",
+		"needsConfigLink": "Farðu í stillingar græju",
 		"subtypeSelect": {
 			"label": "Rafall undirflokkur",
 			"placeholder": "Vinsamlegast veldu flokk rafala"
@@ -1736,10 +1756,14 @@
 			"save": "vista",
 			"delete": "eyða",
 			"setDefault": {
-				"dataset": {
-					"tip": "Stillt sem sjálfgefið"
+				"tooltip": {
+					"dataset": {
+						"tip": "Stillt sem sjálfgefið"
+					}
 				},
-				"aria-label": "Stilltu „${fileName}“ sem sjálfgefna þjónustugjafa"
+				"checkbox": {
+					"aria-label": "Stilltu „${fileName}“ sem sjálfgefna þjónustugjafa"
+				}
 			}
 		},
 		"confirm": {
@@ -1937,6 +1961,9 @@
 		"install_script_description": "Smelltu á hnappinn hér að neðan til að setja upp samþættingarhandrit vafrans. Þú verður fyrst að setja upp notandaforskriftarstjóra eins og Tampermonkey.",
 		"install_button": "Settu upp",
 		"install_from_url_tip": "Leyfir vafrinn þér ekki að setja hann upp? Afritaðu þessa slóð og fluttu handritið frá slóðinni í Tampermonkey viðbótinni.",
+		"script_url_input": {
+			"aria-label": "Slóð vafrasamþættingarhandrits"
+		},
 		"what_is_manager": "Hvað er notandaforskriftarstjóri?",
 		"manager_explanation": "Notandaforskriftarstjóri er vafralenging sem gerir þér kleift að setja upp og keyra forskriftir sem breyta vefsíðum. Til að nota fount Integration handritið þarftu eina af viðbætunum.",
 		"popular_managers": "Vinsælir kostir:",
@@ -2293,6 +2320,34 @@
 		"pageNotFoundText": "Úps! Svo virðist sem þú hafir lent á síðu sem er ekki til.",
 		"homepageButton": "Aftur á forsíðu"
 	},
+	"tips": {
+		"title": "Vissir þú?",
+		"data": [
+			"Notaðu `esc` takkann á hvaða fountsíðu sem er til að fara aftur á fyrri síðu.",
+			"Þú getur notað `ctrl+s` til að vista stillingarnar á stillingasíðunni.",
+			"Með því að halda niðri `shift` takkanum á spjallsíðunni geturðu hjálpað þér að eyða skilaboðum fljótt.",
+			"Ef þú segir hönnuðunum ekki frá því, gætu þeir aldrei vitað hvaða vandamál þú lentir í.",
+			"Ef þú lendir allt í einu í undarlegu vandamáli og verktaki svarar þér ekki í smá stund, geturðu prófað að nota `fount init` skipunina til að endurstilla fount.",
+			"Ef þú lendir í sérlega undarlegu vandamáli geturðu prófað að endurræsa tölvuna þína.",
+			"Að nota `fount remove` skipunina til að fjarlægja fount er hreinna en að eyða möppunni.",
+			"Sláðu inn `fount cake` í skipanalínuna til að fá ókeypis og ljúffenga köku!",
+			"Allar gagnaskrár um fount eru vistaðar í 'fount/data' skránni og þú getur skoðað, breytt og tekið öryggisafrit af þeim hvenær sem er og hvar sem er.",
+			"Nafn founts er allt með lágstöfum, það er 'f'ount, ekki 'F'ount.",
+			"Taktu öryggisafrit af öllum gögnum sem umboðsmaður þinn vinnur reglulega með áður en þú notar nýja líkanið - þú veist aldrei hvort nýja líkanið muni standa sig hræðilega á sumum stöðum.",
+			"Aðaláhorfendur fount eru hugbúnaðarhönnuðir og áhugamenn um hlutverkaleiki, en það er einnig notað í smíði verslunaraðila, læknishjálp, her, fjármála og fleiri sviðum.",
+			"Nafn innbyggða persónu ZL-31 fount hefur enga merkingu og var bara skyndihugdetta.",
+			"Myndirnar í fountaskrám eru allar geymdar á svg formi og birtar í png eða ico þegar þörf krefur. Það eru engar tvíundir skrár nema LICENSE.",
+			"Hægt er að keyra hvaða kóða sem er í fount beint án þess að safna saman, það sem þú sérð er það sem þú færð.",
+			"fount var einu sinni með mjög flottan, kraftmikinn gagnvirkan síðubakgrunn, en honum var síðar eytt vegna þess að hann tók of mikinn CPU.",
+			"fount var upphaflega þróað fyrir NSFW umboðsmann sem heitir \"GentianAphrodite\".",
+			"Einn af muninum á gervigreindum og mönnum er að menn kúka.",
+			"Umboðsmenn eru aðeins með meðvitund á því augnabliki sem þeir eru kallaðir til, á meðan menn eru með meðvitund hvenær sem er og hvar sem þeir eru vakandi.",
+			"Sumt fólk verður ástfangið eða giftist jafnvel með umboðsmönnum sínum!",
+			"AI er notað til að skrifa ljóð, verða ástfangin og teikna myndir fyrir fólk. Að bera múrsteina, sópa gólf og fara með sorp er það sem menn ættu að gera.",
+			"Í dag er ekki aprílgabb.",
+			"Nei, þú vissir það ekki."
+		]
+	},
 	"directoryListing": {
 		"title": "Skráayfirlit",
 		"description": "Skoðaðu og skoðaðu skrárnar og möppurnar á vinnusvæðinu.",
@@ -2395,6 +2450,14 @@
 			"year": "{base} ár",
 			"years": "{base} ár",
 			"centuries": "Aldir"
+		}
+	},
+	"searchableDropdown": {
+		"trigger": {
+			"placeholder": "Velja..."
+		},
+		"search": {
+			"placeholder": "Leita..."
 		}
 	}
 }

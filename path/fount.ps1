@@ -1,5 +1,10 @@
 ﻿$FOUNT_DIR = Split-Path -Parent $PSScriptRoot
 
+$env:FOUNT_SESSION_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+if (-not $env:FOUNT_START_TIME) {
+	$env:FOUNT_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+}
+
 # --- 国际化函数 ---
 # 获取系统区域设置
 function Get-SystemLocales {
@@ -111,9 +116,14 @@ function Get-I18n {
 
 $ErrorCount = $Error.Count
 
-if ($PSEdition -eq "Desktop") {
-	try { $IsWindows = $true } catch {}
+function Set-MissingVariablesForWindowsPowershell {
+	[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidAssignmentToAutomaticVariable', '', Justification = 'all assignments to "automatic" variables are safe in this function')]
+	param()
+	if ($PSEdition -eq "Desktop") {
+		try { $global:IsWindows = $true } catch {}
+	}
 }
+Set-MissingVariablesForWindowsPowershell
 
 Start-Job -ScriptBlock {
 	param($FOUNT_DIR)
@@ -179,7 +189,7 @@ function Test-Winget {
 				try {
 					Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile "$env:TEMP/winget.msixbundle"
 					Add-AppxPackage -Path "$env:TEMP/winget.msixbundle"
-					Remove-Item winget.msixbundle
+					Remove-Item "$env:TEMP/winget.msixbundle" -Force -ErrorAction SilentlyContinue
 				}
 				catch {
 					Add-AppxPackage -Path https://cdn.winget.microsoft.com/cache/source.msix
@@ -257,6 +267,9 @@ function Get-WTfountCmd($ArgumentList = @()) {
 	$FilePath = "powershell.exe"
 	$ArgumentList = "-noprofile -nologo -ExecutionPolicy Bypass -File `"$FOUNT_DIR\path\fount.ps1`" $ArgumentList"
 	if (Test-Path "$env:LOCALAPPDATA/Microsoft/WindowsApps/wt.exe") {
+		if (!(Test-Path -Path "$FOUNT_DIR/node_modules")) {
+			Register-FountTerminalProfile
+		}
 		$FilePath = "$env:LOCALAPPDATA/Microsoft/WindowsApps/wt.exe"
 		$ArgumentList = "-p fount powershell.exe $ArgumentList"
 	}
@@ -274,7 +287,7 @@ function Start-WTfountCmd($ArgumentList = @()) {
 function New-FountShortcut {
 	$shell = New-Object -ComObject WScript.Shell
 
-	$shortcutCmd = Get-WTfountCmd -args @('open', 'keepalive')
+	$shortcutCmd = Get-WTfountCmd -ArgumentList @('open', 'keepalive')
 	$shortcutIconLocation = "$FOUNT_DIR\src\public\pages\favicon.ico"
 
 	$desktopPath = [Environment]::GetFolderPath("Desktop")
@@ -393,6 +406,11 @@ function Update-FountAndDeno {
 	}
 }
 
+if ($env:FOUNT_CLICK) {
+	Remove-Item Env:\FOUNT_CLICK -Force -ErrorAction Ignore
+	Start-WTfountCmd $args
+	exit $LastExitCode
+}
 if ($args[0] -eq 'nop') {
 	exit 0
 }
@@ -444,6 +462,7 @@ elseif ($args[0] -eq 'open') {
 }
 elseif ($args[0] -eq 'background') {
 	Invoke-DockerPassthrough -CurrentArgs $args
+	$env:FOUNT_BACKGROUND = 1
 	$runargs = $args[1..$args.Count]
 	if (Test-Path -Path "$FOUNT_DIR/.nobackground") {
 		$TargetPath = "powershell.exe"
@@ -740,7 +759,53 @@ if (!(Get-Command deno -ErrorAction SilentlyContinue)) {
 	}
 }
 
+function isRoot {
+	if ($IsWindows) {
+		([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+	}
+	else {
+		$UID -eq 0
+	}
+}
+
+function Test-FountDirWritable {
+	param([string]$dir)
+	if (-not (Test-Path $dir)) {
+		try { New-Item -Path $dir -ItemType Directory -Force -ErrorAction Stop | Out-Null } catch { return $false }
+	}
+	if (-not $IsWindows) { return $true }
+	try {
+		$acl = Get-Acl -Path $dir -ErrorAction Stop
+		$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+		$writeRights = [System.Security.AccessControl.FileSystemRights]::Write
+		$modifyRights = [System.Security.AccessControl.FileSystemRights]::Modify
+		foreach ($rule in $acl.Access) {
+			if ($rule.AccessControlType -ne 'Allow') { continue }
+			$ruleSid = try { $rule.IdentityReference.Translate([Security.Principal.SecurityIdentifier]) } catch { $null }
+			if (-not $ruleSid) { continue }
+			$hasWrite = ($rule.FileSystemRights -band $writeRights) -ne 0 -or ($rule.FileSystemRights -band $modifyRights) -ne 0
+			if ($hasWrite -and ($ruleSid -eq $identity.User -or $identity.Groups -contains $ruleSid)) {
+				return $true
+			}
+		}
+		return $false
+	} catch { return $false }
+}
+
+function Assert-FountDirWritable {
+	param([string]$dir)
+	if (-not (Test-FountDirWritable $dir)) {
+		if (isRoot) {
+			Write-Error (Get-I18n -key 'install.permissionDeniedAsRoot' -params @{path = $dir })
+		} else {
+			Write-Error (Get-I18n -key 'install.permissionDeniedNotRoot' -params @{path = $dir })
+		}
+		exit 1
+	}
+}
+
 if ($args.Count -eq 0 -or $args[0] -ne 'shutdown') {
+	Assert-FountDirWritable $FOUNT_DIR
 	Update-FountAndDeno
 }
 if ($args.Count -eq 0 -or ($args[0] -ne 'shutdown' -and $args[0] -ne 'geneexe')) {
@@ -755,14 +820,6 @@ if ($args.Count -eq 0 -or ($args[0] -ne 'shutdown' -and $args[0] -ne 'geneexe'))
 }
 
 # 执行 fount
-function isRoot {
-	if ($IsWindows) {
-		([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-	}
-	else {
-		$UID -eq 0
-	}
-}
 $Script:is_debug = $false
 function debug_on {
 	$Script:is_debug = $true
@@ -778,6 +835,37 @@ function debug_on {
 		Set-Clipboard -Value $originalClipboard
 	}
 }
+# 智能自启动：向 Windows 注册“系统重启/更新后恢复”
+function Register-FountApplicationRestart {
+	if (!$IsWindows) { return }
+	$restartArgs = ''
+	if ($env:FOUNT_BACKGROUND) {
+		$restartArgs += " background"
+	}
+	if ($env:FOUNT_KEEPALIVE) {
+		$restartArgs += " keepalive"
+	}
+	$restartArgs = " -NoProfile -ExecutionPolicy Bypass -Command `".{ `$env:FOUNT_CLICK = 1; .\`"$FOUNT_DIR/path/fount.ps1\`" $restartArgs }`""
+
+	Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public class FountRestart {
+	[DllImport("kernel32.dll", SetLastError = false, CharSet = CharSet.Unicode)]
+	public static extern int RegisterApplicationRestart(string pwzCommandline, uint dwFlags);
+	[DllImport("kernel32.dll", SetLastError = false)]
+	public static extern int UnregisterApplicationRestart();
+}
+'@ -ErrorAction SilentlyContinue | Out-Null
+	[FountRestart]::RegisterApplicationRestart($restartArgs, 3) | Out-Null
+}
+
+# 程序正常或 Ctrl+C 退出时取消“系统重启后恢复”注册，避免被系统再次拉起
+function Unregister-FountApplicationRestart {
+	if (!$IsWindows) { return }
+	[FountRestart]::UnregisterApplicationRestart() | Out-Null
+}
+
 function run {
 	if ($IsWindows) {
 		Get-Process tray_windows_release -ErrorAction Ignore | Where-Object { $_.CPU -gt 0.5 } | Stop-Process
@@ -803,11 +891,22 @@ function run {
 		}
 	}
 	$v8Flags += ",--initial-heap-size=${heapSizeMB}"
-	if ($Script:is_debug) {
-		deno run --allow-scripts --allow-all --inspect-brk -c "$FOUNT_DIR/deno.json" --v8-flags="$v8Flags" "$FOUNT_DIR/src/server/index.mjs" @args
+
+	if (-not $env:FOUNT_START_TIME) {
+		$env:FOUNT_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 	}
-	else {
-		deno run --allow-scripts --allow-all -c "$FOUNT_DIR/deno.json" --v8-flags="$v8Flags" "$FOUNT_DIR/src/server/index.mjs" @args
+	$env:FOUNT_DENO_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+	try {
+		if ($Script:is_debug) {
+			deno run --allow-scripts --allow-all --inspect-brk -c "$FOUNT_DIR/deno.json" --v8-flags="$v8Flags" "$FOUNT_DIR/src/server/index.mjs" @args
+		}
+		else {
+			deno run --allow-scripts --allow-all -c "$FOUNT_DIR/deno.json" --v8-flags="$v8Flags" "$FOUNT_DIR/src/server/index.mjs" @args
+		}
+	}
+	finally {
+		Remove-Item Env:\FOUNT_START_TIME -Force -ErrorAction Ignore
+		Remove-Item Env:\FOUNT_DENO_START_TIME -Force -ErrorAction Ignore
 	}
 }
 
@@ -924,49 +1023,57 @@ elseif ($args[0] -eq 'keepalive') {
 		debug_on
 	}
 
-	$startTime = Get-Date
-	$initAttempted = $false
-	$restart_timestamps = New-Object System.Collections.Generic.List[datetime]
+	$env:FOUNT_KEEPALIVE = 1
+	try {
+		Register-FountApplicationRestart
+		$startTime = Get-Date
+		$initAttempted = $false
+		$restart_timestamps = New-Object System.Collections.Generic.List[datetime]
 
-	run @runargs
-	while ($LastExitCode) {
-		if ($LastExitCode -eq 130) { exit 130 } # ctrl+c
-		if ($LastExitCode -ne 131) {
-			$elapsedTime = (Get-Date) - $startTime
-			if ($elapsedTime.TotalMinutes -lt 3 -and $initAttempted) {
-				Write-Error (Get-I18n -key 'keepalive.failedToStart')
-				exit 1
-			} else { $initAttempted = $false }
+		run @runargs
+		while ($LastExitCode) {
+			if ($LastExitCode -eq 130) { exit 130 } # ctrl+c
+			if ($LastExitCode -ne 131) {
+				$elapsedTime = (Get-Date) - $startTime
+				if ($elapsedTime.TotalMinutes -lt 3 -and $initAttempted) {
+					Write-Error (Get-I18n -key 'keepalive.failedToStart')
+					exit 1
+				} else { $initAttempted = $false }
 
-			$current_time = Get-Date
-			$restart_timestamps.Add($current_time)
+				$current_time = Get-Date
+				$restart_timestamps.Add($current_time)
 
-			$three_minutes_ago = $current_time.AddMinutes(-3)
-			for ($i = $restart_timestamps.Count - 1; $i -ge 0; $i--) {
-				if ($restart_timestamps[$i] -lt $three_minutes_ago) {
-					$restart_timestamps.RemoveAt($i)
+				$three_minutes_ago = $current_time.AddMinutes(-3)
+				for ($i = $restart_timestamps.Count - 1; $i -ge 0; $i--) {
+					if ($restart_timestamps[$i] -lt $three_minutes_ago) {
+						$restart_timestamps.RemoveAt($i)
+					}
+				}
+
+				if ($restart_timestamps.Count -ge 7) {
+					if (Test-Path -Path "$FOUNT_DIR/.noautoinit") {
+						Write-Warning (Get-I18n -key 'keepalive.autoInitDisabled')
+						exit 1
+					}
+					Write-Warning (Get-I18n -key 'keepalive.restartingTooFast')
+					$restart_timestamps.Clear()
+
+					& $PSScriptRoot/fount.ps1 init
+					if ($LastExitCode -ne 0) {
+						Write-Error (Get-I18n -key 'keepalive.initFailed')
+						exit 1
+					}
+					$initAttempted = $true
+					Write-Host (Get-I18n -key 'keepalive.initComplete')
 				}
 			}
-
-			if ($restart_timestamps.Count -ge 7) {
-				if (Test-Path -Path "$FOUNT_DIR/.noautoinit") {
-					Write-Warning (Get-I18n -key 'keepalive.autoInitDisabled')
-					exit 1
-				}
-				Write-Warning (Get-I18n -key 'keepalive.restartingTooFast')
-				$restart_timestamps.Clear()
-
-				& $PSScriptRoot/fount.ps1 init
-				if ($LastExitCode -ne 0) {
-					Write-Error (Get-I18n -key 'keepalive.initFailed')
-					exit 1
-				}
-				$initAttempted = $true
-				Write-Host (Get-I18n -key 'keepalive.initComplete')
-			}
+			Update-FountAndDeno
+			run
 		}
-		Update-FountAndDeno
-		run
+	}
+	finally {
+		Remove-Item Env:\FOUNT_KEEPALIVE -Force -ErrorAction Ignore
+		Unregister-FountApplicationRestart
 	}
 }
 elseif ($args[0] -eq 'remove') {
@@ -1104,7 +1211,7 @@ elseif ($args[0] -eq 'remove') {
 
 		$UserPath = [System.Environment]::GetEnvironmentVariable('PATH', [System.EnvironmentVariableTarget]::User)
 		$UserPath = $UserPath -split ';'
-		$UserPath = $UserPath | Where-Object { !$_.Contains("/.deno") }
+		$UserPath = $UserPath | Where-Object { $_ -notmatch '[/\\]\.deno[\\/]?' }
 		$UserPath = $UserPath -join ';'
 		[System.Environment]::SetEnvironmentVariable('PATH', $UserPath, [System.EnvironmentVariableTarget]::User)
 	}
@@ -1138,10 +1245,16 @@ else {
 		$runargs = $runargs[1..$runargs.Count]
 		debug_on
 	}
-	run @runargs
-	while ($LastExitCode -eq 131) {
-		Update-FountAndDeno
-		run
+	try {
+		Register-FountApplicationRestart
+		run @runargs
+		while ($LastExitCode -eq 131) {
+			Update-FountAndDeno
+			run
+		}
+	}
+	finally {
+		Unregister-FountApplicationRestart
 	}
 }
 

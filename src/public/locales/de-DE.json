@@ -12,7 +12,7 @@
 				"http": "HTTP-Server läuft auf ${url}"
 			},
 			"mdns": {
-				"description": "Ein Funke der Fantasie, zum Leben erweckt",
+				"description": "Ein Geistesblitz, aus Gedanken geboren",
 				"failed": "mDNS-Registrierung fehlgeschlagen: ${error}",
 				"bonjourFailed": "Erstellung des Bonjour-Dienstes fehlgeschlagen: ${error}"
 			},
@@ -24,7 +24,7 @@
 		"jobs": {
 			"restartingJob": "Starte Aufgabe ${partpath} für Benutzer ${username} neu: ${uid}",
 			"pausingJob": "Pausiere ${partpath}-Aufgabe für Benutzer ${username}: ${uid}",
-			"preloadingParts": "${count} Teile werden vorab geladen"
+			"preloadingParts": "${count} Komponenten werden vorab geladen"
 		},
 		"ipc": {
 			"serverStarted": "IPC-Server gestartet",
@@ -125,7 +125,7 @@
 				"desktopShortcutCreated": "Desktop-Verknüpfung erstellt unter ${path}",
 				"startMenuShortcutCreated": "Startmenü-Verknüpfung erstellt unter ${path}",
 				"protocolHandlerRegistered": "fount:// Protokollhandler registriert.",
-				"shortcutNotSupported": "Warnung: Ihr Betriebssystem (${os}) unterstützt das Erstellen von Desktop-Verknüpfungen nicht.",
+				"shortcutNotSupported": "Hinweis: Ihr Betriebssystem (${os}) unterstützt das Erstellen von Desktop-Verknüpfungen nicht.",
 				"osacompileNotFound": "Fehler: „osacompile“ nicht gefunden. Die macOS-App kann nicht erstellt werden.",
 				"lsregisterFailed": "Warnung: Die Verwendung von lsregister zum Registrieren einer Anwendung bei LaunchServices ist fehlgeschlagen.",
 				"createDesktopAppFailed": "Fehler: Desktop-Anwendung konnte nicht erstellt werden."
@@ -167,7 +167,9 @@
 				"browserMissing": "Standardbrowser nicht erkannt, Installation wird versucht...",
 				"untrustedPartsWarning": "Installieren Sie keine nicht vertrauenswürdigen Quellkomponenten auf Ihrem System, sie können alles bewirken.",
 				"rootWarning1": "Nicht empfohlen: Wenn Sie fount als Root ausführen, erhalten Sie vollständigen Systemzugriff auf alle fount-Komponenten.",
-				"rootWarning2": "Sofern Sie nicht wissen, was Sie tun, wird empfohlen, fount als normaler Benutzer auszuführen."
+				"rootWarning2": "Sofern Sie nicht wissen, was Sie tun, wird empfohlen, fount als normaler Benutzer auszuführen.",
+				"permissionDeniedAsRoot": "Fehler: Es konnte nicht in das fount-Verzeichnis „${path}“ geschrieben werden. Sie werden als Root ausgeführt, aber der Zugriff ist weiterhin verweigert. Bitte überprüfen und korrigieren Sie die Sicherheitsberechtigungen dieses Ordners, um dem aktuellen Benutzer Vollzugriff zu gewähren.",
+				"permissionDeniedNotRoot": "Fehler: Es konnte nicht in das fount-Verzeichnis „${path}“ geschrieben werden. Bitte korrigieren Sie die Sicherheitsberechtigungen des Ordners, um dem aktuellen Benutzer Schreibzugriff zu gewähren, oder führen Sie fount als Root aus."
 			},
 			"clean": {
 				"removingCaches": "Cache wird entfernt...",
@@ -223,7 +225,7 @@
 		"title": "Willkommen bei fount!",
 		"description": "Verfolgen Sie den Installationsfortschritt und werfen Sie einen Blick auf die darin enthaltenen Funktionen. fount ist in Kürze startbereit.",
 		"hero": {
-			"title": "Ein Funke der Fantasie, zum Leben erweckt",
+			"title": "Ein Geistesblitz, aus Gedanken geboren",
 			"description": "fount ist eine KI-gestützte Charakter-Interaktionsplattform, die <i>Sie</i> befähigt. Es ist eine Brücke, die Sie mit Ihren imaginären Charakteren verbindet und es Ihnen ermöglicht, problemlos mit ihnen zu sprechen, Ihre eigenen Charaktere zu erstellen und sie mit der Welt zu teilen."
 		},
 		"feature1": {
@@ -259,7 +261,7 @@
 		},
 		"mini_game": {
 			"title": "Spielen Sie ein kleines Spiel",
-			"description1": "Ist die Installation zu langsam?",
+			"description1": "Dauert die Installation zu lange?",
 			"description2": "Hier ist ein kleines Spiel, um sich die Zeit zu vertreiben."
 		},
 		"data_showcase": {
@@ -291,7 +293,8 @@
 			"wait_text": "Bitte warten Sie einen Moment...",
 			"open_fount": "fount öffnen",
 			"open_or_install_fount": "fount öffnen/installieren",
-			"error_message": "Och nö :(\n\nEin Fehler ist aufgetreten:\n${error}"
+			"error_message": "Och nö :(\n\nEin Fehler ist aufgetreten:\n${error}",
+			"star_thank_you": "Danke, dass du fount einen Stern gegeben hast!"
 		},
 		"error": {
 			"title": "Installation fehlgeschlagen!",
@@ -303,15 +306,24 @@
 		}
 	},
 	"protocolhandler": {
-		"title": "fount-Protokoll verarbeiten",
+		"title": "Verarbeitung des fount-Protokolls",
 		"description": "Still und effizient übersetzt diese Seite Ihre Absicht in einen nahtlosen Übergang innerhalb von fount. Betrachten Sie es als die stille Magie hinter dem Vorhang.",
 		"processing": "Protokoll wird verarbeitet...",
-		"shellCommandSent": "Shell-Befehl gesendet",
-		"runPartConfirm": {
-			"title": "Ausführung bestätigen",
-			"message": "Sind Sie sicher, dass Sie ${partpath} ausführen möchten?",
-			"confirm": "bestätigen",
-			"cancel": "Abbrechen"
+		"invalidProtocol": "Ungültiges Protokoll",
+		"insufficientParams": "Unzureichende Parameter",
+		"unknownCommand": "Unbekannter Befehl",
+		"unknownError": "Och nö :(\n\nEin Fehler ist aufgetreten:\n${error}",
+		"runPart": {
+			"commandSent": "Teilbefehl gesendet",
+			"commandError": "Fehler beim Senden des Teilbefehls: ${error}",
+			"retry": "Erneut versuchen",
+			"back": "Zurück",
+			"confirm": {
+				"title": "Ausführung bestätigen",
+				"message": "Sind Sie sicher, dass Sie ${partpath} ausführen möchten?",
+				"confirm": "bestätigen",
+				"cancel": "Abbrechen"
+			}
 		},
 		"offline_dialog": {
 			"title": "Host offline",
@@ -321,13 +333,7 @@
 				"retry": "Erneut versuchen"
 			}
 		},
-		"fountNotFound": "Och nö :(\n\nfount wurde nicht gefunden. Vielleicht müssen Sie es zuerst installieren?",
-		"invalidProtocol": "Ungültiges Protokoll",
-		"insufficientParams": "Unzureichende Parameter",
-		"unknownCommand": "Unbekannter Befehl",
-		"shellCommandFailed": "Senden des Shell-Befehls fehlgeschlagen",
-		"shellCommandError": "Fehler beim Senden des Shell-Befehls",
-		"unknownError": "Och nö :(\n\nEin Fehler ist aufgetreten:\n${error}"
+		"fountNotFound": "Och nö :(\n\nfount wurde nicht gefunden. Vielleicht müssen Sie es zuerst installieren?"
 	},
 	"startPage": {
 		"title": "fount!",
@@ -357,7 +363,7 @@
 		},
 		"achievements": {
 			"complete_tutorial": {
-				"name": "Perfektes Arithmetik-Klassenzimmer",
+				"name": "Die perfekte Mathestunde",
 				"description": "Endlich ist das Tutorial für Anfänger fertig.",
 				"locked_description": "Absolvieren Sie ein Einführungstutorial."
 			},
@@ -440,10 +446,10 @@
 		"title": "Anmeldeinformationen",
 		"description": "Ein sicherer Bereich zum Verwalten Ihrer fount-Anmeldedaten – die Schlüssel zu Ihrer Welt voller unerzählter Geschichten.",
 		"modal": {
-			"title": "Zertifikatübertragungsfehler",
-			"retrieve_error": "Beim Versuch, Ihre Anmeldeinformationen zu speichern, ist ein Fehler aufgetreten:\n${error}\nSie können fortfahren, die Anmeldeinformationen jedoch nicht speichern.",
-			"transfer_error": "Beim Versuch, Ihre Anmeldeinformationen zu übertragen, trat ein Fehler auf:\n${error}\nSie können fortfahren, können jedoch keine Anmeldeinformationen abrufen.",
-			"no_credentials": "Keine gespeicherten Anmeldedaten gefunden.\nBitte melden Sie sich in fount erneut an, um Ihre Anmeldeinformationen zu aktualisieren, oder klicken Sie auf die Schaltfläche unten, um ohne Anmeldeinformationen zur Zielseite fortzufahren.",
+			"title": "Fehler bei Anmeldedaten-Übertragung",
+			"retrieve_error": "Beim Versuch, Ihre Anmeldedaten zu speichern, ist ein Fehler aufgetreten:\n${error}\nSie können fortfahren, die Daten jedoch nicht speichern.",
+			"transfer_error": "Beim Versuch, Ihre Anmeldedaten zu übertragen, trat ein Fehler auf:\n${error}\nSie können fortfahren, können jedoch keine Anmeldedaten abrufen.",
+			"no_credentials": "Keine gespeicherten Anmeldedaten gefunden.\nBitte melden Sie sich in fount erneut an, um Ihre Anmeldedaten zu aktualisieren, oder klicken Sie auf die Schaltfläche unten, um ohne Anmeldedaten zur Zielseite fortzufahren.",
 			"missing_params": "Dem Link fehlt ein erforderlicher Parameter.",
 			"buttons": {
 				"ignore": "Ignorieren und fortfahren",
@@ -464,10 +470,10 @@
 		"sfwToggle": "Sichere Inhalte",
 		"partTypeDropdown": {
 			"button": {
-				"title": "Teiletyp-Menü"
+				"title": "Komponententyp-Menü"
 			},
 			"icon": {
-				"alt": "Teiletyp-Menü"
+				"alt": "Komponententyp-Menü"
 			}
 		},
 		"functionMenu": {
@@ -482,12 +488,12 @@
 			}
 		},
 		"emptyList": {
-			"message": "Leer...<br/>Vielleicht können Sie [einen neuen Teil erstellen](${newpartLink}) oder zum [Discord-Server von fount](${discordLink}) gehen, um etwas Spaß zu haben?"
+			"message": "Leer...<br/>Vielleicht können Sie [eine neue Komponente erstellen](${newpartLink}) oder zum [Discord-Server von fount](${discordLink}) gehen, um etwas Spaß zu haben?"
 		},
 		"part_pages": {
 			"default": {
 				"title": "Komponentenauswahl",
-				"subtitle": "Nehmen Sie ein Blatt und beginnen Sie Ihre Reise.",
+				"subtitle": "Wählen Sie ein Fragment und beginnen Sie Ihre Reise.",
 				"card": {
 					"noTags": "Keine Tags",
 					"version": "Version",
@@ -621,7 +627,7 @@
 				}
 			},
 			"shells": {
-				"title": "Interaktive Schnittstellenauswahl",
+				"title": "Shell-Auswahl",
 				"subtitle": "Wählen Sie ein Fenster und sehen Sie eine neue Welt.",
 				"card": {
 					"defaultCheckbox": {
@@ -636,12 +642,12 @@
 		},
 		"achievements": {
 			"first_login": {
-				"name": "Hallo, fount!",
+				"name": "Hallo Welt, hallo fount!",
 				"description": "Auf dem Weg in die neue Welt, loggen Sie sich zum ersten Mal ein!",
 				"locked_description": "Melden Sie sich einmal am fount an."
 			},
 			"sfw_mode_on": {
-				"name": "Da ist jemand hinter dir!",
+				"name": "Chef im Anmarsch!",
 				"description": "Wechseln Sie schnell in den Modus „Alle Altersgruppen“, ich bin so ein schlaues kleines Kind.",
 				"locked_description": "Aktivieren Sie den sicheren Inhaltsmodus einmal."
 			},
@@ -940,13 +946,13 @@
 			}
 		},
 		"dragAndDrop": {
-			"invalidPartData": "Ungültige Teiledaten.",
+			"invalidPartData": "Ungültige Komponentendaten.",
 			"charAdded": "Die Rolle ${partName} wurde dem Chat hinzugefügt.",
 			"personaSet": "Persona ${partName} wurde als aktuelle Persona festgelegt.",
 			"worldSet": "Welt ${partName} ist auf die aktuelle Welt eingestellt.",
 			"pluginAdded": "Das Plugin ${partName} wurde dem Chat hinzugefügt.",
-			"unsupportedPartType": "Nicht unterstützter Teiletyp: ${partType}.",
-			"errorAddingPart": "Fehler beim Hinzufügen von Teil ${partName}: ${error}"
+			"unsupportedPartType": "Nicht unterstützter Komponententyp: ${partType}.",
+			"errorAddingPart": "Fehler beim Hinzufügen von Komponente ${partName}: ${error}"
 		},
 		"home_char_interfaces": {
 			"main": {
@@ -1104,7 +1110,7 @@
 			"create_part": {
 				"name": "Die Alchemiewerkstatt ist geöffnet",
 				"description": "Beginnen Sie bei Null und erstellen Sie Ihre erste Komponente.",
-				"locked_description": "Erstellen Sie ein Teil mit der Quick New-Funktion."
+				"locked_description": "Erstellen Sie eine Komponente mit der Quick New-Funktion."
 			}
 		},
 		"home_function_buttons": {
@@ -1164,7 +1170,7 @@
 		},
 		"dragAndDrop": {
 			"fileDropDescription": "Komponenten aus Dateien installieren",
-			"textDropDescription": "Teile aus Text installieren"
+			"textDropDescription": "Komponenten aus Text installieren"
 		},
 		"home_function_buttons": {
 			"component_related": {
@@ -1178,7 +1184,7 @@
 		},
 		"home_drag_in_handlers": {
 			"handleTextDrop": {
-				"description": "Teile aus Text installieren"
+				"description": "Komponenten aus Text installieren"
 			},
 			"handleFileDrop": {
 				"description": "Komponenten aus Dateien installieren"
@@ -1189,7 +1195,7 @@
 		"title": "Komponenten-Exporter",
 		"pageTitle": "Komponenten-Exporter",
 		"pageSubtitle": "Exportieren Sie Ihre Lieblingsinhalte",
-		"description": "Exportieren Sie Ihre Font-Kreationen. Dieses Tool sammelt Ihre ausgewählten Teile in einer einfachen ZIP-Datei zur sicheren Aufbewahrung oder Weitergabe.",
+		"description": "Exportieren Sie Ihre Font-Kreationen. Dieses Tool sammelt Ihre ausgewählten Komponenten in einer einfachen ZIP-Datei zur sicheren Aufbewahrung oder Weitergabe.",
 		"steps": {
 			"part": "Wählen Sie Komponenten aus",
 			"action": "Export"
@@ -1258,7 +1264,7 @@
 			}
 		},
 		"dragAndDrop": {
-			"downloadPartDescription": "Teile herunterladen"
+			"downloadPartDescription": "Komponenten herunterladen"
 		},
 		"home_function_buttons": {
 			"component_related": {
@@ -1272,7 +1278,7 @@
 		},
 		"home_drag_out_generators": {
 			"generateDownloadUrl": {
-				"description": "Teile herunterladen"
+				"description": "Komponenten herunterladen"
 			}
 		},
 		"home_common_interfaces": {
@@ -1471,7 +1477,7 @@
 			"selectSubfountLabel": "Wählen Sie die Subfount aus",
 			"selectSubfountPlaceholder": "Bitte wählen Sie die Subfount aus, auf der der Code ausgeführt werden soll...",
 			"hostOption": "Host (ID: ${id})",
-			"subfountOption": "Erweiterung ${id}${deviceId}",
+			"subfountOption": "Client ${id}${deviceId}",
 			"scriptLabel": "JavaScript-Code",
 			"executeButton": "ausführen",
 			"executing": "Ausführen...",
@@ -1509,7 +1515,7 @@
 	"languageSettings": {
 		"title": "Spracheinstellungen",
 		"pageTitle": "Spracheinstellungen",
-		"description": "Verwalten Sie Ihre Spracheinstellungen für die Schriftartenanwendung. Passen Sie Ihr Erlebnis mit den verfügbaren Sprachoptionen an.",
+		"description": "Verwalten Sie Ihre Spracheinstellungen für die fount-Anwendung. Passen Sie Ihr Erlebnis mit den verfügbaren Sprachoptionen an.",
 		"pageDescription": "Verwalten Sie hier Ihre Spracheinstellungen. Die Sprachen in der Liste haben Vorrang vor den Browsereinstellungen in der Reihenfolge.",
 		"availableLanguages": "Verfügbare Sprachen",
 		"preferredLanguages": "Prioritätssprachliste",
@@ -1522,9 +1528,21 @@
 			"placeholder": "Sprache suchen..."
 		},
 		"noPreferredLanguages": "Noch keine bevorzugte Sprache festgelegt. Es werden die Standardeinstellungen des Browsers verwendet.",
-		"savedMessage": "Spracheinstellungen werden gespeichert!",
+		"moveUpButton": {
+			"aria-label": "nach oben bewegen",
+			"alt": "Symbol „Nach oben verschieben“."
+		},
+		"moveDownButton": {
+			"aria-label": "nach unten bewegen",
+			"alt": "Symbol „Nach unten verschieben“."
+		},
+		"deleteLocaleButton": {
+			"aria-label": "Diese Sprache löschen",
+			"alt": "Symbol „Löschen“."
+		},
+		"savedMessage": "Spracheinstellungen wurden gespeichert!",
 		"resetMessage": "Spracheinstellungen wurden zurückgesetzt!",
-		"fetchLocalesFailed": "Versäumte, verfügbare Sprachen zu erhalten!",
+		"fetchLocalesFailed": "Abrufen der verfügbaren Sprachen fehlgeschlagen!",
 		"home_function_buttons": {
 			"settings": {
 				"title": "Einstellungen",
@@ -1580,7 +1598,7 @@
 			"advancedCustomization": "Erweiterte Anpassung",
 			"customCSS": "Benutzerdefiniertes CSS (Überschreibung)",
 			"customMjsScript": "Benutzerdefiniertes MJS-Skript (optional)",
-			"mjsSyntaxHint": "Verwenden Sie [async-eval-Syntax](${asyncDocLink}). Gibt ein Objekt zurück, das die Funktionen <code>load()</code> und <code>unload()</code> enthält.",
+			"mjsSyntaxHint": "Verwenden Sie [async-eval-Syntax](${asyncDocLink}). Gibt ein Objekt zurück, das die Funktionen `load()` und `unload()` enthält.",
 			"themeIdRequired": "Themen-ID erforderlich",
 			"newThemeName": "Name des neuen Themas:",
 			"deleteConfirm": "Sind Sie sicher, dass Sie das Thema ${id} löschen möchten?",
@@ -1705,6 +1723,8 @@
 			}
 		},
 		"configTitle": "Konfiguration der Dienstquelle",
+		"needsConfigReminder": "Nachdem die Dienstquelle konfiguriert wurde, müssen Sie im Allgemeinen den Namen der Dienstquelle in das entsprechende Feld in der Konfiguration der Komponente eingeben, die diese Dienstquelle verwendet.",
+		"needsConfigLink": "Gehen Sie zur Widget-Konfiguration",
 		"subtypeSelect": {
 			"label": "Unterkategorie „Generator“.",
 			"placeholder": "Bitte wählen Sie eine Generatorkategorie aus"
@@ -1736,10 +1756,14 @@
 			"save": "speichern",
 			"delete": "löschen",
 			"setDefault": {
-				"dataset": {
-					"tip": "Als Standard festlegen"
+				"tooltip": {
+					"dataset": {
+						"tip": "Als Standard festlegen"
+					}
 				},
-				"aria-label": "Legen Sie „${fileName}“ als Standarddienstquelle fest"
+				"checkbox": {
+					"aria-label": "Legen Sie „${fileName}“ als Standarddienstquelle fest"
+				}
 			}
 		},
 		"confirm": {
@@ -1933,10 +1957,13 @@
 		"description": "Überbrücken Sie die Lücke zwischen Quelle und Internet. Diese Seite stellt das Benutzerskript bereit, um eine nahtlose Integration zu ermöglichen und Ihre KI-Begleiter in Ihr Surferlebnis einzubeziehen.",
 		"pageHeader": "Browserintegration",
 		"pageDescription": "Damit Ihre fount -Rolle mit der Webseite interagieren kann, müssen Sie dieses Browser -Integrationsskript installieren. Es fungiert als Brücke zwischen dem Charakter und dem Browser, sodass sie den Seiteninhalt anzeigen und Aktionen ausführen können.",
-		"install_script_title": "Installationsskript",
+		"install_script_title": "Skript installieren",
 		"install_script_description": "Klicken Sie auf die Schaltfläche unten, um das Browser -Integrationsskript zu installieren. Sie müssen zuerst einen Tampermonkey (oder einen ähnlichen Skript-Manager) installieren.",
 		"install_button": "Installieren",
 		"install_from_url_tip": "Ermöglicht Ihr Browser die Installation nicht? Kopieren Sie diese URL und importieren Sie das Skript aus der URL im Tampermonkey-Plugin.",
+		"script_url_input": {
+			"aria-label": "URL des Browser-Integrationsskripts"
+		},
 		"what_is_manager": "Was ist ein Userscript-Manager?",
 		"manager_explanation": "Ein Userscript-Manager ist eine Browser-Erweiterung, mit der Sie Skripte installieren und ausführen können, die Webseiten ändern. Um das fount -Integrationsskript zu verwenden, benötigen Sie eine der Erweiterungen.",
 		"popular_managers": "Beliebte Entscheidungen:",
@@ -2293,6 +2320,34 @@
 		"pageNotFoundText": "Hoppla! Sie scheinen auf einer Seite gelandet zu sein, die nicht existiert.",
 		"homepageButton": "Zur Startseite zurückkehren"
 	},
+	"tips": {
+		"title": "Wussten Sie?",
+		"data": [
+			"Verwenden Sie die Taste `esc` auf einer beliebigen fount-Seite, um zur vorherigen Seite zurückzukehren.",
+			"Sie können `ctrl+s` verwenden, um die Konfiguration auf der Konfigurationsseite zu speichern.",
+			"Wenn Sie auf der Chat-Seite die Umschalttaste gedrückt halten, können Sie Nachrichten schnell löschen.",
+			"Wenn Sie es den Entwicklern nicht sagen, erfahren sie möglicherweise nie, auf welches Problem Sie gestoßen sind.",
+			"Wenn Sie plötzlich auf ein seltsames Problem stoßen und der Entwickler eine Weile nicht antwortet, können Sie versuchen, den fount mit dem Befehl `fount init` zurückzusetzen.",
+			"Wenn Sie auf ein besonders seltsames Problem stoßen, können Sie versuchen, Ihren Computer neu zu starten.",
+			"Die Verwendung des Befehls `fount remove` zum Deinstallieren eines fount ist sauberer als das Löschen des Ordners.",
+			"Geben Sie `fount cake` in die Befehlszeile ein, um einen kostenlosen und köstlichen Kuchen zu erhalten!",
+			"Alle Datendateien von fount werden im Verzeichnis `fount/data` gespeichert und Sie können sie jederzeit und überall anzeigen, ändern und sichern.",
+			"Der Name von fount besteht ausschließlich aus Kleinbuchstaben, es heißt `f`ount und nicht `F`ount.",
+			"Sichern Sie alle Daten, mit denen Ihr Agent regelmäßig arbeitet, bevor Sie das neue Modell verwenden – Sie wissen nie, ob das neue Modell an manchen Stellen eine schlechte Leistung erbringen wird.",
+			"Die Hauptzielgruppe von fount sind Softwareentwickler und Rollenspielbegeisterte, es wird aber auch in der Handelsagentenkonstruktion, der medizinischen Versorgung, dem Militär, dem Finanzwesen und anderen Bereichen eingesetzt.",
+			"Der Name des in fount integrierten Charakters ZL-31 hat keine Bedeutung und war nur eine spontane Idee.",
+			"Die Bilder in den Quelldateien werden alle im SVG-Format gespeichert und bei Bedarf in PNG oder ICO gerendert. Es gibt keine Binärdateien außer LICENSE.",
+			"Jeder Code in fount kann ohne Kompilierung direkt ausgeführt werden. Was Sie sehen, ist das, was Sie erhalten.",
+			"fount hatte einst einen sehr coolen dynamischen interaktiven Seitenhintergrund, der jedoch später gelöscht wurde, weil er zu viel CPU beanspruchte.",
+			"fount wurde ursprünglich für einen NSFW-Agenten namens „GentianAphrodite“ entwickelt.",
+			"Einer der Unterschiede zwischen Agenten und Menschen besteht darin, dass Menschen kacken.",
+			"Agenten sind nur in dem Moment bei Bewusstsein, in dem sie aufgerufen werden, während Menschen jederzeit und überall bei Bewusstsein sind, wenn sie wach sind.",
+			"Manche Menschen verlieben sich in ihre Agenten oder heiraten sogar in sie!",
+			"KI wird verwendet, um Gedichte zu schreiben, sich zu verlieben und Bilder für Menschen zu zeichnen. Das Tragen von Ziegelsteinen, das Fegen von Böden und das Herausbringen von Müll ist das, was Menschen tun sollten.",
+			"Heute ist nicht der 1. April.",
+			"Nein, das wussten Sie nicht."
+		]
+	},
 	"directoryListing": {
 		"title": "Verzeichnisindex",
 		"description": "Durchsuchen und erkunden Sie die Dateien und Ordner im fount-Arbeitsbereich.",
@@ -2354,9 +2409,9 @@
 			"sequences": "Gemeinsame Zeichensequenzen wie \"ABC\" sind leicht zu erraten.",
 			"recentYears": "Die letzten Jahre sind leicht zu erraten.",
 			"dates": "Datum ist leicht zu erraten.",
-			"topTen": "Dies ist ein überstrapaziertes Passwort.",
-			"topHundred": "Dies ist ein Passwort, das häufig verwendet wird.",
-			"common": "Dies ist ein häufig verwendetes Passwort.",
+			"topTen": "Dies ist eines der 10 häufigsten Passwörter.",
+			"topHundred": "Dies ist ein sehr häufig verwendetes Passwort.",
+			"common": "Dies ist ein häufiges Passwort.",
 			"similarToCommon": "Dies ähnelt einem häufig verwendeten Passwort.",
 			"wordByItself": "Ein einzelnes Wort ist leicht zu erraten.",
 			"namesByThemselves": "Ein einzelner Vor- oder Nachname ist leicht zu erraten.",
@@ -2395,6 +2450,14 @@
 			"year": "{base} Jahr",
 			"years": "{base} Jahre",
 			"centuries": "Jahrhunderte"
+		}
+	},
+	"searchableDropdown": {
+		"trigger": {
+			"placeholder": "Auswählen..."
+		},
+		"search": {
+			"placeholder": "Suchen..."
 		}
 	}
 }

@@ -1,3 +1,50 @@
+<details>
+<summary><small>TL;DR</small></summary>
+
+fount is a programmable, standardised, modular, customisable agent runtime platform that loads various parts to provide services.  
+For code-related questions, see [deepwiki](https://deepwiki.com/steve02081504/fount).  
+<small>The name fount is all lowercase—it's `f`ount, not `F`ount.</small>
+
+#### Why fount?
+
+- Standardised, rich, powerful ecosystem out of the box; avoid reinventing the wheel and debugging nightmares
+- Customise agent logic, not just prompts and UI
+- Use and learn from other powerful fount agents in the community
+- Office-friendly, quick report export
+- Seamless integration of characters into IDEs, browsers, terminals, Discord, etc.
+- Agent-oriented plugins from the community that other LLM chat frontends don't have
+- Just configure the API, then use the default character ZL-31 to complete part configuration, part creation, and all user operations via conversation—no learning or onboarding required
+
+#### Why not fount?
+
+- Steeper learning curve, code knowledge needed
+- Some community parts may contain malicious code; judge and choose carefully
+
+##### What should I use?
+
+Use [OpenClaw](https://openclaw.ai/) when you:
+
+- Want to try AI agents without deep customisation or efficiency tuning
+
+Use [ChatGPT](https://chatgpt.com/) or similar online LLM chat platforms when you:
+
+- Just want to chat
+- Don't need deep customisation of AI characters
+- Don't mind chat history being stored in the cloud with no export or migration
+- Don't mind ads
+
+Use [character.ai](https://character.ai/) or similar online LLM character role-play platforms when you:
+
+- Want to run an LLM-driven character without agent features
+- Are fine with subscription costs
+- Don't want to configure software
+
+Use [SillyTavern](https://github.com/SillyTavern/SillyTavern/) when you:
+
+- Need a character or feature that requires STscript or SillyTavern plugins
+
+</details>
+
 <h1 align="center">⛲fount💪</h1>
 
 > <p align="center">Imagination, Given Voice.</p>
@@ -42,7 +89,7 @@ fount is a **modern, scalable AI agent runtime environment**.
 
 We believe that **highly efficient productivity tools** and **immersive emotional interaction** are not mutually exclusive. fount is a bridge: by day, it can be the capable assistant helping you write complex code and summarise meeting minutes; by night, it can be a digital confidant that understands your emotions and resonates with you.
 
-After ![relative date](https://img.shields.io/date/1727107200?label=Time%20Spent) of dedicated refinement, incorporating the passion of ![GitHub contributors](https://img.shields.io/github/contributors/steve02081504/fount?label=Contributors), and a vibrant community with ![number of active users](https://img.shields.io/jsdelivr/gh/hy/steve02081504/fount?label=Active%20Users), fount is now a mature, stable, and continuously evolving AI interaction platform.
+After ![relative date](https://img.shields.io/date/1727107200?label=Time%20Spent) of dedicated refinement, fueled by the passion of ![GitHub contributors](https://img.shields.io/github/contributors/steve02081504/fount?label=Contributors) and a vibrant community of ![number of active users](https://img.shields.io/jsdelivr/gh/hy/steve02081504/fount?label=Active%20Users), fount is now a mature, stable, and continuously evolving AI interaction platform.
 
 If you wish to configure, set up, and get started from scratch, you can refer to the community tutorial [**fount Guide for Dummies from Scratch**](https://github.com/Xiaoqiush81/fount-Guide-for-dummies) (the tutorial is in Chinese, non-Chinese users can use the browser translation function to read it).
 
@@ -54,29 +101,34 @@ If you wish to configure, set up, and get started from scratch, you can refer to
 
 fount transforms interaction into productivity assets. Everything is drag-and-drop, everything is a file, and logic is driven by code.
 
-### 1. Knowledge Assetisation and Seamless Sharing
+### 1. No Learning Required, Use Out of the Box
+
+- Just configure the API, then use the default character ZL-31 to complete part configuration, part creation, and **all user operations** via conversation—no learning or onboarding required.
+  ![Image](https://github.com/user-attachments/assets/b871ec43-731a-468c-ad74-6c5a7ba8d737)
+
+### 2. Turning Knowledge into Assets and Seamless Sharing
 
 - **Instant Report Generation**: Drag a conversation bubble directly to a folder to instantly generate an independent HTML report. This is ideal for quickly organising technical documents, meeting records, or fragments of inspiration.
   ![Image](https://github.com/user-attachments/assets/0ef54ac0-7575-4b52-aa44-7b555dc4c4be)
-- **Workflow Encapsulation and Distribution**: Drag your created agent (role) directly to the desktop to generate a shareable file. Easily distribute your Prompt engineering and workflow logic to colleagues or the community.
+- **Workflow Encapsulation and Distribution**: Drag your created character directly to the desktop to export it as a shareable file. Easily distribute your Prompt engineering and workflow logic to colleagues or the community.
   ![Image](https://github.com/user-attachments/assets/5e14fe6e-2c65-492a-a09f-964c1e8ab9e0)
 
-### 2. Real-time Code Execution Environment
+### 3. Real-time Code Execution Environment
 
-No longer just Markdown highlighting. In fount, the code blocks sent by the agent (role) are **live**.
+No longer just Markdown highlighting. In fount, the code blocks sent by the character are **live**.
 
 - Supports real-time compilation and running for multiple languages (C/C++/Rust/Python/JS, etc.).
 - Directly view stdout output, and even the ASM disassembly results for compiled languages.
 - Let the AI become your real-time verifier for pair programming.
   ![Image](https://github.com/user-attachments/assets/66792238-4d70-4fa6-b0b3-76e506e49977)
 
-### 3. Developer-Friendly
+### 4. Developer-Friendly
 
 fount's project architecture is designed with full consideration for developers' habits.
 [Want to know the project repository architecture? Check out DeepWiki!](https://deepwiki.com/steve02081504/fount)
 
-- **Git Driven**: All components can be managed via Git.
-- **VSCode Integration**: The project structure is clear. Combined with the guidance provided in [AGENTS.md](./AGENTS.md), you can develop and debug your Agent logic directly in your favourite IDE.
+- **Git Driven**: All parts can be managed via Git.
+- **VSCode Integration**: The project structure is clear. Combined with the guidance provided in [AGENTS.md](../AGENTS.md), you can develop and debug your Agent logic directly in your favourite IDE.
 
 ---
 
@@ -85,18 +137,18 @@ fount's project architecture is designed with full consideration for developers'
 When work is done, fount provides a connection that transcends the ordinary. We discard the stiffness of traditional tools, pursuing a natural, fluid, and deeply "high-fidelity" interaction.
 
 - **Seamless Conversations, Anytime, Anywhere**
-  A chat started on a computer can seamlessly continue on a mobile phone or tablet. fount keeps your conversations synchronised, ensuring you stay closely connected with your agent no matter where you are.
+  A chat started on a computer can seamlessly continue on a mobile phone or tablet. fount keeps your conversations synchronised, ensuring you stay closely connected with your character no matter where you are.
 
 - **Expressive, Immersive Chat**
-  Leveraging the power of HTML, fount allows the agent (role) to express itself through rich text, images, and even interactive elements, making every conversation vivid and profound.
+  Leveraging the power of HTML, fount allows the character to express itself through rich text, images, and even interactive elements, making every conversation vivid and profound.
 
 - **A Gathering of Minds: Native Group Chat**
-  Invite multiple agents to join the same conversation and witness their dynamic and engaging interactions, whether for a work brainstorm or a story enactment between the agents.
+  Invite multiple characters to join the same conversation and witness their dynamic and engaging interactions, whether for a work brainstorm or a story enactment between the characters.
   ![Image](https://github.com/user-attachments/assets/eea1cc7c-d258-4a2d-b16f-12815a88811d)
 
 - **Beautiful, Customisable Interface**
   Choose from over 30 stunning themes, or create your own colours. fount is your exclusive canvas.
-  ![Image](https://github.com/user-attachments/assets/94bd4cbb-8c66-4bc6-83eb-14c925a37074)
+  ![Image](https://github.com/user-attachments/assets/0d327a06-6446-4bf3-8a05-f941aa5f4ed9)
 
 - **Available Everywhere**
   fount runs seamlessly on Windows, macOS, Linux, and even Android, meeting your different needs through direct installation or the flexibility of Docker.
@@ -170,12 +222,12 @@ fount is built upon a robust and scalable architecture. The backend leverages th
 
 ### Expansion: A Tapestry Woven from Diverse Threads
 
-In the world of fount, modularity reigns supreme. A rich ecosystem of components intertwines to create the tapestry of your experience. All of these can be effortlessly installed, expanded, and customised by users.
+In the world of fount, modularity reigns supreme. A rich ecosystem of parts intertwines to create the tapestry of your experience. All of these can be effortlessly installed, expanded, and customised by users.
 
 - **chars (Characters):** The heart of fount, where personalities are born.
 - **worlds (Worlds):** _Far more than mere lorebooks._ They are the silent architects of reality, able to append knowledge, influence decisions, and even manipulate chat history.
 - **personas (User Personas):** _More than just user profiles._ Personas possess the power to warp and even seize control of your words and perceptions, allowing for truly immersive roleplaying.
-- **shells (Interaction Interfaces):** The gateways to fount's soul, extending the reach of characters beyond the interface.
+- **shells (Interactive Shells):** The gateways to fount's soul, extending the reach of characters beyond the interface.
 - **ImportHandlers (Import Handlers):** The welcoming hands of fount, bridging the gap between diverse character formats.
 - **AIsources (AI Sources):** The raw power that fuels the minds of your characters.
 - **AIsourceGenerators (AI Source Generators):** The alchemists of fount, providing templates and logic via JavaScript to forge connections with _any_ imaginable AI source.
@@ -218,7 +270,7 @@ curl -fsSL https://raw.githubusercontent.com/steve02081504/fount/refs/heads/mast
 . "$HOME/.profile"
 ```
 
-### Windows: A Choice of Paths – _Simplicity Itself_
+### Windows: All Roads Lead to Rome – _Simplicity Itself_
 
 - **Direct and Uncomplicated (Recommended):** Download the `exe` file from [Releases](https://github.com/steve02081504/fount/releases) and run it.
 
@@ -267,9 +319,9 @@ Your voice will be heard. Simply restart fount, and the shadows will dissipate.
 
 ---
 
-## Badges & Links: Let Creations Shine, Let the World Connect
+## Badges & Links: Let Your Creations Shine, Put the World at Your Fingertips
 
-The world of fount is more than words and code; it's a feast for the eyes and an invitation to connect. We have prepared exquisite badges and convenient links to make your fount components shine and allow others to easily discover your masterpieces.
+The world of fount is more than words and code; it's a feast for the eyes and an invitation to connect. We have prepared exquisite badges and convenient links to make your fount parts shine and allow others to easily discover your masterpieces.
 
 ### fount Badges: The Seal of Glory
 
@@ -297,13 +349,13 @@ You can also use the [Badge Adder](https://steve02081504.github.io/fount/badges/
 
 ### Automatic Installation Links: Magic at Your Fingertips
 
-Imagine others installing your creations into their fount world with a single click. Simply combine your component's ZIP or Git repository link with fount's protocol link.
+Imagine others installing your creations into their fount world with a single click. Simply combine your part's ZIP or Git repository link with fount's protocol link.
 
-`https://steve02081504.github.io/fount/protocol?url=fount://run/shells/install/install;` + `Your_Component_Link`
+`https://steve02081504.github.io/fount/protocol?url=fount://run/shells/install/install;<Your_Part_URL>`
 
 ---
 
-## Recommended Browsers: For a Perfect Encounter
+## Recommended Browsers: For a Flawless Experience
 
 fount's frontend is woven from modern web technologies, but not all browsers resonate perfectly with its soul. For the most serene and fluid experience, we recommend companions that are in harmony with fount's rhythm:
 
