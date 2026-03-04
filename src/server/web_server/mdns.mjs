@@ -14,6 +14,7 @@ export let mdns
  * @returns {void} 什么都没有。
  */
 export async function initMdns(port, protocol, config) {
+	if (Deno.version.deno == '2.7.2') return // TODO: remove this after deno 2.7.3 is released
 	const mdns_config = {
 		name: 'fount',
 		port,
