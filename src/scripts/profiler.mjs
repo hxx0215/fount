@@ -17,7 +17,7 @@ function getProfilerStack() {
  * @param {string} name - 分析帧名称
  */
 function startProfile(name) {
-	console.profile(name)
+	// console.profile(name)
 	getProfilerStack().push({
 		name,
 		startTime: new Date(),
@@ -38,7 +38,7 @@ function startProfile(name) {
  * }} 性能分析结果。
  */
 function endProfile() {
-	console.profileEnd(name)
+	// console.profileEnd(name)
 	const profilerStack = getProfilerStack()
 
 	const endTime = new Date()

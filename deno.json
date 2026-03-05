@@ -5,6 +5,8 @@
 		"npm-lazy-caching"
 	],
 	"imports": {
+		"ansi-escapes": "npm:ansi-escapes@^7.3.0",
+		"full-proxy": "npm:full-proxy@^0.0.3",
 		"lru-cache": "npm:lru-cache@^11.2.4",
 		"mem0ai": "npm:mem0ai@^2.2.2",
 		"npm:express": "npm:express@^5.1.0",
@@ -13,7 +15,8 @@
 		"npm:@steve02081504/virtual-console": "npm:@steve02081504/virtual-console@^0.1.9",
 		"npm:on-shutdown": "npm:on-shutdown@^0.0.3",
 		"npm:fs-extra": "npm:fs-extra@^11.3.2",
-		"npm:file-type": "npm:file-type@^21.0.0"
+		"npm:file-type": "npm:file-type@^21.0.0",
+		"supports-ansi": "npm:supports-ansi@^1.0.6"
 	},
 	"lint": {
 		"exclude": [

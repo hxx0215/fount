@@ -39,6 +39,9 @@ const fount_config = {
 			Timers: !fs.existsSync(__dirname + '/.notimers'),
 			Idle: !fs.existsSync(__dirname + '/.noidle'),
 			AutoUpdate: !fs.existsSync(__dirname + '/.noupdate'),
+		},
+		Web: {
+			mDNS: false
 		}
 	}
 }
@@ -112,7 +115,7 @@ if (command_obj) try {
 	throw err
 }
 
-console.profileEnd('server start')
+// console.profileEnd('server start')
 
 // 如果初始化失败则退出。
 if (!okey) process.exit(0)
