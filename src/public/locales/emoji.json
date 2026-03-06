@@ -29,6 +29,7 @@
 		"ipc": {
 			"serverStarted": "🖥️✅",
 			"instanceRunning": "🏃‍♂️💨",
+			"noInstanceRunning": "🚫🏃‍♂️💨 ❓ ▶️ ⛲",
 			"runPartLog": "▶️ 🧩${partpath} 👤${username}, 📝: ${args}",
 			"invokePartLog": "📞 🧩${partpath} 👤${username}, 📝: ${invokedata}",
 			"invalidCommand": "❓➡️ \"⛲ ▶️ <🧩> <👤> <🏷️> <...>",
@@ -2454,10 +2455,10 @@
 	},
 	"searchableDropdown": {
 		"trigger": {
-			"placeholder": "Select an option..."
+			"placeholder": "👉..."
 		},
 		"search": {
-			"placeholder": "Search..."
+			"placeholder": "🔍..."
 		}
 	}
 }
