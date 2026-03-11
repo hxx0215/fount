@@ -265,6 +265,10 @@
 			"description1": "Cài đặt quá chậm chạp?",
 			"description2": "Có những trò chơi nhỏ ở đây để bạn giải trí trong lúc chờ đợi."
 		},
+		"testimonials": {
+			"anonymous": "người dùng ẩn danh",
+			"submit_link": "Tôi cũng muốn viết bình luận →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount là nền tảng ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Chia sẻ thành công! Đã sao chép liên kết vào bảng nhớ tạm. <br>Tính năng này được hỗ trợ bởi ${provider}. <br>[Donate cho họ.](${sponsorLink})"
 			},
 			"commonToolCalling": "Đang gọi công cụ",
-			"noReplyContent": "(Không có nội dung trả lời)"
+			"noReplyContent": "(Không có nội dung trả lời)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Thích"
+				},
+				"thumbsDown": {
+					"title": "Không thích"
+				},
+				"regenerate": {
+					"title": "Tạo lại"
+				},
+				"reason": {
+					"placeholder": "Tùy chọn: giải thích lý do"
+				},
+				"submit": "Gửi",
+				"cancel": "Hủy"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Thất bại",
 		"copySuccess": "Đã sao chép báo cáo gỡ lỗi vào bảng nhớ tạm",
 		"copyFailed": "Sao chép báo cáo không thành công",
+		"updateNow": "Cập nhật và khởi động lại ngay",
+		"alreadyLatest": "Đã là phiên bản mới nhất",
+		"updateRestarting": "Đang khởi động lại...",
+		"updateSuccess": "Máy chủ đang khởi động lại",
+		"updateFailed": "Yêu cầu cập nhật không thành công",
+		"autoUpdateNotEnabled": "Cập nhật tự động không được kích hoạt",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

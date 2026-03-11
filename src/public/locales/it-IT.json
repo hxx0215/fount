@@ -265,6 +265,10 @@
 			"description1": "L'installazione è troppo lenta?",
 			"description2": "Ecco un mini-gioco per passare il tempo."
 		},
+		"testimonials": {
+			"anonymous": "utente anonimo",
+			"submit_link": "Voglio anche scrivere un commento →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount è il più ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Condivisione riuscita! Link copiato negli appunti. <br>Questa funzionalità è supportata da ${provider}. <br>[Sostienili.](${sponsorLink})"
 			},
 			"commonToolCalling": "Esecuzione strumento",
-			"noReplyContent": "(Nessun contenuto della risposta)"
+			"noReplyContent": "(Nessun contenuto della risposta)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Mi piace"
+				},
+				"thumbsDown": {
+					"title": "Non mi piace"
+				},
+				"regenerate": {
+					"title": "Rigenera"
+				},
+				"reason": {
+					"placeholder": "Facoltativo: spiega il motivo"
+				},
+				"submit": "Invia",
+				"cancel": "Annulla"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Fallito",
 		"copySuccess": "Rapporto di debug copiato negli appunti",
 		"copyFailed": "Copia rapporto non riuscita",
+		"updateNow": "Aggiorna e riavvia ora",
+		"alreadyLatest": "Già l'ultima versione",
+		"updateRestarting": "Riavvio...",
+		"updateSuccess": "Il server si sta riavviando",
+		"updateFailed": "Richiesta di aggiornamento non riuscita",
+		"autoUpdateNotEnabled": "Gli aggiornamenti automatici non sono abilitati",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

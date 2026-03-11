@@ -265,6 +265,10 @@
 			"description1": "¿La instalación va demasiado lenta?",
 			"description2": "Aquí tienes un minijuego para pasar el rato."
 		},
+		"testimonials": {
+			"anonymous": "usuario anónimo",
+			"submit_link": "Yo también quiero escribir un comentario →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount es el más ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "¡Enlace creado con éxito! Copiado al portapapeles. <br>Este rol es compatible con ${provider}. <br>[Apóyalos.](${sponsorLink})"
 			},
 			"commonToolCalling": "Llamando a la herramienta",
-			"noReplyContent": "(Sin contenido de respuesta)"
+			"noReplyContent": "(Sin contenido de respuesta)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Me gusta"
+				},
+				"thumbsDown": {
+					"title": "No me gusta"
+				},
+				"regenerate": {
+					"title": "Regenerar"
+				},
+				"reason": {
+					"placeholder": "Opcional: explica por qué"
+				},
+				"submit": "Enviar",
+				"cancel": "Cancelar"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Fallido",
 		"copySuccess": "Informe de depuración copiado al portapapeles",
 		"copyFailed": "Error al copiar el informe",
+		"updateNow": "Actualiza y reinicia ahora",
+		"alreadyLatest": "Ya es la última versión",
+		"updateRestarting": "Reiniciando...",
+		"updateSuccess": "El servidor se está reiniciando",
+		"updateFailed": "Error en la solicitud de actualización",
+		"autoUpdateNotEnabled": "Las actualizaciones automáticas no están habilitadas",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

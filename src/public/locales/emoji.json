@@ -265,6 +265,10 @@
 			"description1": "⏳🐌❓",
 			"description2": "🎮⏰"
 		},
+		"testimonials": {
+			"anonymous": "🙈",
+			"submit_link": "✍️💬 →"
+		},
 		"data_showcase": {
 			"title_prefix": "⛲➡️",
 			"title_of": "",
@@ -848,7 +852,23 @@
 				"success": "✅🔗📋! <br>✨ ${provider} <br>[💖](${sponsorLink})"
 			},
 			"commonToolCalling": "🛠️🔄",
-			"noReplyContent": "💬🍃"
+			"noReplyContent": "💬🍃",
+			"feedback": {
+				"thumbsUp": {
+					"title": "👍"
+				},
+				"thumbsDown": {
+					"title": "👎"
+				},
+				"regenerate": {
+					"title": "🔄"
+				},
+				"reason": {
+					"placeholder": "💬❓"
+				},
+				"submit": "✅",
+				"cancel": "❌"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "❌",
 		"copySuccess": "✅📋",
 		"copyFailed": "❌📋",
+		"updateNow": "🆕🔄▶️",
+		"alreadyLatest": "👍",
+		"updateRestarting": "🔄...",
+		"updateSuccess": "🔄✅",
+		"updateFailed": "❌🔄",
+		"autoUpdateNotEnabled": "🚫🔄",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

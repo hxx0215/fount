@@ -265,6 +265,10 @@
 			"description1": "Установка идет слишком долго?",
 			"description2": "Здесь есть мини-игры, чтобы скоротать время."
 		},
+		"testimonials": {
+			"anonymous": "анонимный пользователь",
+			"submit_link": "Я тоже хочу написать комментарий →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount — самый ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Ссылка успешно создана! Скопирована в буфер обмена. <br>Эта функция поддерживается ${provider}. <br>[Поддержать их.](${sponsorLink})"
 			},
 			"commonToolCalling": "Вызов инструмента...",
-			"noReplyContent": "(Нет содержимого)"
+			"noReplyContent": "(Нет содержимого)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Нравится"
+				},
+				"thumbsDown": {
+					"title": "Не нравится"
+				},
+				"regenerate": {
+					"title": "Перегенерировать"
+				},
+				"reason": {
+					"placeholder": "Необязательно: укажите причину"
+				},
+				"submit": "Отправить",
+				"cancel": "Отмена"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Ошибка",
 		"copySuccess": "Отчет об отладке скопирован в буфер обмена.",
 		"copyFailed": "Копировать отчет не удалось",
+		"updateNow": "Обновите и перезапустите сейчас",
+		"alreadyLatest": "Уже последняя версия",
+		"updateRestarting": "Перезапуск...",
+		"updateSuccess": "Сервер перезагружается",
+		"updateFailed": "Запрос на обновление не выполнен",
+		"autoUpdateNotEnabled": "Автоматические обновления не включены",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

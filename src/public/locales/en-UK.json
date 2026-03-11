@@ -265,6 +265,10 @@
 			"description1": "Installation taking too long?",
 			"description2": "Here's a mini game to pass the time."
 		},
+		"testimonials": {
+			"anonymous": "anonymous user",
+			"submit_link": "I also want to write a comment →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount is the most ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Link created successfully! Copied to clipboard. <br>This feature is supported by ${provider}. <br>[Sponsor them.](${sponsorLink})"
 			},
 			"commonToolCalling": "Calling tool",
-			"noReplyContent": "(No reply content)"
+			"noReplyContent": "(No reply content)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Like"
+				},
+				"thumbsDown": {
+					"title": "Dislike"
+				},
+				"regenerate": {
+					"title": "Regenerate"
+				},
+				"reason": {
+					"placeholder": "Optional: explain why"
+				},
+				"submit": "Submit",
+				"cancel": "Cancel"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Failed",
 		"copySuccess": "Debug report copied to clipboard",
 		"copyFailed": "Failed to copy report",
+		"updateNow": "Update and restart now",
+		"alreadyLatest": "Already the latest version",
+		"updateRestarting": "Restarting...",
+		"updateSuccess": "Server is restarting",
+		"updateFailed": "Update request failed",
+		"autoUpdateNotEnabled": "Automatic updates are not enabled",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

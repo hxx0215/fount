@@ -265,6 +265,10 @@
 			"description1": "インストールに時間がかかりすぎていませんか？",
 			"description2": "ここでミニゲームをして、少し時間を潰しましょう。"
 		},
+		"testimonials": {
+			"anonymous": "匿名ユーザー",
+			"submit_link": "私もコメントを書きたい →"
+		},
 		"data_showcase": {
 			"title_prefix": "fountは最も",
 			"title_of": "",
@@ -848,7 +852,23 @@
 				"success": "共有に成功しました！リンクがクリップボードにコピーしました。<br>この機能は ${provider} によって提供されています。<br>[支援する](${sponsorLink})"
 			},
 			"commonToolCalling": "ツールを呼び出し中",
-			"noReplyContent": "（返信内容なし）"
+			"noReplyContent": "（返信内容なし）",
+			"feedback": {
+				"thumbsUp": {
+					"title": "いいね"
+				},
+				"thumbsDown": {
+					"title": "よくないね"
+				},
+				"regenerate": {
+					"title": "再生成"
+				},
+				"reason": {
+					"placeholder": "任意：理由を入力"
+				},
+				"submit": "送信",
+				"cancel": "キャンセル"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "エラー",
 		"copySuccess": "デバッグ レポートがクリップボードにコピーしました",
 		"copyFailed": "レポートのコピーに失敗しました",
+		"updateNow": "今すぐ更新して再起動",
+		"alreadyLatest": "すでに最新バージョンです",
+		"updateRestarting": "再起動中...",
+		"updateSuccess": "サーバーが再起動中です",
+		"updateFailed": "更新リクエストが失敗しました",
+		"autoUpdateNotEnabled": "自動更新が有効になっていません",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

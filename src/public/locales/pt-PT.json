@@ -265,6 +265,10 @@
 			"description1": "A instalação está muito lenta?",
 			"description2": "Há minijogos aqui para passar o tempo."
 		},
+		"testimonials": {
+			"anonymous": "utilizador anónimo",
+			"submit_link": "Também quero escrever um comentário →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount é a mais ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Partilhado com sucesso! Ligação copiada para a área de transferência. <br>Esta funcionalidade é suportada por ${provider}. <br>[Patrocine-os.](${sponsorLink})"
 			},
 			"commonToolCalling": "A chamar ferramenta",
-			"noReplyContent": "(Sem conteúdo de resposta)"
+			"noReplyContent": "(Sem conteúdo de resposta)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Gosto"
+				},
+				"thumbsDown": {
+					"title": "Não gosto"
+				},
+				"regenerate": {
+					"title": "Regenerar"
+				},
+				"reason": {
+					"placeholder": "Opcional: explique o motivo"
+				},
+				"submit": "Enviar",
+				"cancel": "Cancelar"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Falha",
 		"copySuccess": "Relatório de depuração copiado para a área de transferência",
 		"copyFailed": "Falha ao copiar relatório",
+		"updateNow": "Atualize e reinicie agora",
+		"alreadyLatest": "Já é a versão mais recente",
+		"updateRestarting": "Reiniciando...",
+		"updateSuccess": "O servidor está reiniciando",
+		"updateFailed": "Falha na solicitação de atualização",
+		"autoUpdateNotEnabled": "As atualizações automáticas não estão habilitadas",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

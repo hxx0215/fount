@@ -265,6 +265,10 @@
 			"description1": "Duurt de installatie te lang?",
 			"description2": "Hier is een spelletje om de tijd te doden."
 		},
+		"testimonials": {
+			"anonymous": "anonieme gebruiker",
+			"submit_link": "Ik wil ook een reactie schrijven →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount is het meest ",
 			"title_of": " e ",
@@ -848,7 +852,23 @@
 				"success": "Delen gelukt! Link gekopieerd naar klembord. <br>Deze functie wordt mogelijk gemaakt door ${provider}. <br>[Sponsor ze.](${sponsorLink})"
 			},
 			"commonToolCalling": "Tool aanroepen",
-			"noReplyContent": "(Geen antwoordinhoud)"
+			"noReplyContent": "(Geen antwoordinhoud)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Vind ik leuk"
+				},
+				"thumbsDown": {
+					"title": "Vind ik niet leuk"
+				},
+				"regenerate": {
+					"title": "Opnieuw genereren"
+				},
+				"reason": {
+					"placeholder": "Optioneel: geef een reden"
+				},
+				"submit": "Verzenden",
+				"cancel": "Annuleren"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Mislukt",
 		"copySuccess": "Foutopsporingsrapport gekopieerd naar klembord",
 		"copyFailed": "Kopieer rapport mislukt",
+		"updateNow": "Update en start nu opnieuw",
+		"alreadyLatest": "Al de nieuwste versie",
+		"updateRestarting": "Opnieuw opstarten...",
+		"updateSuccess": "De server wordt opnieuw opgestart",
+		"updateFailed": "Updateverzoek is mislukt",
+		"autoUpdateNotEnabled": "Automatische updates zijn niet ingeschakeld",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

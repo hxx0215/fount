@@ -265,6 +265,10 @@
 			"description1": "Встановлення занадто повільне?",
 			"description2": "Ось невеличка гра, щоб згаяти час."
 		},
+		"testimonials": {
+			"anonymous": "анонімний користувач",
+			"submit_link": "Я теж хочу написати коментар →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount - це ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Посилання успішно створено! Скопійовано в буфер обміну. <br>Ця функція підтримується ${provider}. <br>[Спонсоруйте їх.](${sponsorLink})"
 			},
 			"commonToolCalling": "Виклик інструменту",
-			"noReplyContent": "(Немає вмісту відповіді)"
+			"noReplyContent": "(Немає вмісту відповіді)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Подобається"
+				},
+				"thumbsDown": {
+					"title": "Не подобається"
+				},
+				"regenerate": {
+					"title": "Перегенерувати"
+				},
+				"reason": {
+					"placeholder": "За бажанням: вкажіть причину"
+				},
+				"submit": "Надіслати",
+				"cancel": "Скасувати"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Помилка",
 		"copySuccess": "Звіт про налагодження скопійовано в буфер обміну",
 		"copyFailed": "Не вдалося скопіювати звіт",
+		"updateNow": "Оновіть і перезапустіть зараз",
+		"alreadyLatest": "Вже остання версія",
+		"updateRestarting": "Перезапуск...",
+		"updateSuccess": "Сервер перезавантажується",
+		"updateFailed": "Помилка запиту на оновлення",
+		"autoUpdateNotEnabled": "Автоматичне оновлення не ввімкнено",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

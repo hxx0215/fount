@@ -272,6 +272,10 @@ export type LocaleData = {
 			description1: string
 			description2: string
 		}
+		testimonials: {
+			anonymous: string
+			submit_link: string
+		}
 		data_showcase: {
 			title_prefix: string
 			title_of: string
@@ -838,6 +842,22 @@ export type LocaleData = {
 			}
 			commonToolCalling: string
 			noReplyContent: string
+			feedback: {
+				thumbsUp: {
+					title: string
+				}
+				thumbsDown: {
+					title: string
+				}
+				regenerate: {
+					title: string
+				}
+				reason: {
+					placeholder: string
+				}
+				submit: string
+				cancel: string
+			}
 		}
 		messageEdit: {
 			input: {
@@ -2275,6 +2295,12 @@ export type LocaleData = {
 		failed: string
 		copySuccess: string
 		copyFailed: string
+		updateNow: string
+		alreadyLatest: string
+		updateRestarting: string
+		updateSuccess: string
+		updateFailed: string
+		autoUpdateNotEnabled: string
 		home_function_buttons: {
 			debug: {
 				main: {

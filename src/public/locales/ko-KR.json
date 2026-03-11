@@ -265,6 +265,10 @@
 			"description1": "설치가 너무 오래 걸리나요?",
 			"description2": "시간을 보낼 수 있는 미니 게임이 준비되어 있습니다."
 		},
+		"testimonials": {
+			"anonymous": "익명의 사용자",
+			"submit_link": "나도 후기를 남기고 싶다 →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount는 가장 ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "공유 완료! 링크가 클립보드에 복사되었습니다. <br>이 기능은 ${provider}에서 지원합니다. <br>[후원하기.](${sponsorLink})"
 			},
 			"commonToolCalling": "도구 호출 중",
-			"noReplyContent": "(답장 내용 없음)"
+			"noReplyContent": "(답장 내용 없음)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "좋아요"
+				},
+				"thumbsDown": {
+					"title": "싫어요"
+				},
+				"regenerate": {
+					"title": "재생성"
+				},
+				"reason": {
+					"placeholder": "선택사항: 이유를 설명하세요"
+				},
+				"submit": "제출",
+				"cancel": "취소"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "실패",
 		"copySuccess": "디버그 보고서가 클립보드에 복사되었습니다.",
 		"copyFailed": "보고서 복사 실패",
+		"updateNow": "지금 업데이트하고 다시 시작하세요",
+		"alreadyLatest": "이미 최신 버전입니다",
+		"updateRestarting": "다시 시작하는 중...",
+		"updateSuccess": "서버를 다시 시작하는 중입니다.",
+		"updateFailed": "업데이트 요청 실패",
+		"autoUpdateNotEnabled": "자동 업데이트가 활성화되지 않았습니다.",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

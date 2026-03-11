@@ -185,8 +185,8 @@ async function findOptimalHistorySlice(ai, model, limit, history, prefixMessages
 function isGeminiApiKeyError(err) {
 	if (!err || typeof err !== 'object') return false
 	const msg = err.message || err.cause?.message || String(err)
-	const isApiError = err.status === 400 || err.name === 'ApiError'
-	const hasApiKeyInvalid = /API key not valid|API_KEY_INVALID|INVALID_ARGUMENT/.test(msg) ||
+	const isApiError = err.status === 400 || err.status === 500 || err.name === 'ApiError'
+	const hasApiKeyInvalid = /API key not valid|API_KEY_INVALID|INVALID_ARGUMENT|auth_unavailable/.test(msg) ||
 		msg.includes('"reason":"API_KEY_INVALID"') ||
 		msg.includes('"status":"INVALID_ARGUMENT"')
 	return isApiError && hasApiKeyInvalid
@@ -211,8 +211,8 @@ async function GetSource(config) {
 	config.keep_thought_signature ??= configTemplate.keep_thought_signature
 	const supportedFileTypes = config.allowed_mime_types ?? defaultSupportedFileTypes
 
-	const ai = new GoogleGenAI({
-		apiKey: config.apikey,
+		const ai = new GoogleGenAI({
+		apiKey: config.apikey || process.env.GEMINI_API_KEY || '',
 		httpOptions: config.base_url ? {
 			baseUrl: config.base_url,
 		} : undefined
@@ -349,6 +349,9 @@ async function GetSource(config) {
 				}
 			} catch (err) {
 				if (isGeminiApiKeyError(err)) throw source_dead(err)
+				if (typeof err?.message === 'string' && err.message.includes('502: Bad gateway') && err.message.includes('cloudflare')) {
+					throw new Error('API Proxy Error: Cloudflare returned 502 Bad Gateway. Please check if your proxy server (cliproxy) is running properly.')
+				}
 				throw err
 			}
 		},
@@ -809,6 +812,9 @@ ${is_ImageGeneration
 				})
 			} catch (err) {
 				if (isGeminiApiKeyError(err)) throw source_dead(err)
+				if (typeof err?.message === 'string' && err.message.includes('502: Bad gateway') && err.message.includes('cloudflare')) {
+					throw new Error('API Proxy Error: Cloudflare returned 502 Bad Gateway. Please check if your proxy server (cliproxy) is running properly.')
+				}
 				throw err
 			}
 		},

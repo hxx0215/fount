@@ -12,17 +12,17 @@ export let currentChatId = null
  * @returns {Promise<any>} - 响应数据。
  */
 async function callApi(endpoint, method = 'POST', body) {
-	const response = await fetch(`/api/parts/shells:chat/${currentChatId}/${endpoint}`,
-		{
-			method,
-			headers: { 'Content-Type': 'application/json' },
-			body: body ? JSON.stringify(body) : undefined,
-		})
+	const response = await fetch(`/api/parts/shells:chat/${currentChatId}/${endpoint}`, {
+		method,
+		headers: { 'Content-Type': 'application/json' },
+		body: body ? JSON.stringify(body) : undefined,
+	})
+	const data = await response.json().catch(() => 0)
 
 	if (!response.ok)
-		throw Object.assign(new Error(`API request failed with status ${response.status}`), await response.json().catch(() => { }), { response })
+		throw Object.assign(new Error(`API request failed with status ${response.status}`), data, { response })
 
-	return response.json()
+	return data
 }
 
 /**
@@ -33,14 +33,12 @@ export async function createNewChat() {
 	const response = await fetch('/api/parts/shells:chat/new', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json',
+			'Content-Type': 'application/json'
 		},
 	})
 	const data = await response.json()
-
 	if (!response.ok)
-		throw Object.assign(new Error(`API request failed with status ${response.status}`), await response.json().catch(() => { }), { response })
-
+		throw Object.assign(new Error(`API request failed with status ${response.status}`), data, { response })
 	currentChatId = data.chatid
 	return data.chatid
 }
@@ -147,6 +145,16 @@ export function editMessage(index, content) {
 }
 
 /**
+ * 设置消息反馈（赞/踩及可选说明）。
+ * @param {number} index - 消息索引。
+ * @param {{ type: 'up'|'down'; content?: string }} feedback - 反馈内容。
+ * @returns {Promise<any>} - 响应数据。
+ */
+export function setMessageFeedback(index, feedback) {
+	return callApi(`message/${index}/feedback`, 'PUT', feedback)
+}
+
+/**
  * 获取角色列表。
  * @returns {Promise<any>} - 角色列表。
  */
@@ -186,7 +194,9 @@ export function getChatLogLength() {
  * @returns {Promise<any>} - 响应数据。
  */
 export function modifyTimeLine(delta) {
-	return callApi('timeline', 'PUT', { delta })
+	if (isNaN(delta)) throw new TypeError('modifyTimeLine: delta must not be NaN')
+	const safeDelta = delta === Infinity ? Number.MAX_SAFE_INTEGER : delta === -Infinity ? Number.MIN_SAFE_INTEGER : delta
+	return callApi('timeline', 'PUT', { delta: safeDelta })
 }
 
 /**

@@ -265,6 +265,10 @@
 			"description1": "Er uppsetningin of hæg?",
 			"description2": "Hér er smáleikur til að drepa tímann."
 		},
+		"testimonials": {
+			"anonymous": "nafnlaus notandi",
+			"submit_link": "Ég vil líka skrifa athugasemd →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount er ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "Deiling tókst! Tengill afritaður á klippiborð. <br>Þessi eiginleiki er studdur af ${provider}. <br>[Styrktu þá. ](${sponsorLink})"
 			},
 			"commonToolCalling": "Kallar á tól",
-			"noReplyContent": "(Ekkert svar innihald)"
+			"noReplyContent": "(Ekkert svar innihald)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "Líkar"
+				},
+				"thumbsDown": {
+					"title": "Líkar ekki"
+				},
+				"regenerate": {
+					"title": "Endurgera"
+				},
+				"reason": {
+					"placeholder": "Valfrjálst: gefðu ástæðu"
+				},
+				"submit": "Senda",
+				"cancel": "Hætta við"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "Mistókst",
 		"copySuccess": "Villuleitarskýrsla afrituð á klippiborð",
 		"copyFailed": "Afritun skýrslu mistókst",
+		"updateNow": "Uppfærðu og endurræstu núna",
+		"alreadyLatest": "Nú þegar nýjasta útgáfan",
+		"updateRestarting": "Endurræsir...",
+		"updateSuccess": "Þjónninn er að endurræsa",
+		"updateFailed": "Uppfærslubeiðni mistókst",
+		"autoUpdateNotEnabled": "Sjálfvirkar uppfærslur eru ekki virkar",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

@@ -265,6 +265,10 @@
 			"description1": "هل التثبيت بطيء جدًا؟",
 			"description2": "إليك لعبة صغيرة لتمضية الوقت."
 		},
+		"testimonials": {
+			"anonymous": "مستخدم مجهول",
+			"submit_link": "أريد أيضًا أن أكتب تعليقًا →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount هو ",
 			"title_of": " ",
@@ -848,7 +852,23 @@
 				"success": "تمت المشاركة بنجاح! تم نسخ الرابط إلى الحافظة. <br>هذه الميزة مدعومة من ${provider}. <br>[رعايتهم.](${sponsorLink})"
 			},
 			"commonToolCalling": "جارٍ استدعاء الأداة",
-			"noReplyContent": "(لا يوجد محتوى الرد)"
+			"noReplyContent": "(لا يوجد محتوى الرد)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "إعجاب"
+				},
+				"thumbsDown": {
+					"title": "عدم إعجاب"
+				},
+				"regenerate": {
+					"title": "إعادة التوليد"
+				},
+				"reason": {
+					"placeholder": "اختياري: اشرح السبب"
+				},
+				"submit": "إرسال",
+				"cancel": "إلغاء"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "فشل",
 		"copySuccess": "تم نسخ تقرير التصحيح إلى الحافظة",
 		"copyFailed": "فشل نسخ التقرير",
+		"updateNow": "قم بالتحديث وإعادة التشغيل الآن",
+		"alreadyLatest": "بالفعل أحدث إصدار",
+		"updateRestarting": "جارٍ إعادة التشغيل...",
+		"updateSuccess": "يتم إعادة تشغيل الخادم",
+		"updateFailed": "فشل طلب التحديث",
+		"autoUpdateNotEnabled": "لم يتم تمكين التحديثات التلقائية",
 		"home_function_buttons": {
 			"debug": {
 				"main": {

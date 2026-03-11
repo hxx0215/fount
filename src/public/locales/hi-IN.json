@@ -265,6 +265,10 @@
 			"description1": "क्या इंस्टॉलेशन बहुत धीमा है?",
 			"description2": "समय बिताने के लिए यहाँ एक मिनी गेम है।"
 		},
+		"testimonials": {
+			"anonymous": "अनाम उपयोगकर्ता",
+			"submit_link": "मैं भी एक टिप्पणी लिखना चाहता हूँ →"
+		},
 		"data_showcase": {
 			"title_prefix": "fount सबसे ",
 			"title_of": " है ",
@@ -848,7 +852,23 @@
 				"success": "लिंक साझा किया गया! लिंक को क्लिपबोर्ड पर कॉपी किया गया. <br>यह सुविधा ${provider} द्वारा समर्थित है। <br>[उन्हें प्रायोजित करें। ](${sponsorLink})"
 			},
 			"commonToolCalling": "टूल कॉल किया जा रहा है",
-			"noReplyContent": "(कोई उत्तर सामग्री नहीं)"
+			"noReplyContent": "(कोई उत्तर सामग्री नहीं)",
+			"feedback": {
+				"thumbsUp": {
+					"title": "पसंद"
+				},
+				"thumbsDown": {
+					"title": "नापसंद"
+				},
+				"regenerate": {
+					"title": "पुनः जेनरेट"
+				},
+				"reason": {
+					"placeholder": "वैकल्पिक: कारण बताएं"
+				},
+				"submit": "भेजें",
+				"cancel": "रद्द करें"
+			}
 		},
 		"messageEdit": {
 			"input": {
@@ -2286,6 +2306,12 @@
 		"failed": "असफल",
 		"copySuccess": "डिबग रिपोर्ट क्लिपबोर्ड पर कॉपी की गई",
 		"copyFailed": "प्रतिलिपि रिपोर्ट विफल रही",
+		"updateNow": "अभी अद्यतन करें और पुनः प्रारंभ करें",
+		"alreadyLatest": "पहले से ही नवीनतम संस्करण",
+		"updateRestarting": "पुनः प्रारंभ हो रहा है...",
+		"updateSuccess": "सर्वर पुनः प्रारंभ हो रहा है",
+		"updateFailed": "अद्यतन अनुरोध विफल रहा",
+		"autoUpdateNotEnabled": "स्वचालित अपडेट सक्षम नहीं हैं",
 		"home_function_buttons": {
 			"debug": {
 				"main": {
