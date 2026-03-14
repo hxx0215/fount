@@ -183,7 +183,7 @@ async function findOptimalHistorySlice(ai, model, limit, history, prefixMessages
  * @returns {boolean} 是否为 API key 非法错误。
  */
 function isGeminiApiKeyError(err) {
-	if (!err || typeof err !== 'object') return false
+	if (!err) return false
 	const msg = err.message || err.cause?.message || String(err)
 	const isApiError = err.status === 400 || err.status === 500 || err.name === 'ApiError'
 	const hasApiKeyInvalid = /API key not valid|API_KEY_INVALID|INVALID_ARGUMENT|auth_unavailable/.test(msg) ||
@@ -737,7 +737,7 @@ ${is_ImageGeneration
 						)).pop().split(/<\/content>\s*<\/message/).shift()
 					if (text.match(/<\/content>\s*<\/message[^>]*>\s*$/))
 						text = text.split(/<\/content>\s*<\/message[^>]*>\s*$/).shift()
-					// 清理可能出现的不完整的结束标签
+					text = text.replace(/^\s*<message[^>]*>\s*/, '').replace(/^\s*<content>\s*/, '')
 					text = text.replace(/<\/content\s*$/, '').replace(/<\/message\s*$/, '').replace(/<\/\s*$/, '')
 					// 清理 declare 标签
 					text = text.replace(/<declare>[^]*?<\/declare>\s*$/, '').replace(/<declare>[^]*$/, '')

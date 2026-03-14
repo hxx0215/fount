@@ -252,6 +252,10 @@ export async function renderMessage(message) {
 		isShiftPressed = false
 		updateButtonVisibility()
 	}
+	/**
+	 * 处理失去焦点事件。
+	 * @returns {void}
+	 */
 	const handleBlur = () => {
 		if (!isShiftPressed) return
 		isShiftPressed = false
@@ -271,6 +275,7 @@ export async function renderMessage(message) {
 	// --- Direct Download HTML button (shift mode) ---
 	/**
 	 * 下载当前消息为独立 HTML 文件。
+	 * @returns {void}
 	 */
 	const triggerDownload = () => {
 		const a = Object.assign(document.createElement('a'), {
