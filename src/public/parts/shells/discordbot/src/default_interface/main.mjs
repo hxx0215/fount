@@ -9,6 +9,7 @@ import { getAnyPreferredDefaultPart, loadPart } from '../../../../../../server/p
 import { getMessageFullContent, splitDiscordReply } from './tools.mjs'
 
 /** @typedef {import('npm:discord.js').Message} Message */
+/** @typedef {import('npm:discord.js').Client} DiscordClient */
 /** @typedef {import('../../../chat/decl/chatLog.ts').chatLogEntry_t} FountChatLogEntryBase */
 /**
  *  @typedef { (FountChatLogEntryBase & {
@@ -16,6 +17,25 @@ import { getMessageFullContent, splitDiscordReply } from './tools.mjs'
  * })} chatLogEntry_t_simple
  */
 /** @typedef {import('../../../chat/decl/chatLog.ts').chatReply_t} ChatReply_t */
+
+/**
+ * 按用户/角色索引当前正在运行的默认 Discord Bot 客户端实例。
+ * 结构为 registry[username][charname] = DiscordClient
+ * @type {Record<string, Record<string, DiscordClient>>}
+ */
+const charClientRegistry = {}
+
+/**
+ * 获取指定用户下指定角色当前正在运行的默认 Discord Bot 客户端实例。
+ * 供插件或外部代码访问 Discord.js Client（如主动发消息、管理服务器等）。
+ * 注意：若同一角色同时绑定了多个 Bot，此处返回最近启动的那个。
+ * @param {string} username - 角色所属的 fount 用户名。
+ * @param {string} charname - 角色名称（fount charname）。
+ * @returns {DiscordClient | undefined} Discord Client 实例或 undefined
+ */
+export function getDiscordClientForChar(username, charname) {
+	return charClientRegistry[username]?.[charname]
+}
 
 /**
  * 尝试执行一个函数几次，如果失败则等待一段时间后重试。
@@ -112,34 +132,57 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 
 			const content = await getMessageFullContent(fullMessage, client)
 			const files = []
-			const attachmentSources = [
-				fullMessage.attachments.values(),
-				...fullMessage.messageSnapshots?.flatMap(s => s.attachments.values()) || []
-			]
-			for (const source of attachmentSources)
-				for (const attachment of source)
-					if (attachment.url) try {
-						const buffer = Buffer.from(await tryFewTimes(() => fetch(attachment.url).then(r => r.arrayBuffer())))
-						files.push({ name: attachment.name, buffer, description: attachment.description, mime_type: attachment.contentType })
-					} catch (error) { console.error(`[SimpleDiscord] 获取附件 ${attachment.name} 失败:`, error) }
+			const processedUrls = new Set()
 
+			// 附件（含 messageSnapshots 转发消息中的附件）
+			const allAttachments = [
+				...fullMessage.attachments.values(),
+				...fullMessage.messageSnapshots.flatMap(s => [...s.attachments.values()])
+			]
+			for (const attachment of allAttachments)
+				if (attachment?.url && !processedUrls.has(attachment.url)) {
+					processedUrls.add(attachment.url)
+					try {
+						const buffer = Buffer.from(await tryFewTimes(() => fetch(attachment.url).then(r => r.arrayBuffer())))
+						files.push({ name: attachment.name, buffer, description: attachment.description || '', mime_type: attachment.contentType })
+					} catch (error) { console.error(`[SimpleDiscord] 获取附件 ${attachment.name} 失败:`, error) }
+				}
+
+			// embed 图片和缩略图
 			for (const embed of fullMessage.embeds)
-				if (embed.image?.url) try {
-					const { url } = embed.image
-					files.push({
-						name: url.substring(url.lastIndexOf('/') + 1) || 'embedded_image.png',
-						buffer: Buffer.from(await tryFewTimes(() => fetch(url).then(r => r.arrayBuffer()))),
-						description: embed.title || embed.description || '',
-						mime_type: 'image/png'
-					})
-				} catch (error) { console.error(`[SimpleDiscord] 获取embed图片 ${embed.image.url} 失败:`, error) }
+				for (const url of [embed.image?.url, embed.thumbnail?.url].filter(Boolean))
+					if (!processedUrls.has(url)) {
+						processedUrls.add(url)
+						try {
+							const buffer = Buffer.from(await tryFewTimes(() => fetch(url).then(r => r.arrayBuffer())))
+							files.push({
+								name: url.substring(url.lastIndexOf('/') + 1).split('?')[0] || 'embedded_image.png',
+								buffer,
+								description: embed.title || embed.description || '',
+								mime_type: 'image/png'
+							})
+						} catch (error) { console.error(`[SimpleDiscord] 获取embed图片 ${url} 失败:`, error) }
+					}
+
+			// 贴纸（跳过 Lottie 格式，其无法作为图片下载）
+			for (const [, sticker] of fullMessage.stickers)
+				if (sticker.url && sticker.format !== 3 && !processedUrls.has(sticker.url)) {
+					processedUrls.add(sticker.url)
+					try {
+						const buffer = Buffer.from(await tryFewTimes(() => fetch(sticker.url).then(r => r.arrayBuffer())))
+						const fileName = sticker.url.split('/').pop()?.split('?')[0] || `${sticker.name}.png`
+						files.push({ name: fileName, buffer, description: `贴纸: ${sticker.name}`, mime_type: 'image/png' })
+					} catch (error) { console.error(`[SimpleDiscord] 获取贴纸 ${sticker.name} 失败:`, error) }
+				}
+
+			const isFromOwner = author.username === config.OwnerUserName
 
 			const cachedAIReply = aiReplyObjectCache[fullMessage.id]
 			/** @type {chatLogEntry_t_simple} */
 			const entry = {
 				...cachedAIReply,
 				time_stamp: fullMessage.createdTimestamp,
-				role: author.id === client.user.id ? 'char' : author.username === config.OwnerUserName ? 'user' : 'char',
+				role: author.id === client.user.id ? 'char' : isFromOwner ? 'user' : 'char',
 				name: author.id === client.user.id ? client.user.displayName || client.user.username : finalDisplayName,
 				content,
 				files: files.filter(Boolean),
@@ -160,9 +203,9 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 			const newlog = []
 			let last = null
 			for (const currentEntry of log) {
-				const entry = { ...currentEntry } //浅拷贝，防止修改原数组
-				if (entry.files) entry.files = [...entry.files] // 深拷贝文件数组
-				if (entry.extension) entry.extension = { ...entry.extension } // 深拷贝extension
+				const entry = { ...currentEntry }
+				if (entry.files) entry.files = [...entry.files]
+				if (entry.extension) entry.extension = { ...entry.extension }
 
 				if (last && last.name === entry.name && last.role === entry.role &&
 					entry.time_stamp - last.time_stamp < 3 * 60000 && !last.files?.length) {
@@ -324,7 +367,7 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 					 * @returns {Promise<object>} 返回一个更新后的聊天回复请求对象。
 					 */
 					Update: async () => await generateChatReplyRequest(),
-					extension: { platform: 'discord', trigger_message_id: triggerMessage.id, channel_id: channelId, guild_id: triggerMessage.guild?.id }
+					extension: { platform: 'discord', trigger_message_id: triggerMessage.id, channel_id: channelId, guild_id: triggerMessage.guild?.id, discord_trigger_message_obj: triggerMessage }
 				})
 
 				const aiFinalReply = await charAPI.interfaces.chat.GetReply(await generateChatReplyRequest())
@@ -402,14 +445,17 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 				if (!channelLogs) return
 
 				const messageId = message.id
-				const indexToRemove = channelLogs.findIndex(entry =>
+				const deletedIndex = channelLogs.findIndex(entry =>
 					entry.extension?.discord_message_id === messageId
 				)
 
-				if (indexToRemove >= 0) {
-					const removed = channelLogs.splice(indexToRemove, 1)[0]
-					delete aiReplyObjectCache[removed?.extension?.discord_message_id]
-					console.log(`[SimpleDiscord] Removed deleted message ${messageId} from chat log.`)
+				if (deletedIndex >= 0) {
+					// 标记为已删除而非直接移除，保留上下文供 AI 感知
+					const entry = channelLogs[deletedIndex]
+					entry.content += '（已删除）'
+					if (entry.extension?.content_parts?.length)
+						entry.extension.content_parts = entry.extension.content_parts.map(p => p + '（已删除）')
+					console.log(`[SimpleDiscord] Marked deleted message ${messageId} in chat log.`)
 				}
 			}
 			catch (error) {
@@ -436,7 +482,16 @@ export async function createSimpleDiscordInterface(charAPI, ownerUsername, botCh
 			GatewayIntentBits.GuildMembers,
 		],
 		Partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember],
-		OnceClientReady: SimpleDiscordBotMain,
+		/**
+		 * 设置 Discord Bot 实例。
+		 * @param {import('npm:discord.js').Client} client - Discord Client 实例。
+		 * @param {object} config - Bot 配置。
+		 */
+		OnceClientReady: async (client, config) => {
+			charClientRegistry[ownerUsername] ??= {}
+			charClientRegistry[ownerUsername][botCharname] = client
+			await SimpleDiscordBotMain(client, config)
+		},
 		GetBotConfigTemplate: GetSimpleBotConfigTemplate,
 	}
 }
