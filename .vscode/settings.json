@@ -10,5 +10,8 @@
 		"javascript",
 		"javascriptreact",
 		"html",
-	]
+	],
+	"files.watcherExclude": {
+		"**/target": true
+	}
 }

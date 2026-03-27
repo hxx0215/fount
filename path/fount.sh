@@ -9,6 +9,12 @@ export FOUNT_START_TIME
 
 # fount脚本需要兼容mac的上古版本bash，尽量避免使用新版本语法
 
+# 官方npm源，避免用户自定义源导致各种问题
+if [ -z "$NPM_CONFIG_REGISTRY" ]; then
+	NPM_CONFIG_REGISTRY="https://registry.npmjs.org"
+	export NPM_CONFIG_REGISTRY
+fi
+
 # --- 彩色输出定义 ---
 C_RESET='\033[0m'
 C_RED='\033[0;31m'
@@ -127,8 +133,11 @@ get_i18n() {
 	while [ $# -gt 0 ]; do
 		local param_name="$1"
 		local param_value="$2"
+		# 转义 sed 替换字符串中的特殊字符：\ & 及分隔符 |
+		local escaped_value
+		escaped_value=$(printf '%s' "$param_value" | sed 's/\\/\\\\/g; s/&/\\&/g; s/|/\\|/g')
 		# shellcheck disable=SC2001
-		translation=$(echo "$translation" | sed "s|\\\${${param_name}}|${param_value}|g")
+		translation=$(echo "$translation" | sed "s|\\\${${param_name}}|${escaped_value}|g")
 		shift 2
 	done
 
@@ -983,6 +992,9 @@ EOF
 # 参数处理: open, background, protocolhandle
 if [[ $# -gt 0 ]]; then
 	case "$1" in
+	nop)
+		exit 0
+		;;
 	open)
 		handle_docker_termux_passthrough "$@"
 		# 若 $FOUNT_DIR/data 是目录
@@ -1135,12 +1147,12 @@ fount_upgrade() {
 
 # 函数: 安装 Deno
 install_deno() {
-	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
+	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 1 && -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
 	if [[ -z "$(command -v deno)" && -f "$HOME/.deno/env" ]]; then
 		# shellcheck source=/dev/null
 		. "$HOME/.deno/env"
 	fi
-	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 0 || -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
+	if command -v deno &>/dev/null || [[ $IN_TERMUX -eq 1 && -f ~/.deno/bin/deno.glibc.sh ]]; then return 0; fi
 
 	# 首先尝试使用包管理器安装
 	if install_package "deno" "deno"; then
@@ -1338,6 +1350,7 @@ debug_on() {
 	fi
 }
 # 函数: 运行 fount
+exit_code=0
 run() {
 	if [[ $(id -u) -eq 0 ]]; then
 		echo -e "${C_YELLOW}$(get_i18n 'install.rootWarning1')${C_RESET}" >&2
@@ -1357,6 +1370,9 @@ run() {
 		fi
 	fi
 	v8_flags="--expose-gc"
+	if [[ -n "$FOUNT_V8_FLAGS" ]]; then
+		v8_flags="$v8_flags,$FOUNT_V8_FLAGS"
+	fi
 	heap_size_mb=100 # Default to 100MB
 	config_path="$FOUNT_DIR/data/config.json"
 	if [ -f "$config_path" ] && command -v jq &>/dev/null; then
@@ -1380,7 +1396,7 @@ run() {
 	else
 		run_deno run --allow-scripts --allow-all -c "$FOUNT_DIR/deno.json" --v8-flags="$v8_flags" "$FOUNT_DIR/src/server/index.mjs" "$@"
 	fi
-	local exit_code=$?
+	exit_code=$?
 	unset FOUNT_START_TIME
 	unset FOUNT_DENO_START_TIME
 	if [ "$exit_code" -ne 0 ] && [ "$exit_code" -ne 130 ]; then
@@ -1429,7 +1445,7 @@ clean)
 	run shutdown
 	get_i18n 'clean.cleaningDenoCaches'
 	run_deno clean
-	exit 0
+	write_taskbar_progress_clear
 	;;
 keepalive)
 	trap 'write_taskbar_progress_clear' EXIT INT TERM
@@ -1444,7 +1460,6 @@ keepalive)
 	restart_timestamps=()
 
 	run "${runargs[@]}"
-	exit_code=$?
 	# shellcheck disable=SC2181
 	while [ $exit_code -ne 0 ]; do
 		if [ $exit_code -eq 130 ]; then exit 130; fi # ctrl+c
@@ -1476,7 +1491,6 @@ keepalive)
 
 		update_fount_and_deno
 		run
-		exit_code=$?
 	done
 	;;
 remove)
@@ -1531,8 +1545,8 @@ remove)
 
 	get_i18n 'remove.removingFountInstallationDir'
 	write_taskbar_progress 75
-	write_taskbar_progress 90
 	rm -rf "$FOUNT_DIR"
+	write_taskbar_progress 90
 	# 只要父目录为空，继续删他妈的
 	parent_dir=$(dirname "$FOUNT_DIR")
 	while rmdir "$parent_dir" 2>/dev/null; do
@@ -1552,12 +1566,11 @@ remove)
 		runargs=("${runargs[@]:1}")
 	fi
 	run "${runargs[@]}"
-	exit_code=$?
 	while [ $exit_code -eq 131 ]; do
 		update_fount_and_deno
 		run
-		exit_code=$?
 	done
-	exit $exit_code
 	;;
 esac
+
+exit "$exit_code"

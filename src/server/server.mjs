@@ -81,6 +81,7 @@ export function skip_report(err) {
 }
 
 /**
+ * 正在运行的服务器的基本URL。
  * @property {string} hosturl - 正在运行的服务器的基本URL。
  * @property {object} tray - 系统托盘对象。
  * @property {Function} restartor - 重启应用程序的函数。
@@ -125,7 +126,7 @@ let lastErrorTime = 0
  * @param {Error} err - 错误对象。
  * @returns {void}
  */
-function handleError(err) {
+export function handleError(err) {
 	// avoid notify spam like https://github.com/denoland/deno/issues/32803
 	if (
 		lastError?.message !== err?.message &&

@@ -524,6 +524,7 @@ class chatMetadata_t {
 	LastTimeSlice = new timeSlice_t()
 
 	/**
+	 * 聊天元数据构造函数。
 	 * @param {string} username - 聊天的所有者用户名。
 	 */
 	constructor(username) {
@@ -759,6 +760,7 @@ async function getChatRequest(chatid, charname) {
 			add_message: true,
 			fount_assets: true,
 			fount_i18nkeys: true,
+			fount_themes: true,
 		},
 		chat_name: 'common_chat_' + chatid,
 		char_id: charname,
@@ -1176,6 +1178,7 @@ async function executeGeneration(chatid, request, stream, placeholderEntry, chat
 			 */
 			replyPreviewUpdater: reply => stream.update(reply),
 			signal: stream.signal,
+			supported_functions: request.supported_functions,
 		}
 
 		const result = await request.char.interfaces.chat.GetReply(request)

@@ -18,6 +18,7 @@ import { sendWebsocketMessage, initializeWebSocket } from './websocket.mjs'
  */
 export let charList = []
 /**
+ * 插件列表。
  * @type {Array<string>}
  */
 export let pluginList = []
@@ -81,7 +82,7 @@ export async function initializeChat() {
 		frequency_data: initialData.frequency_data,
 	})
 
-	if (window.Notification && Notification?.permission != 'granted')
+	if (window.Notification?.permission != 'granted')
 		Notification.requestPermission()
 
 	setupSidebar()

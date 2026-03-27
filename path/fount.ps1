@@ -1,4 +1,12 @@
-﻿$FOUNT_DIR = Split-Path -Parent $PSScriptRoot
+﻿#!/usr/bin/env pwsh
+echo " \`" > /dev/null # " | Out-Null <#
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+SH_EXEC=$(command -v sh)
+"$SH_EXEC" "$SCRIPT_DIR/fount" "$@"
+exit $?
+: << '__END_HEREDOC__'
+#>
+$FOUNT_DIR = Split-Path -Parent $PSScriptRoot
 
 $script:TaskbarProgressEnabled = $Host.UI.SupportsVirtualTerminal -and -not [System.Console]::IsOutputRedirected
 $script:TaskbarProgressEsc = [char]27
@@ -27,6 +35,11 @@ function Write-TaskbarProgressError {
 $env:FOUNT_SESSION_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
 if (-not $env:FOUNT_START_TIME) {
 	$env:FOUNT_START_TIME = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+}
+
+# 官方npm源，避免用户自定义源导致各种问题
+if (-not $env:NPM_CONFIG_REGISTRY) {
+	$env:NPM_CONFIG_REGISTRY = "https://registry.npmjs.org"
 }
 
 # --- 国际化函数 ---
@@ -367,14 +380,24 @@ function Register-FountTerminalProfile {
 		profiles  = @(
 			[ordered]@{
 				name              = "fount"
+				guid              = "{780ca695-2d01-5e08-834e-1e9bfd14d3ee}"
+				tabTitle          = "𝓯𝓸𝓾𝓷𝓽"
+				tabColor          = "#0e3c5c"
 				commandline       = "fount.bat keepalive"
 				startingDirectory = $FOUNT_DIR
 				icon              = "$FOUNT_DIR\src\public\pages\favicon.ico"
+				font              = @{
+					face   = "FiraCode Nerd Font"
+					weight = "semi-light"
+				}
+				historySize = 100000
+				opacity     = 72
+				"experimental.retroTerminalEffect" = $true
 			}
 		)
 	} | ConvertTo-Json -Depth 100 -Compress
 	if ($jsonContent -ne (Get-Content $WTjsonPath -ErrorAction Ignore)) {
-		Set-Content -Path $WTjsonPath -Value $jsonContent
+		Set-Content -Path $WTjsonPath -Value $jsonContent -Encoding UTF8
 	}
 }
 
@@ -929,6 +952,9 @@ function run {
 	}
 	Write-TaskbarProgress -Percent 5
 	$v8Flags = "--expose-gc"
+	if ($env:FOUNT_V8_FLAGS) {
+		$v8Flags += ",$env:FOUNT_V8_FLAGS"
+	}
 	$heapSizeMB = 100 # Default to 100MB
 	$configPath = Join-Path $FOUNT_DIR 'data/config.json'
 	if (Test-Path $configPath) {
@@ -1063,6 +1089,7 @@ if ($args[0] -eq 'clean') {
 		Copy-Item "$FOUNT_DIR/default/node_modules_desktop.ini" "$FOUNT_DIR/node_modules/desktop.ini" -Force
 	}
 	Set-FountFileAttributes
+	Write-TaskbarProgressClear
 }
 elseif ($args[0] -eq 'geneexe') {
 	$exepath = $args[1]
@@ -1071,7 +1098,6 @@ elseif ($args[0] -eq 'geneexe') {
 		Install-Module -Name ps12exe -Scope CurrentUser -Force
 	}
 	ps12exe -inputFile "$FOUNT_DIR/src/runner/main.ps1" -outputFile $exepath
-	exit $LastExitCode
 }
 elseif ($args[0] -eq 'init') {
 	Write-TaskbarProgressClear
@@ -1332,3 +1358,5 @@ else {
 
 if ($ErrorCount -ne $Error.Count) { exit 1 }
 exit $LastExitCode
+function __END_HEREDOC__() {}
+__END_HEREDOC__

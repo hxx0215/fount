@@ -7,6 +7,7 @@ import { UserAPI_t } from '../../../../../decl/userAPI.ts'
 import { WorldAPI_t } from '../../../../../decl/worldAPI.ts'
 
 /**
+ * 聊天回复类型
  * @class chatReply_t
  * 聊天回复的数据结构。
  * @property {string} [name] - 回复者的名称。
@@ -43,6 +44,7 @@ export class chatReply_t {
 }
 
 /**
+ * 聊天回复请求类型
  * @class chatReplyRequest_t
  * 聊天回复请求的数据结构。
  * @property {object} supported_functions - 当前 shell 支持的功能。
@@ -52,6 +54,9 @@ export class chatReply_t {
  * @property {boolean} supported_functions.unsafe_html - 是否支持不安全的 HTML。
  * @property {boolean} supported_functions.files - 是否支持文件。
  * @property {boolean} supported_functions.add_message - 是否支持添加消息。
+ * @property {boolean} supported_functions.fount_i18nkeys - 是否支持国际化键。
+ * @property {boolean} supported_functions.fount_assets - 是否支持资产。
+ * @property {boolean} supported_functions.fount_themes - 是否支持fount主题的css样式，为假时代表不能使用任何daisyui和tailwind css样式。
  * @property {string} chat_name - 聊天名称。
  * @property {string} char_id - 角色 ID。
  * @property {string} username - 用户名。
@@ -83,6 +88,7 @@ export class chatReplyRequest_t {
 		add_message: boolean;
 		fount_i18nkeys: boolean;
 		fount_assets: boolean;
+		fount_themes: boolean;
 	}
 	chat_name: string
 	char_id: string
@@ -108,6 +114,7 @@ export class chatReplyRequest_t {
 }
 
 /**
+ * 聊天日志条目类型
  * @class chatLogEntry_t
  * 聊天日志条目的数据结构。
  * @property {string} id - 永久唯一标识符 (UUID v4)。
@@ -167,6 +174,7 @@ export class chatLogEntry_t {
 	}
 }
 /**
+ * 聊天日志类型
  * @type {chatLogEntry_t[]}
  * 聊天日志。
  */
@@ -186,12 +194,24 @@ export type CharReplyPreviewUpdater_t = (args: chatReplyRequest_t, reply: chatRe
 export type ReplyPreviewUpdater_t = (reply: chatReply_t) => void
 
 /**
+ * 生成选项类型
  * @class GenerationOptions_t
  * 定义了生成时可以传递的选项。
  */
 export class GenerationOptions_t {
 	replyPreviewUpdater?: ReplyPreviewUpdater_t
 	signal?: AbortSignal
+	supported_functions?: {
+		markdown?: boolean
+		mathjax?: boolean
+		html?: boolean
+		unsafe_html?: boolean
+		files?: boolean
+		add_message?: boolean
+		fount_i18nkeys?: boolean
+		fount_assets?: boolean
+		fount_themes?: boolean
+	}
 	base_result?: {
 		content: string,
 		files: {

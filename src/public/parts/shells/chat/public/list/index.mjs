@@ -397,6 +397,7 @@ async function initializeApp() {
 		searchInput: filterInput,
 		data: fullChatList,
 		/**
+		 * 更新过滤后的数据。
 		 * @param {Array<object>} filtered - 过滤后的数据。
 		 */
 		onUpdate: filtered => {

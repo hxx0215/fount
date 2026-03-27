@@ -9,6 +9,7 @@ const { info, product_info } = (await import('./locales.json', { with: { type: '
 /** @typedef {import('../../../../../decl/prompt_struct.ts').prompt_struct_t} prompt_struct_t */
 
 /**
+ * NotDiamond AI 来源生成器模块定义。
  * @type {import('../../../../../decl/AIsource.ts').AIsource_interfaces_and_AIsource_t_getter}
  */
 export default {
@@ -37,7 +38,7 @@ const configTemplate = {
 }
 
 /**
- * 获取 AI 源。
+ * 获取 NotDiamond AI 源。
  * @param {object} config - 配置对象。
  * @returns {Promise<AIsource_t>} AI 源。
  */
@@ -135,8 +136,8 @@ ${chatLogEntry.content}
 				let text = res.content
 				if (text.match(/<\/sender>\s*<content>/))
 					text = (text.match(/<\/sender>\s*<content>([\S\s]*)/)?.[1] ?? text).split(new RegExp(
-						`(${(prompt_struct.alternative_charnames || []).map(Object).map(
-							s => s instanceof String ? escapeRegExp(s) : s.source
+						`(${(prompt_struct.alternative_charnames || []).map(
+							s => s instanceof RegExp ? s.source : escapeRegExp(s)
 						).join('|')})\\s*<\\/sender>\\s*<content>`
 					)).pop().split(/<\/content>\s*<\/message/).shift()
 				if (text.match(/<\/content>\s*<\/message[^>]*>\s*$/))

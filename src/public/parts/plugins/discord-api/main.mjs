@@ -20,6 +20,7 @@ export default {
 	interfaces: {
 		code_execution: {
 			/**
+			 * 获取 JS 代码提示
 			 * @param {import('../../../../decl/pluginAPI.ts').chatReplyRequest_t} args 聊天回复请求
 			 * @returns {Promise<string | undefined>} 返回 JS 代码提示或 undefined
 			 */
@@ -40,7 +41,7 @@ Discord API 插件已启用，但你尚未被接入任何 Discord Bot，无法�
 - discord_client：你的 Discord.js Client 实例
 - message：触发本次回复的 Discord 消息对象
 - channel：消息所在的 Discord 频道对象
-${message.guild ? '- guild：消息所在的服务器对象' : '当前为 DM，没有 guild 字段' }
+${message.guild ? '- guild：消息所在的服务器对象' : '当前为 DM，没有 guild 字段'}
 可以用来发消息、设置身份组、踢人/封禁用户、管理服务器等高级操作。
 `
 
@@ -51,6 +52,7 @@ ${message.guild ? '- guild：消息所在的服务器对象' : '当前为 DM，�
 `
 			},
 			/**
+			 * 获取 JS 代码上下文
 			 * @param {import('../../../../decl/pluginAPI.ts').chatReplyRequest_t} args 聊天回复请求
 			 * @returns {Promise<Record<string, any>>} 返回 JS 代码上下文对象
 			 */
