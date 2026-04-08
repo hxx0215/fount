@@ -1,5 +1,5 @@
-import path from 'node:path'
 import fs from 'node:fs'
+import path from 'node:path'
 
 import { GeneralChatWrapper, getLlama, LlamaChatSession } from 'npm:node-llama-cpp'
 
@@ -119,6 +119,11 @@ function buildPromptCallOptions(config, ctx) {
 	else if (contextSize != null && merged.maxTokens == null)
 		merged.maxTokens = contextSize
 	if (useStream && previewUpdater && result)
+		/**
+		 * 流式追加文本并更新预览。
+		 * @param {string} chunk - 新增文本片段。
+		 * @returns {void}
+		 */
 		merged.onTextChunk = (chunk) => {
 			result.content += chunk
 			previewUpdater(result)
@@ -195,6 +200,7 @@ export async function GetSource(config) {
 			const { base_result = {}, replyPreviewUpdater, signal, supported_functions } = options
 			const enableLogprobsShow = config.prompt_options?.logprobs && supported_functions?.html
 			const useThemeStyles = supported_functions?.fount_themes ?? false
+			const logprobsRenderOpts = { useThemeStyles, locales: prompt_struct.locales, supported_functions }
 			const streamStartAt = Date.now()
 			let firstChunkAt = null
 			/** @type {import('npm:node-llama-cpp').Token[]} */
@@ -282,7 +288,7 @@ export async function GetSource(config) {
 						}
 						if (anyNew && !signal?.aborted) {
 							updateStreamingMetrics()
-							out.content_for_show = buildContentForShowFromLogprobs(out, { useThemeStyles })
+							out.content_for_show = buildContentForShowFromLogprobs(out, logprobsRenderOpts)
 							didApplyLogprobs = true
 							replyPreviewUpdater?.(clearFormat({ ...out }, prompt_struct))
 						}
@@ -310,7 +316,7 @@ export async function GetSource(config) {
 
 				if (enableLogprobsShow && streamedLp) {
 					updateStreamingMetrics((promptEndAt - streamStartAt) / 1000)
-					out.content_for_show = buildContentForShowFromLogprobs(out, { useThemeStyles })
+					out.content_for_show = buildContentForShowFromLogprobs(out, logprobsRenderOpts)
 					didApplyLogprobs = true
 					replyPreviewUpdater?.(clearFormat({ ...out }, prompt_struct))
 				}
@@ -335,7 +341,7 @@ export async function GetSource(config) {
 								? (firstChunkAt - streamStartAt) / 1000
 								: (promptEndAt - streamStartAt) / 1000,
 						}
-						out.content_for_show = buildContentForShowFromLogprobs(out, { useThemeStyles })
+						out.content_for_show = buildContentForShowFromLogprobs(out, logprobsRenderOpts)
 						didApplyLogprobs = true
 						replyPreviewUpdater?.(clearFormat({ ...out }, prompt_struct))
 					}
@@ -355,9 +361,28 @@ export async function GetSource(config) {
 		},
 
 		tokenizer: {
+			/**
+			 * 本地 tokenizer 无独立资源，占位释放。
+			 * @returns {number} 恒为 0。
+			 */
 			free: () => 0,
+			/**
+			 * 占位编码：直接返回提示字符串。
+			 * @param {string} prompt - 输入提示。
+			 * @returns {string} 与输入相同的字符串。
+			 */
 			encode: prompt => prompt,
+			/**
+			 * 占位解码：直接返回 token 序列。
+			 * @param {unknown} tokens - token 序列。
+			 * @returns {unknown} 与输入相同。
+			 */
 			decode: tokens => tokens,
+			/**
+			 * 占位单 token 解码。
+			 * @param {unknown} token - 单个 token。
+			 * @returns {unknown} 与输入相同。
+			 */
 			decode_single: token => token,
 			/**
 			 * 获取令牌计数。

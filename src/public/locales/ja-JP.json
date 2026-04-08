@@ -88,9 +88,9 @@
 					"title": "GitHub",
 					"tooltip": "fountのGitHubを開く"
 				},
-				"discord": {
-					"title": "Discord",
-					"tooltip": "fountのDiscordを開く"
+				"telegram": {
+					"title": "Telegram",
+					"tooltip": "fountのTelegramを開く"
 				},
 				"restart": {
 					"title": "再起動",
@@ -106,12 +106,7 @@
 				}
 			}
 		},
-		"discordbot": {
-			"botStarted": "キャラクター「${charname}」がDiscordボット「${botusername}」にログインしました。"
-		},
-		"telegrambot": {
-			"botStarted": "キャラクター「${charname}」がTelegramボット「${botusername}」にログインしました。"
-		},
+		"botStarted": "キャラクター「${charname}」が${platform}ボット「${botusername}」にログインしました。",
 		"path": {
 			"protocol": {
 				"description": "URL: fount プロトコル",
@@ -445,6 +440,12 @@
 			"accountAlreadyExists": "このアカウントは既に存在します。",
 			"powNotSolved": "最初にPoW検証を完了してください",
 			"powError": "POW検証エラー"
+		},
+		"webauthn": {
+			"loginButton": "セキュリティキー/パスキーを使用してログインする",
+			"errorNoUsername": "パスキーを使用する前にユーザー名を入力してください。",
+			"errorLoadLibrary": "WebAuthn 補助ライブラリをロードできません。ネットワークを確認して再試行してください。",
+			"errorCancelled": "セキュリティ キーがキャンセルされているか、使用が許可されていません。"
 		}
 	},
 	"login_info": {
@@ -493,7 +494,7 @@
 			}
 		},
 		"emptyList": {
-			"message": "空っぽです...<br/>[新しいパーツを作成](${newpartLink}) するか、[fount の Discord サーバー](${discordLink}) に行って楽しんでみてはいかがでしょうか?"
+			"message": "空っぽです...<br/>[新しいパーツを作成](${newpartLink}) するか、[fount の Telegram サーバー](${telegramLink}) に行って楽しんでみてはいかがでしょうか?"
 		},
 		"part_pages": {
 			"default": {
@@ -859,6 +860,10 @@
 				"success": "共有に成功しました！リンクがクリップボードにコピーしました。<br>この機能は ${provider} によって提供されています。<br>[支援する](${sponsorLink})"
 			},
 			"commonToolCalling": "ツールを呼び出し中",
+			"reasoningDetailsTitle": "推論プロセス",
+			"logprobsNotApplicable": "適用できない",
+			"logprobsTopLogprobsMeta": "top_logprobs (選択済み: ${token})",
+			"logprobsMetricsFooter": "初トークン遅延: ${ttft} | 時間: ${time} | トークン: ${tokens} | 速度: ${speed}",
 			"noReplyContent": "（返信内容なし）",
 			"feedback": {
 				"thumbsUp": {
@@ -1383,6 +1388,29 @@
 			"confirmMessage": "ユーザー名を変更しますか？変更後は再度ログインが必要です。",
 			"success": "ユーザー名を「${newUsername}」に正常に変更しました。ログアウトします。"
 		},
+		"passkeys": {
+			"title": "セキュリティキーとパスキー",
+			"description": "バインド後、セキュリティ キーまたはネイティブ パスキーを使用してログインできます。 HTTPS またはローカルホストで使用する必要があります。最初にユーザー設定にキーを追加してください。",
+			"refreshButton": {
+				"title": "リストを更新する"
+			},
+			"refreshButtonIcon": {
+				"alt": "更新アイコン"
+			},
+			"nameLabel": "備考（任意）",
+			"nameInput": {
+				"placeholder": "例: 仕事用の YubiKey"
+			},
+			"addButton": "セキュリティキーを追加する",
+			"noneFound": "まだセキュリティ キーがバインドされていません。",
+			"itemDetails": "追加時間: ${created}",
+			"removeButton": "削除",
+			"removeConfirm": "このキーを削除しますか？削除後は、このキーではログインできなくなります。",
+			"removeSuccess": "セキュリティキーが削除されました。",
+			"addSuccess": "セキュリティキーが追加されました。",
+			"errorLoadLibrary": "WebAuthn ライブラリをロードできません。",
+			"errorCancelled": "追加がキャンセルされました。"
+		},
 		"userDevices": {
 			"title": "ユーザーデバイス・セッション",
 			"noDevicesFound": "デバイスまたはセッションが見つかりませんでした。",
@@ -1828,82 +1856,6 @@
 			}
 		}
 	},
-	"discord_bots": {
-		"title": "Discordボット",
-		"description": "Discord の賑やかなホールで、仲間たちに声を届けましょう。一度に 1 台のサーバーずつ、プレゼンスを設定し、運用を管理し、世界間の橋渡しをさせます。",
-		"cardTitle": "Discordボット",
-		"botSelectDropdown": {
-			"placeholder": "ボットを選択"
-		},
-		"botSearch": {
-			"placeholder": "ボットを検索..."
-		},
-		"charSelectDropdown": {
-			"placeholder": "キャラクターを選択"
-		},
-		"charSearch": {
-			"placeholder": "ロールを検索..."
-		},
-		"configCard": {
-			"title": "ボット設定",
-			"labels": {
-				"character": "キャラクター",
-				"apiKey": "Discord APIキー",
-				"config": "設定"
-			},
-			"charSelectPlaceholder": "キャラクターを選択",
-			"apiKeyInput": {
-				"placeholder": "APIキーを入力"
-			},
-			"toggleApiKeyButton": {
-				"aria-label": "API キーの表示を切り替えます"
-			},
-			"toggleApiKeyIcon": {
-				"alt": "APIキーの表示切り替え"
-			},
-			"buttons": {
-				"saveConfig": "設定を保存",
-				"startBot": "起動",
-				"stopBot": "停止"
-			}
-		},
-		"prompts": {
-			"newBotName": "新しいボット名を入力してください："
-		},
-		"buttons": {
-			"newBot": "新規作成",
-			"deleteBot": "削除"
-		},
-		"alerts": {
-			"configSaved": "設定を正常に保存しました。",
-			"botExists": "ボット名「${botname}」は既に存在します。別の名前を使用してください。",
-			"unsavedChanges": "保存されていない変更があります。変更を破棄しますか？",
-			"httpError": "HTTPエラーが発生しました。",
-			"beforeUnload": "保存されていない変更があります。このページから移動しますか？"
-		},
-		"achievements": {
-			"start_bot": {
-				"name": "Discordに来る",
-				"description": "あなたのキャラクターを Discord の世界に召喚します。",
-				"locked_description": "Discord Botを一度起動します。"
-			}
-		},
-		"home_function_buttons": {
-			"bot_related": {
-				"title": "ボット関連",
-				"sub_items": {
-					"manage": {
-						"title": "Discord Botの設定"
-					}
-				}
-			}
-		},
-		"home_char_interfaces": {
-			"configure": {
-				"title": "Discord Botの設定"
-			}
-		}
-	},
 	"telegram_bots": {
 		"title": "Telegramボット",
 		"description": "あなたのfountキャラクターがテレグラムの瞬時の波を横断しましょう。デジタル プレゼンスを設定し、会話を管理し、この活気に満ちたメッセージングの世界へのリーチを拡大します。",
@@ -1977,6 +1929,171 @@
 		"home_char_interfaces": {
 			"configure": {
 				"title": "Telegram Botの設定"
+			}
+		}
+	},
+	"wechat_bots": {
+		"title": "WeChat ボット",
+		"description": "fount のキャラクターを WeChat ボットとして動かす。ロールを紐づけ、ボットを管理し、WeChat で会話します。",
+		"cardTitle": "WeChat ボット",
+		"botSelectDropdown": {
+			"placeholder": "ボットを選択"
+		},
+		"botSearch": {
+			"placeholder": "ボットを検索…"
+		},
+		"charSelectDropdown": {
+			"placeholder": "ロールを選択"
+		},
+		"charSearch": {
+			"placeholder": "ロールを検索…"
+		},
+		"configCard": {
+			"title": "ボット設定",
+			"labels": {
+				"character": "関連付けたロール",
+				"apiBaseUrl": "WeChat チャネル API のベース URL",
+				"botToken": "iLink Bot トークン",
+				"config": "設定"
+			},
+			"charSelectPlaceholder": "ロールを選択",
+			"apiBaseUrlInput": {
+				"placeholder": "空欄で既定の https://ilinkai.weixin.qq.com を使用"
+			},
+			"botTokenInput": {
+				"placeholder": "ログイン後に取得した Bearer トークン"
+			},
+			"toggleBotTokenButton": {
+				"aria-label": "トークンの表示／非表示"
+			},
+			"toggleBotTokenIcon": {
+				"alt": "トークンの表示／非表示"
+			},
+			"buttons": {
+				"saveConfig": "保存",
+				"startBot": "起動",
+				"stopBot": "停止"
+			}
+		},
+		"prompts": {
+			"newBotName": "新しいボットの名前："
+		},
+		"buttons": {
+			"newBot": "新規",
+			"deleteBot": "削除"
+		},
+		"alerts": {
+			"configSaved": "保存しました",
+			"botExists": "「${botname}」という名前のボットは既にあります。別の名前にしてください。",
+			"unsavedChanges": "未保存の変更があります。破棄しますか？",
+			"httpError": "HTTP エラー",
+			"beforeUnload": "未保存の変更があります。このページを離れますか？"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "働かせて！",
+				"description": "WeChat で fount キャラクターと会話する。",
+				"locked_description": "WeChat ボットを一度起動する。"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "ボット",
+				"sub_items": {
+					"manage": {
+						"title": "WeChat ボット"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "WeChat ボットの設定"
+			}
+		},
+		"qrLogin": {
+			"hint": "下の QR コードを WeChat でスキャンしてログインを完了してください。",
+			"button": "スキャンしてログイン",
+			"scanPrompt": "WeChat で QR コードをスキャン",
+			"waiting": "QR コードを読み込み中…",
+			"scanned": "スキャン済み — スマホで確認してください",
+			"success": "WeChat に接続しました。設定を保存したので、ボットを起動できます。",
+			"needBot": "一覧からボットを選ぶか、「新規」で作成してください。"
+		}
+	},
+	"discord_bots": {
+		"title": "Discordボット",
+		"description": "Discord の賑やかなホールで、仲間たちに声を届けましょう。一度に 1 台のサーバーずつ、プレゼンスを設定し、運用を管理し、世界間の橋渡しをさせます。",
+		"cardTitle": "Discordボット",
+		"botSelectDropdown": {
+			"placeholder": "ボットを選択"
+		},
+		"botSearch": {
+			"placeholder": "ボットを検索..."
+		},
+		"charSelectDropdown": {
+			"placeholder": "キャラクターを選択"
+		},
+		"charSearch": {
+			"placeholder": "ロールを検索..."
+		},
+		"configCard": {
+			"title": "ボット設定",
+			"labels": {
+				"character": "キャラクター",
+				"apiKey": "Discord APIキー",
+				"config": "設定"
+			},
+			"charSelectPlaceholder": "キャラクターを選択",
+			"apiKeyInput": {
+				"placeholder": "APIキーを入力"
+			},
+			"toggleApiKeyButton": {
+				"aria-label": "API キーの表示を切り替えます"
+			},
+			"toggleApiKeyIcon": {
+				"alt": "APIキーの表示切り替え"
+			},
+			"buttons": {
+				"saveConfig": "設定を保存",
+				"startBot": "起動",
+				"stopBot": "停止"
+			}
+		},
+		"prompts": {
+			"newBotName": "新しいボット名を入力してください："
+		},
+		"buttons": {
+			"newBot": "新規作成",
+			"deleteBot": "削除"
+		},
+		"alerts": {
+			"configSaved": "設定を正常に保存しました。",
+			"botExists": "ボット名「${botname}」は既に存在します。別の名前を使用してください。",
+			"unsavedChanges": "保存されていない変更があります。変更を破棄しますか？",
+			"httpError": "HTTPエラーが発生しました。",
+			"beforeUnload": "保存されていない変更があります。このページから移動しますか？"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "Discordに来る",
+				"description": "あなたのキャラクターを Discord の世界に召喚します。",
+				"locked_description": "Discord Botを一度起動します。"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "ボット関連",
+				"sub_items": {
+					"manage": {
+						"title": "Discord Botの設定"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "Discord Botの設定"
 			}
 		}
 	},

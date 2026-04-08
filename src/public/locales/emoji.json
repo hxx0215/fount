@@ -88,9 +88,9 @@
 					"title": "🐙🐱",
 					"tooltip": "📂 ⛲ 🐙🐱"
 				},
-				"discord": {
-					"title": "💬",
-					"tooltip": "📂 ⛲ 💬"
+				"telegram": {
+					"title": "✈️",
+					"tooltip": "📂 ⛲ ✈️"
 				},
 				"restart": {
 					"title": "🔄",
@@ -106,12 +106,7 @@
 				}
 			}
 		},
-		"discordbot": {
-			"botStarted": "🤖 ${charname} ✅ 💬 ${botusername}"
-		},
-		"telegrambot": {
-			"botStarted": "🤖 ${charname} ✅ ✈️ ${botusername}"
-		},
+		"botStarted": "🤖 ${charname} ✅ ${platform} ${botusername}",
 		"path": {
 			"protocol": {
 				"description": "🔗⛲📜",
@@ -445,6 +440,12 @@
 			"accountAlreadyExists": "👤🙅",
 			"powNotSolved": "1️⃣🧩",
 			"powError": "⚙️💥"
+		},
+		"webauthn": {
+			"loginButton": "🔐🔑➡️🚪📱🔑",
+			"errorNoUsername": "✍️👤❓➡️📱🔑",
+			"errorLoadLibrary": "📚🔐❌🌐🔁",
+			"errorCancelled": "🙅🔑➕🚪❓"
 		}
 	},
 	"login_info": {
@@ -493,7 +494,7 @@
 			}
 		},
 		"emptyList": {
-			"message": "💨...<br/>[✨📝](${newpartLink}) / [👨‍👩‍👧‍👦👋](${discordLink})"
+			"message": "💨...<br/>[✨📝](${newpartLink}) / [👨‍👩‍👧‍👦👋](${telegramLink})"
 		},
 		"part_pages": {
 			"default": {
@@ -859,6 +860,10 @@
 				"success": "✅🔗📋! <br>✨ ${provider} <br>[💖](${sponsorLink})"
 			},
 			"commonToolCalling": "🛠️🔄",
+			"reasoningDetailsTitle": "🧠📜",
+			"logprobsNotApplicable": "N/A",
+			"logprobsTopLogprobsMeta": "📊 top_logprobs 👉 ${token}",
+			"logprobsMetricsFooter": "1️⃣⏱️ ${ttft} | ⏱️ ${time} | 🪙 ${tokens} | 🚀 ${speed}",
 			"noReplyContent": "💬🍃",
 			"feedback": {
 				"thumbsUp": {
@@ -1383,6 +1388,29 @@
 			"confirmMessage": "🤔✍️👤❓➡️🚪➡️",
 			"success": "👤➡️ \"${newUsername}\" ✅, ➡️🚪..."
 		},
+		"passkeys": {
+			"title": "🔐🔑📱",
+			"description": "🔗✅➡️🔑🖥️📱🔑🚪 🔒🌐➕🏠💻 ⚙️👤➕🔑",
+			"refreshButton": {
+				"title": "🔄📋"
+			},
+			"refreshButtonIcon": {
+				"alt": "🔄🖼️"
+			},
+			"nameLabel": "🏷️（➖）",
+			"nameInput": {
+				"placeholder": "💼🔐🔑"
+			},
+			"addButton": "➕🔐🔑",
+			"noneFound": "🔑📋🈳",
+			"itemDetails": "🕒➕: ${created}",
+			"removeButton": "🗑️🔑",
+			"removeConfirm": "🗑️🔑❓🚫🚪🔙",
+			"removeSuccess": "🗑️✅🔑",
+			"addSuccess": "➕✅🔑",
+			"errorLoadLibrary": "📚🔐❌",
+			"errorCancelled": "➕🚫"
+		},
 		"userDevices": {
 			"title": "👤💻",
 			"noDevicesFound": "🤷‍♂️💻",
@@ -1828,82 +1856,6 @@
 			}
 		}
 	},
-	"discord_bots": {
-		"title": "🤖💬",
-		"description": "🎭🗣️ ➡️ 🤖💬",
-		"cardTitle": "🤖💬",
-		"botSelectDropdown": {
-			"placeholder": "👉🤖"
-		},
-		"botSearch": {
-			"placeholder": "🔍🤖"
-		},
-		"charSelectDropdown": {
-			"placeholder": "👉👤"
-		},
-		"charSearch": {
-			"placeholder": "🔍👤"
-		},
-		"configCard": {
-			"title": "🤖⚙️",
-			"labels": {
-				"character": "🔗🤖",
-				"apiKey": "🔑",
-				"config": "⚙️"
-			},
-			"charSelectPlaceholder": "🤔🤖",
-			"apiKeyInput": {
-				"placeholder": "✍️🔑"
-			},
-			"toggleApiKeyButton": {
-				"aria-label": "👁️"
-			},
-			"toggleApiKeyIcon": {
-				"alt": "👁️"
-			},
-			"buttons": {
-				"saveConfig": "💾⚙️",
-				"startBot": "▶️",
-				"stopBot": "⏹️"
-			}
-		},
-		"prompts": {
-			"newBotName": "✍️🆕🤖🏷️:"
-		},
-		"buttons": {
-			"newBot": "🆕",
-			"deleteBot": "🗑️"
-		},
-		"alerts": {
-			"configSaved": "⚙️💾✅",
-			"botExists": "🤖 \"${botname}\" ✅",
-			"unsavedChanges": "🤔💾❓",
-			"httpError": "🌐❌",
-			"beforeUnload": "🤔💾➡️🚪❓"
-		},
-		"achievements": {
-			"start_bot": {
-				"name": "🤖🎮",
-				"description": "👤✨➡️🎮",
-				"locked_description": "🔒: 🤖🎮"
-			}
-		},
-		"home_function_buttons": {
-			"bot_related": {
-				"title": "🤖",
-				"sub_items": {
-					"manage": {
-						"title": "🤖💬🎮"
-					}
-				}
-			}
-		},
-		"home_char_interfaces": {
-			"configure": {
-				"title": "🤖💬🎮"
-			}
-		}
-	},
 	"telegram_bots": {
 		"title": "🤖✈️",
 		"description": "🎭➡️✈️💬",
@@ -1977,6 +1929,171 @@
 		"home_char_interfaces": {
 			"configure": {
 				"title": "🤖✈️"
+			}
+		}
+	},
+	"wechat_bots": {
+		"title": "🤖💚",
+		"description": "🎭➡️💚💬 · 🤖",
+		"cardTitle": "🤖💚",
+		"botSelectDropdown": {
+			"placeholder": "👉🤖"
+		},
+		"botSearch": {
+			"placeholder": "🔍🤖…"
+		},
+		"charSelectDropdown": {
+			"placeholder": "👉👤"
+		},
+		"charSearch": {
+			"placeholder": "🔍👤…"
+		},
+		"configCard": {
+			"title": "🤖⚙️",
+			"labels": {
+				"character": "🔗👤",
+				"apiBaseUrl": "🌐🔗💚",
+				"botToken": "🔑",
+				"config": "⚙️"
+			},
+			"charSelectPlaceholder": "👉👤",
+			"apiBaseUrlInput": {
+				"placeholder": "⬜️↩️ 🌐🔗"
+			},
+			"botTokenInput": {
+				"placeholder": "🔐🎫"
+			},
+			"toggleBotTokenButton": {
+				"aria-label": "👁️🔑"
+			},
+			"toggleBotTokenIcon": {
+				"alt": "👁️🔑"
+			},
+			"buttons": {
+				"saveConfig": "💾",
+				"startBot": "▶️",
+				"stopBot": "⏹️"
+			}
+		},
+		"prompts": {
+			"newBotName": "✍️🆕🤖:"
+		},
+		"buttons": {
+			"newBot": "🆕",
+			"deleteBot": "🗑️"
+		},
+		"alerts": {
+			"configSaved": "💾✅",
+			"botExists": "🤖❌ «${botname}»",
+			"unsavedChanges": "💾❓🗑️",
+			"httpError": "🌐❌",
+			"beforeUnload": "💾❓🚪"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "💼➡️🤖",
+				"description": "💚💬🎭",
+				"locked_description": "🔓▶️🤖💚"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "🤖",
+				"sub_items": {
+					"manage": {
+						"title": "🤖💚"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "⚙️🤖💚"
+			}
+		},
+		"qrLogin": {
+			"hint": "📱💚📷⬇️",
+			"button": "📷🔐",
+			"scanPrompt": "📱💚📷",
+			"waiting": "⏳📷…",
+			"scanned": "✅📱…",
+			"success": "💚✅💾▶️🤖",
+			"needBot": "👉🤖📋🆕"
+		}
+	},
+	"discord_bots": {
+		"title": "🤖💬",
+		"description": "🎭🗣️ ➡️ 🤖💬",
+		"cardTitle": "🤖💬",
+		"botSelectDropdown": {
+			"placeholder": "👉🤖"
+		},
+		"botSearch": {
+			"placeholder": "🔍🤖"
+		},
+		"charSelectDropdown": {
+			"placeholder": "👉👤"
+		},
+		"charSearch": {
+			"placeholder": "🔍👤"
+		},
+		"configCard": {
+			"title": "🤖⚙️",
+			"labels": {
+				"character": "🔗🤖",
+				"apiKey": "🔑",
+				"config": "⚙️"
+			},
+			"charSelectPlaceholder": "🤔🤖",
+			"apiKeyInput": {
+				"placeholder": "✍️🔑"
+			},
+			"toggleApiKeyButton": {
+				"aria-label": "👁️"
+			},
+			"toggleApiKeyIcon": {
+				"alt": "👁️"
+			},
+			"buttons": {
+				"saveConfig": "💾⚙️",
+				"startBot": "▶️",
+				"stopBot": "⏹️"
+			}
+		},
+		"prompts": {
+			"newBotName": "✍️🆕🤖🏷️:"
+		},
+		"buttons": {
+			"newBot": "🆕",
+			"deleteBot": "🗑️"
+		},
+		"alerts": {
+			"configSaved": "⚙️💾✅",
+			"botExists": "🤖 \"${botname}\" ✅",
+			"unsavedChanges": "🤔💾❓",
+			"httpError": "🌐❌",
+			"beforeUnload": "🤔💾➡️🚪❓"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "🤖🎮",
+				"description": "👤✨➡️🎮",
+				"locked_description": "🔒: 🤖🎮"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "🤖",
+				"sub_items": {
+					"manage": {
+						"title": "🤖💬🎮"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "🤖💬🎮"
 			}
 		}
 	},

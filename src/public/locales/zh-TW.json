@@ -88,9 +88,9 @@
 					"title": "GitHub",
 					"tooltip": "開啟 fount 的 GitHub"
 				},
-				"discord": {
-					"title": "Discord",
-					"tooltip": "開啟 fount 的 Discord"
+				"telegram": {
+					"title": "Telegram",
+					"tooltip": "開啟 fount 的 Telegram"
 				},
 				"restart": {
 					"title": "重啟",
@@ -106,12 +106,7 @@
 				}
 			}
 		},
-		"discordbot": {
-			"botStarted": "角色 ${charname} 已在 Discord Bot ${botusername} 上登入"
-		},
-		"telegrambot": {
-			"botStarted": "角色 ${charname} 已在 Telegram Bot ${botusername} 上登入"
-		},
+		"botStarted": "角色 ${charname} 已在 ${platform} Bot ${botusername} 上登入",
 		"path": {
 			"protocol": {
 				"description": "URL:fount 協定",
@@ -445,6 +440,12 @@
 			"accountAlreadyExists": "帳號已存在",
 			"powNotSolved": "請先完成 PoW 驗證",
 			"powError": "PoW 驗證出錯"
+		},
+		"webauthn": {
+			"loginButton": "使用安全金鑰 / Passkey 登入",
+			"errorNoUsername": "使用 Passkey 前請先填寫使用者名稱。",
+			"errorLoadLibrary": "無法載入 WebAuthn 輔助庫，請檢查網路後重試。",
+			"errorCancelled": "已取消或未獲準使用安全金鑰。"
 		}
 	},
 	"login_info": {
@@ -493,7 +494,7 @@
 			}
 		},
 		"emptyList": {
-			"message": "這裡空空如也...<br/>不如[建立一個新組件](${newpartLink})，或去 [fount 的 Discord 社群](${discordLink}) 發現更多可能？"
+			"message": "這裡空空如也...<br/>不如[建立一個新組件](${newpartLink})，或去 [fount 的 Telegram 社群](${telegramLink}) 發現更多可能？"
 		},
 		"part_pages": {
 			"default": {
@@ -859,6 +860,10 @@
 				"success": "分享成功！連結已複製到剪貼簿。<br>此功能由 ${provider} 提供支援。<br>[贊助他們。](${sponsorLink})"
 			},
 			"commonToolCalling": "正在呼叫工具",
+			"reasoningDetailsTitle": "推理過程",
+			"logprobsNotApplicable": "不適用",
+			"logprobsTopLogprobsMeta": "top_logprobs（已選：${token}）",
+			"logprobsMetricsFooter": "首詞元延遲: ${ttft} | 用時: ${time} | 詞元: ${tokens} | 速度: ${speed}",
 			"noReplyContent": "（無回應內容）",
 			"feedback": {
 				"thumbsUp": {
@@ -1383,6 +1388,29 @@
 			"confirmMessage": "您確定要變更使用者名稱嗎？這將需要您重新登入。",
 			"success": "使用者已成功重新命名為 「${newUsername}」。您現在將被登出。"
 		},
+		"passkeys": {
+			"title": "安全金鑰與 Passkey",
+			"description": "綁定後可用安全金鑰或本機 Passkey 登入。需在 HTTPS 或 localhost 下使用；請先在使用者設定中新增金鑰。",
+			"refreshButton": {
+				"title": "重新整理清單"
+			},
+			"refreshButtonIcon": {
+				"alt": "重新整理圖示"
+			},
+			"nameLabel": "備註（可選）",
+			"nameInput": {
+				"placeholder": "例如：工作用 YubiKey"
+			},
+			"addButton": "新增安全金鑰",
+			"noneFound": "尚未綁定任何安全金鑰。",
+			"itemDetails": "新增時間：${created}",
+			"removeButton": "移除",
+			"removeConfirm": "確定移除此金鑰？移除後將無法以其登入。",
+			"removeSuccess": "已移除安全金鑰。",
+			"addSuccess": "安全金鑰已新增。",
+			"errorLoadLibrary": "無法載入 WebAuthn 庫。",
+			"errorCancelled": "已取消新增。"
+		},
 		"userDevices": {
 			"title": "使用者裝置/會話",
 			"noDevicesFound": "未找到任何裝置或會話。",
@@ -1828,82 +1856,6 @@
 			}
 		}
 	},
-	"discord_bots": {
-		"title": "Discord Bot",
-		"description": "讓你的 fount 同伴在喧鬧的無序大廳中發出聲音。配置他們的存在，管理他們的營運，並讓他們連接世界，一次一台伺服器。",
-		"cardTitle": "Discord Bot",
-		"botSelectDropdown": {
-			"placeholder": "選擇一個 Bot"
-		},
-		"botSearch": {
-			"placeholder": "搜尋 Bot..."
-		},
-		"charSelectDropdown": {
-			"placeholder": "選擇一個角色"
-		},
-		"charSearch": {
-			"placeholder": "搜尋角色..."
-		},
-		"configCard": {
-			"title": "Bot 設定",
-			"labels": {
-				"character": "綁定角色",
-				"apiKey": "Discord API 金鑰",
-				"config": "設定"
-			},
-			"charSelectPlaceholder": "選擇角色",
-			"apiKeyInput": {
-				"placeholder": "請輸入 API 金鑰"
-			},
-			"toggleApiKeyButton": {
-				"aria-label": "切換顯示 API 金鑰"
-			},
-			"toggleApiKeyIcon": {
-				"alt": "切換顯示 API 金鑰"
-			},
-			"buttons": {
-				"saveConfig": "儲存設定",
-				"startBot": "啟動",
-				"stopBot": "停止"
-			}
-		},
-		"prompts": {
-			"newBotName": "請輸入新的 Bot 名稱："
-		},
-		"buttons": {
-			"newBot": "新建",
-			"deleteBot": "刪除"
-		},
-		"alerts": {
-			"configSaved": "設定儲存成功",
-			"botExists": "名為 \"${botname}\" 的 Bot 已存在，請使用其他名稱。",
-			"unsavedChanges": "您有未儲存的變更。是否要放棄變更？",
-			"httpError": "HTTP 錯誤",
-			"beforeUnload": "您有未儲存的變更。確定要離開嗎？"
-		},
-		"achievements": {
-			"start_bot": {
-				"name": "降臨於 Discord",
-				"description": "將你的角色召喚到了 Discord 的世界。",
-				"locked_description": "啟動一次 Discord Bot。"
-			}
-		},
-		"home_function_buttons": {
-			"bot_related": {
-				"title": "bot",
-				"sub_items": {
-					"manage": {
-						"title": "管理 Discord Bot"
-					}
-				}
-			}
-		},
-		"home_char_interfaces": {
-			"configure": {
-				"title": "配置 Discord Bot"
-			}
-		}
-	},
 	"telegram_bots": {
 		"title": "Telegram Bot",
 		"description": "讓你的角色穿越 Telegram 的即時浪潮。配置他們的數位形象，管理他們的對話，並將他們的影響力擴展到這個充滿活力的訊息世界。",
@@ -1977,6 +1929,171 @@
 		"home_char_interfaces": {
 			"configure": {
 				"title": "配置 Telegram Bot"
+			}
+		}
+	},
+	"wechat_bots": {
+		"title": "微信 Bot",
+		"description": "讓你的 fount 角色在微信上與你對話。綁定角色，管理多個 Bot，在熟悉的聊天裡延續陪伴。",
+		"cardTitle": "微信 Bot",
+		"botSelectDropdown": {
+			"placeholder": "選擇一個 Bot"
+		},
+		"botSearch": {
+			"placeholder": "搜尋 Bot..."
+		},
+		"charSelectDropdown": {
+			"placeholder": "選擇一個角色"
+		},
+		"charSearch": {
+			"placeholder": "搜尋角色..."
+		},
+		"configCard": {
+			"title": "Bot設定",
+			"labels": {
+				"character": "綁定角色",
+				"apiBaseUrl": "微信通路服務根 URL",
+				"botToken": "iLink Bot Token",
+				"config": "設定"
+			},
+			"charSelectPlaceholder": "選擇角色",
+			"apiBaseUrlInput": {
+				"placeholder": "留空則使用預設 https://ilinkai.weixin.qq.com"
+			},
+			"botTokenInput": {
+				"placeholder": "登入後取得的 Bearer Token"
+			},
+			"toggleBotTokenButton": {
+				"aria-label": "切換顯示 Token"
+			},
+			"toggleBotTokenIcon": {
+				"alt": "切換顯示 Token"
+			},
+			"buttons": {
+				"saveConfig": "儲存設定",
+				"startBot": "啟動",
+				"stopBot": "停止"
+			}
+		},
+		"prompts": {
+			"newBotName": "請輸入新的 Bot 名稱："
+		},
+		"buttons": {
+			"newBot": "新增",
+			"deleteBot": "刪除"
+		},
+		"alerts": {
+			"configSaved": "設定已儲存",
+			"botExists": "名為 \"${botname}\" 的 Bot 已存在，請改用其他名稱。",
+			"unsavedChanges": "您有未儲存的變更。是否要放棄變更？",
+			"httpError": "HTTP 錯誤",
+			"beforeUnload": "您有未儲存的變更。確定要離開嗎？"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "幫我工作！",
+				"description": "在微信上與 fount 角色對話。",
+				"locked_description": "啟動一次微信 Bot。"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "bot",
+				"sub_items": {
+					"manage": {
+						"title": "管理微信 Bot"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "配置微信 Bot"
+			}
+		},
+		"qrLogin": {
+			"hint": "使用微信掃描下方二維碼完成登入。",
+			"button": "掃碼登入",
+			"scanPrompt": "請使用微信掃描二維碼",
+			"waiting": "正在取得二維碼…",
+			"scanned": "已掃碼，請在手機上確認…",
+			"success": "微信已連線，設定已更新。可直接啟動 Bot。",
+			"needBot": "請先在下拉選單中選擇一個 Bot，或使用「新增」建立一個。"
+		}
+	},
+	"discord_bots": {
+		"title": "Discord Bot",
+		"description": "讓你的 fount 同伴在喧鬧的無序大廳中發出聲音。配置他們的存在，管理他們的營運，並讓他們連接世界，一次一台伺服器。",
+		"cardTitle": "Discord Bot",
+		"botSelectDropdown": {
+			"placeholder": "選擇一個 Bot"
+		},
+		"botSearch": {
+			"placeholder": "搜尋 Bot..."
+		},
+		"charSelectDropdown": {
+			"placeholder": "選擇一個角色"
+		},
+		"charSearch": {
+			"placeholder": "搜尋角色..."
+		},
+		"configCard": {
+			"title": "Bot 設定",
+			"labels": {
+				"character": "綁定角色",
+				"apiKey": "Discord API 金鑰",
+				"config": "設定"
+			},
+			"charSelectPlaceholder": "選擇角色",
+			"apiKeyInput": {
+				"placeholder": "請輸入 API 金鑰"
+			},
+			"toggleApiKeyButton": {
+				"aria-label": "切換顯示 API 金鑰"
+			},
+			"toggleApiKeyIcon": {
+				"alt": "切換顯示 API 金鑰"
+			},
+			"buttons": {
+				"saveConfig": "儲存設定",
+				"startBot": "啟動",
+				"stopBot": "停止"
+			}
+		},
+		"prompts": {
+			"newBotName": "請輸入新的 Bot 名稱："
+		},
+		"buttons": {
+			"newBot": "新建",
+			"deleteBot": "刪除"
+		},
+		"alerts": {
+			"configSaved": "設定儲存成功",
+			"botExists": "名為 \"${botname}\" 的 Bot 已存在，請使用其他名稱。",
+			"unsavedChanges": "您有未儲存的變更。是否要放棄變更？",
+			"httpError": "HTTP 錯誤",
+			"beforeUnload": "您有未儲存的變更。確定要離開嗎？"
+		},
+		"achievements": {
+			"start_bot": {
+				"name": "降臨於 Discord",
+				"description": "將你的角色召喚到了 Discord 的世界。",
+				"locked_description": "啟動一次 Discord Bot。"
+			}
+		},
+		"home_function_buttons": {
+			"bot_related": {
+				"title": "bot",
+				"sub_items": {
+					"manage": {
+						"title": "管理 Discord Bot"
+					}
+				}
+			}
+		},
+		"home_char_interfaces": {
+			"configure": {
+				"title": "配置 Discord Bot"
 			}
 		}
 	},

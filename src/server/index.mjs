@@ -8,6 +8,7 @@ import process from 'node:process'
 
 import { console } from '../scripts/i18n.mjs'
 import { SetTaskbarProgress } from '../scripts/taskbar_progress.mjs'
+import { setWindowTitle } from '../scripts/title.mjs'
 
 import { enableAutoUpdate, disableAutoUpdate } from './autoupdate.mjs'
 import { __dirname, set_start } from './base.mjs'
@@ -18,6 +19,7 @@ import { startTimerHeartbeat, stopTimerHeartbeat } from './timers.mjs'
 
 set_start()
 
+setWindowTitle('𝓯𝓸𝓾')
 SetTaskbarProgress(55)
 
 console.logI18n('fountConsole.server.standingBy')

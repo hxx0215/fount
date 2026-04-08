@@ -211,6 +211,23 @@ export class CharAPI_t {
 			}) => Promise<void>
 		},
 		/**
+		 * Telegram 机器人接口。
+		 */
+		telegram?: {
+			/**
+			 * 设置 Telegram 机器人。
+			 * @param {Telegraf} bot - Telegraf 机器人实例。
+			 * @param {any} config - 配置。
+			 * @returns {Promise<void>}
+			 */
+			BotSetup?: (bot: Telegraf, config: any) => Promise<void>;
+			/**
+			 * 获取机器人配置模板。
+			 * @returns {Promise<any>} - 配置模板。
+			 */
+			GetBotConfigTemplate?: () => Promise<any>;
+		},
+		/**
 		 * Discord 机器人接口。
 		 */
 		discord?: {
@@ -236,21 +253,39 @@ export class CharAPI_t {
 			GetBotConfigTemplate: () => Promise<any>
 		},
 		/**
-		 * Telegram 机器人接口。
+		 * 微信机器人（iLink Bot HTTP 长轮询等，用于将角色接入微信侧对话）。
 		 */
-		telegram?: {
+		wechat?: {
 			/**
-			 * 设置 Telegram 机器人。
-			 * @param {Telegraf} bot - Telegraf 机器人实例。
-			 * @param {any} config - 配置。
+			 * 启动长轮询会话：ctx 含 getUpdates、sendMessage、signal 等。
+			 * @param {object} ctx - 网关 API 与中止信号。
+			 * @param {any} config - 机器人 JSON 配置（OwnerWeChatId 等）。
 			 * @returns {Promise<void>}
 			 */
-			BotSetup?: (bot: Telegraf, config: any) => Promise<void>;
+			OnceClientReady: (ctx: {
+				getUpdates: (params: { get_updates_buf?: string, timeoutMs?: number }) => Promise<any>
+				sendMessage: (body: object) => Promise<void>
+				getConfig: (params: { ilinkUserId: string, contextToken?: string }) => Promise<any>
+				sendTyping: (body: object) => Promise<void>
+				uploadMedia: (params: {
+					mediaType: number
+					toUserId: string
+					fileBuffer: Uint8Array | ArrayBuffer
+					cdnBaseUrl?: string
+				}) => Promise<{
+					mediaType: number
+					media: { encrypt_query_param: string, aes_key: string }
+					rawMd5: string
+					rawSize: number
+					ciphertextSize: number
+				}>
+				signal: AbortSignal
+			}, config: any) => Promise<void>
 			/**
 			 * 获取机器人配置模板。
 			 * @returns {Promise<any>} - 配置模板。
 			 */
-			GetBotConfigTemplate?: () => Promise<any>;
+			GetBotConfigTemplate: () => Promise<any>
 		},
 		/**
 		 * 浏览器集成接口。
