@@ -71,3 +71,41 @@ export async function retrieveAndDecryptCredentials(hashParams, uuid) {
 
 	return null
 }
+
+export async function redirectToLoginInfo(redirectUrl = '/login', username = null, password = null) {
+	window.location.href = redirectUrl
+}
+
+async function executeTransferStrategy(encryptedData, targetUrl, hashParams, clipboardFromValue = 'clipboard') {
+	// 1. Try to use clipboard
+	try {
+		await navigator.clipboard.writeText(encryptedData)
+		// Put 'from' in hash params for security (not sent to server)
+		hashParams.set('from', clipboardFromValue)
+		console.log('Encrypted credentials copied to clipboard for transfer.')
+		targetUrl.hash = hashParams.toString()
+		window.location.href = targetUrl.href
+		return true // Redirect initiated
+	}
+	catch (e) {
+		console.warn('Clipboard write failed, falling back to Catbox.', e)
+	}
+
+	// 2. Fallback to Catbox
+	try {
+		const fileId = await uploadToCatbox(encryptedData, '1h')
+		// Put fileId in hash params for security (not sent to server)
+		hashParams.set('fileId', fileId)
+		console.log(`Encrypted credentials uploaded to Catbox for transfer with fileId: ${fileId}`)
+		targetUrl.hash = hashParams.toString()
+		window.location.href = targetUrl.href
+		return true // Redirect initiated
+	}
+	catch (catboxErr) {
+		console.warn('Catbox upload failed, falling back to URL hash.', catboxErr)
+	}
+
+	// 3. Fallback to URL hash
+	hashParams.set('encrypted_creds', encodeURIComponent(encryptedData))
+	return false // No redirect initiated, caller must handle it
+}
