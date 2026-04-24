@@ -51,6 +51,7 @@
 				"localAhead": "🏠➡️☁️, ✅",
 				"noUpstream": "🚫☁️ '${currentBranch}', 🤷‍♂️",
 				"dirtyWorkingDirectory": "⚠️📝, 🙏💾",
+				"uncommittedBackedUpTo": "⚠️📝💾➡️ ${path}",
 				"diverged": "🔀, 💪🔄",
 				"updateFailed": "☁️🔄🧩❌: ${error}"
 			}
@@ -439,13 +440,31 @@
 			"lowPasswordStrength": "🔑👎",
 			"accountAlreadyExists": "👤🙅",
 			"powNotSolved": "1️⃣🧩",
-			"powError": "⚙️💥"
+			"powError": "⚙️💥",
+			"invalidCredentials": "👤❌🔑",
+			"accountLockedRetry": "🔒⌛️ ${timeLeft}",
+			"accountLockedAttempts": "🔒❌🔄",
+			"powValidationFailed": "🤖✅❌🔁",
+			"apiErrorBodyUnreadable": "🖥️📄❓🔁"
 		},
 		"webauthn": {
 			"loginButton": "🔐🔑➡️🚪📱🔑",
-			"errorNoUsername": "✍️👤❓➡️📱🔑",
 			"errorLoadLibrary": "📚🔐❌🌐🔁",
-			"errorCancelled": "🙅🔑➕🚪❓"
+			"errorCancelled": "🙅🔑➕🚪❓",
+			"errorSessionMissing": "🖥️❌🎫🔁📄",
+			"errorBadBeginResponse": "🖥️📄❌🔁📄",
+			"errorCredentialRequired": "📱🔑📋❌",
+			"errorAuthSessionRequired": "🎫❌🔁📄",
+			"apiSessionExpired": "🕐⌛️📱🔑🔁",
+			"apiUnknownPasskey": "❓📱🔑🔗",
+			"apiPasskeyVerificationFailed": "📱🔑✅❌🔁",
+			"registrationUserNotFound": "👤❌",
+			"registrationSessionExpired": "🔗⌛️🔁",
+			"registrationVerifyFailed": "📱🔑📝❌",
+			"registrationFailed": "📱🔑❌🔁",
+			"removeUserNotFound": "👤📋❌",
+			"removeInvalidPassword": "🔑❌",
+			"removePasskeyNotFound": "📱🔑❌"
 		}
 	},
 	"login_info": {
@@ -455,7 +474,6 @@
 			"title": "🔐❌",
 			"retrieve_error": "🔐💾❌:\n${error}\n➡️🤷‍♂️💾",
 			"transfer_error": "🔐➡️❌:\n${error}\n➡️🤷‍♂️🔐",
-			"no_credentials": "💾🔐❌\n🔙⛲️🔑🔄，🤷‍♂️➡️📄",
 			"missing_params": "🔗🧩❌",
 			"buttons": {
 				"ignore": "🤷‍♂️➡️",
@@ -1358,6 +1376,14 @@
 		"title": "👤⚙️",
 		"PageTitle": "👤⚙️",
 		"description": "👤🔧🛡️💻",
+		"shell": {
+			"unauthorized": "🔒🚪",
+			"responseNotJson": "🖥️📄❓",
+			"unexpectedError": "❌📡"
+		},
+		"errors": {
+			"accountNotFound": "👤❌"
+		},
 		"userInfo": {
 			"title": "👤ℹ️",
 			"usernameLabel": "👤:",
@@ -1370,7 +1396,8 @@
 			"copyPathBtnIcon": {
 				"alt": "📋📍"
 			},
-			"copiedAlert": "📋✅❗️"
+			"copiedAlert": "📋✅❗️",
+			"copyPathFailed": "📋📍❌"
 		},
 		"changePassword": {
 			"title": "✍️🔑",
@@ -1379,14 +1406,21 @@
 			"confirmNewPasswordLabel": "🆕🔑🔑:",
 			"submitButton": "✍️🔑",
 			"errorMismatch": "🆕🔑 ≠ 🆕🔑🔑",
-			"success": "🔑✍️✅"
+			"success": "🔑✍️✅",
+			"missingFields": "🔑📋❌",
+			"invalidCurrent": "🔑❌"
 		},
 		"renameUser": {
 			"title": "✍️👤",
 			"newUsernameLabel": "🆕👤:",
 			"submitButton": "✍️👤",
 			"confirmMessage": "🤔✍️👤❓➡️🚪➡️",
-			"success": "👤➡️ \"${newUsername}\" ✅, ➡️🚪..."
+			"success": "👤➡️ \"${newUsername}\" ✅, ➡️🚪...",
+			"missingParams": "👤🔑📋❌",
+			"wrongPassword": "🔑❌",
+			"mustDiffer": "👤🆕≠👤",
+			"taken": "👤📌",
+			"moveFailed": "📁👤❌ ${detail}"
 		},
 		"passkeys": {
 			"title": "🔐🔑📱",
@@ -1409,7 +1443,10 @@
 			"removeSuccess": "🗑️✅🔑",
 			"addSuccess": "➕✅🔑",
 			"errorLoadLibrary": "📚🔐❌",
-			"errorCancelled": "➕🚫"
+			"errorCancelled": "➕🚫",
+			"apiInvalidPassword": "🔑❌",
+			"apiMissingCredential": "📱🔑❌",
+			"apiRemoveParamsRequired": "📋📱🔑🔑"
 		},
 		"userDevices": {
 			"title": "👤💻",
@@ -1420,6 +1457,10 @@
 			"revokeButton": "➖",
 			"revokeConfirm": "🤔➖💻❓",
 			"revokeSuccess": "💻➖✅",
+			"revokeMissingParams": "💻🔑📋❌",
+			"revokeWrongPassword": "🔑❌",
+			"listNotFound": "📋❌💻",
+			"deviceNotFound": "💻❌",
 			"refreshButton": {
 				"title": "🔄"
 			},
@@ -1437,6 +1478,11 @@
 			"noKeysFound": "🤷‍♀️",
 			"keyDetails": "📝 ${description} 🗓️ ${createdAt} ⏳ ${lastUsed}",
 			"neverUsed": "⏳",
+			"noKeysForUser": "🔑📋❌",
+			"revokeWrongPassword": "🔑❌",
+			"keyNotFound": "🔑❌",
+			"revokeMissingJti": "🔑🆔❌",
+			"revokeMissingPassword": "🔑📋❌",
 			"revokeButton": "🗑️",
 			"revokeConfirm": "🤔🗑️❓",
 			"revokeSuccess": "✅🗑️",
@@ -1456,7 +1502,8 @@
 			"copyButton": {
 				"title": "📋🔑"
 			},
-			"copiedAlert": "📋✅❗️"
+			"copiedAlert": "📋✅❗️",
+			"copyKeyFailed": "📋🔑❌"
 		},
 		"logout": {
 			"title": "🚪",
@@ -1472,7 +1519,9 @@
 			"confirmMessage1": "⚠️🤔🗑️👤❓",
 			"confirmMessage2": "✍️👤 \"${username}\":",
 			"usernameMismatch": "👤 ≠ 👤, 🗑️❌",
-			"success": "👤🗑️✅, ➡️🚪..."
+			"success": "👤🗑️✅, ➡️🚪...",
+			"missingPassword": "🔑📋❌",
+			"wrongPassword": "🔑❌"
 		},
 		"passwordConfirm": {
 			"title": "✅",
