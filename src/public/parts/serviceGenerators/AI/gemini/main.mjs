@@ -13,6 +13,7 @@ import { isText } from 'npm:istextorbinary'
 import { escapeRegExp } from '../../../../../scripts/escape.mjs'
 import { source_dead } from '../../../serviceSources/AI/main.mjs'
 import { margeStructPromptChatLog, structPromptToSingleNoChatLog } from '../../../shells/chat/src/prompt_struct.mjs'
+import { uploadAssets } from "./upload_assets.ts";
 
 const { info, product_info } = (await import('./locales.json', { with: { type: 'json' } })).default
 
@@ -236,7 +237,11 @@ async function GetSource(config) {
 	 * @param {string} mimeType 文件MIME类型
 	 * @returns {Promise<object>} 已上传文件的信息，包含uri
 	 */
-	async function uploadToGemini(displayName, buffer, mimeType) {
+
+	async function uploadToGemini(displayName, buffer, mimeType){
+		return await uploadAssets(displayName,buffer,mimeType)
+	}
+	async function uploadToGemini_original(displayName, buffer, mimeType) {
 		const hashkey = calculateHash('sha256', buffer)
 		if (fileUploadMap.has(hashkey)) return fileUploadMap.get(hashkey)
 
@@ -523,40 +528,42 @@ system:
 							}
 
 							let fileTokenCost = 0
-							if (!is_cached(bufferToUpload)) try {
-								const filePartForCounting = createPartFromBase64(bufferToUpload.toString('base64'), mime_type)
-								const countResponse = await ai.models.countTokens({
-									model: config.model,
-									contents: [{ role: 'user', parts: [filePartForCounting] }]
-								})
-								fileTokenCost = countResponse.totalTokens
-								const tokenLimitForFile = config.max_input_tokens * 0.9
+							// if (!is_cached(bufferToUpload)) try {
+							// 	const filePartForCounting = createPartFromBase64(bufferToUpload.toString('base64'), mime_type)
+							// 	const countResponse = await ai.models.countTokens({
+							// 		model: config.model,
+							// 		contents: [{ role: 'user', parts: [filePartForCounting] }]
+							// 	})
+							// 	fileTokenCost = countResponse.totalTokens
+							// 	const tokenLimitForFile = config.max_input_tokens * 0.9
 
-								if (fileTokenCost > tokenLimitForFile) {
-									console.warn(`File '${file.name}' is too large (${fileTokenCost} tokens), exceeds 90% of limit (${tokenLimitForFile}). Replacing with text notice.`)
-									return compressImage(bufferToUpload,mime_type,async (buffer)=>{
-										const filePartForCounting = createPartFromBase64(buffer.toString('base64'), mime_type)
-										const countResponse = await ai.models.countTokens({
-											model: config.model,
-											contents: [{ role: 'user', parts: [filePartForCounting] }]
-										})
-										const fileTokenCost = countResponse.totalTokens
-										const tokenLimitForFile = config.max_input_tokens * 0.9
-										console.log('compressed file token is ', fileTokenCost, ' max is:', tokenLimitForFile)
-										return fileTokenCost < tokenLimitForFile 
-									})
-									// return { text: `[System_Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
-								}
-							} catch (error) {
-								console.error(`Failed to count tokens for file ${file.name} for prompt:`, error)
-								return { text: `[System_Error: can't show you about file '${file.name}' because failed to count tokens, but you may be able to access it by using code tools if you have.]` }
-							}
+							// 	if (fileTokenCost > tokenLimitForFile) {
+							// 		console.warn(`File '${file.name}' is too large (${fileTokenCost} tokens), exceeds 90% of limit (${tokenLimitForFile}). Replacing with text notice.`)
+							// 		return compressImage(bufferToUpload,mime_type,async (buffer)=>{
+							// 			const filePartForCounting = createPartFromBase64(buffer.toString('base64'), mime_type)
+							// 			const countResponse = await ai.models.countTokens({
+							// 				model: config.model,
+							// 				contents: [{ role: 'user', parts: [filePartForCounting] }]
+							// 			})
+							// 			const fileTokenCost = countResponse.totalTokens
+							// 			const tokenLimitForFile = config.max_input_tokens * 0.9
+							// 			console.log('compressed file token is ', fileTokenCost, ' max is:', tokenLimitForFile)
+							// 			return fileTokenCost < tokenLimitForFile 
+							// 		})
+							// 		// return { text: `[System_Notice: can't show you about file '${file.name}' because its token count (${fileTokenCost}) is too high of the your's input limit, but you may be able to access it by using code tools if you have.]` }
+							// 	}
+							// } catch (error) {
+							// 	console.error(`Failed to count tokens for file ${file.name} for prompt:`, error)
+							// 	return { text: `[System_Error: can't show you about file '${file.name}' because failed to count tokens, but you may be able to access it by using code tools if you have.]` }
+							// }
 
 							totalFileTokens += fileTokenCost // 累加文件 token
 
 							try {
 								const uploadedFile = await uploadToGemini(file.name, bufferToUpload, mime_type)
-								return createPartFromUri(uploadedFile.uri, uploadedFile.mimeType)
+								const uri =  createPartFromUri(uploadedFile.uri, uploadedFile.mimeType)
+								console.log('uri part created')
+								return uri
 							}
 							catch (error) {
 								// console.error(`Failed to process file ${file.name} for prompt:`, error)
